@@ -10,6 +10,8 @@ def index():
 
 @app.route('/execute', methods=['POST'])
 def execute_script():
+    # Aquí colocas el código que quieres ejecutar al hacer clic en el botón
+    # por ejemplo:
     output = subprocess.check_output(['python', 'maxcut.py'])
     return output
 
