@@ -2,10 +2,13 @@
 <html>
 <head>
     <title>Botón</title>
+    <script src="../jquery-3.6.4.js"></script>
 </head>
 <body>
-<form method="POST" action="{{ url_for('execute_script') }}">
-    <button type="submit">Ejecutar script</button>
+<form id="execute-form" method="POST" action="{{ url_for('execute_script') }}">
+    <button id="execute-btn" type="submit">Ejecutar script</button>
 </form>
+<div id="result"></div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
