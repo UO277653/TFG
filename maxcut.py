@@ -34,9 +34,6 @@ def draw_graph(G, colors, pos):
     edge_labels = nx.get_edge_attributes(G, "weight")
     nx.draw_networkx_edge_labels(G, pos=pos, edge_labels=edge_labels)
 
-
-draw_graph(G, colors, pos)
-
 # Computing the weight matrix from the random graph
 w = np.zeros([n, n])
 for i in range(n):
@@ -44,7 +41,6 @@ for i in range(n):
         temp = G.get_edge_data(i, j, default=0)
         if temp != 0:
             w[i, j] = temp["weight"]
-print(w)
 
 best_cost_brute = 0
 for b in range(2**n):
@@ -56,7 +52,6 @@ for b in range(2**n):
     if best_cost_brute < cost:
         best_cost_brute = cost
         xbest_brute = x
-    print("case = " + str(x) + " cost = " + str(cost))
 
 colors = ["r" if xbest_brute[i] == 0 else "c" for i in range(n)]
 draw_graph(G, colors, pos)
@@ -64,12 +59,8 @@ print("\nBest solution = " + str(xbest_brute) + " cost = " + str(best_cost_brute
 
 max_cut = Maxcut(w)
 qp = max_cut.to_quadratic_program()
-print(qp.prettyprint())
 
 qubitOp, offset = qp.to_ising()
-print("Offset:", offset)
-print("Ising Hamiltonian:")
-print(str(qubitOp))
 
 # solving Quadratic Program using exact classical eigensolver
 exact = MinimumEigenOptimizer(NumPyMinimumEigensolver())
