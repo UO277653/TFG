@@ -1,0 +1,23 @@
+#maxcut-container {
+    max-width: 600px;
+    margin: 0 auto;
+    border: 2px double;
+    padding: 1em;
+}
+
+#result {
+    width: 75%;
+    padding: 1em;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+

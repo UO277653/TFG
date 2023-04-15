@@ -3,11 +3,18 @@
 <head>
     <title>Botón</title>
     <script src="../jquery-3.6.4.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 </head>
 <body>
-<form id="execute-form" method="POST" action="{{ url_for('execute_script') }}">
+
+<div id="maxcut-container">
+    <h1>Max-Cut</h1>
+    <p>El problema de optimización Max-Cut consiste en particionar los vértices de un grafo en dos conjuntos de manera que el número de aristas entre los dos conjuntos sea máximo.</p>
+    <form id="execute-form" method="POST" action="{{ url_for('execute_script') }}">
     <button id="execute-btn" type="submit">Ejecutar script</button>
 </form>
+</div>
+
 <div id="result"></div>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
