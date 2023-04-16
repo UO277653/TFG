@@ -33,6 +33,7 @@ def draw_graph(G, colors, pos):
     nx.draw_networkx(G, node_color=colors, node_size=600, alpha=0.8, ax=default_axes, pos=pos)
     edge_labels = nx.get_edge_attributes(G, "weight")
     nx.draw_networkx_edge_labels(G, pos=pos, edge_labels=edge_labels)
+    plt.savefig('static/img/graph.png')
 
 # Computing the weight matrix from the random graph
 w = np.zeros([n, n])
