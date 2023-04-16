@@ -8,9 +8,9 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/execute', methods=['POST'])
-def execute_script():
-    output = subprocess.check_output(['python', 'maxcut.py'])
+@app.route('/executeMaxCutLocal', methods=['POST'])
+def execute_MaxCutLocal():
+    output = subprocess.check_output(['python', 'maxCutLocal.py'])
     # pdb.set_trace() # Para debug
     return output
 
