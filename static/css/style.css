@@ -15,9 +15,15 @@
     border-right: 10px double;
 }
 
-img{
+#imagenProblema img{
     max-width: 10em;
     max-height: 10em;
+}
+
+#result img {
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
 }
 
 td{
@@ -44,3 +50,5 @@ legend {
     padding: 5px;
 
 }
+
+

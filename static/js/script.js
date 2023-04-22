@@ -1,16 +1,40 @@
-var executeForm = document.getElementById("execute-MaxCutLocal");
 var resultDiv = document.getElementById("cajaResultado");
-//var imgGrafico = document.createElement("img");
-//img.src = "../img/graph.png";
+var executeFormMaxCutLocal = document.getElementById("execute-MaxCutLocal");
+var executeFormMaxCutReal = document.getElementById("execute-MaxCutReal");
 
-executeForm.addEventListener("submit", function(event) {
+
+executeFormMaxCutLocal.addEventListener("submit", function(event) {
     event.preventDefault();
+    resultDiv.innerHTML = "";
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', executeForm.action);
+    xhr.open('POST', executeFormMaxCutLocal.action);
     xhr.onload = function() {
+
         resultDiv.appendChild(document.createTextNode(xhr.responseText));
-        //resultDiv.appendChild(imgGrafico);
+
+        const imgGrafico = document.createElement("img");
+        imgGrafico.src = "../static/img/graph.png";
+        resultDiv.appendChild(imgGrafico);
+
     };
-    xhr.send(new FormData(executeForm));
-    
+    xhr.send(new FormData(executeFormMaxCutLocal));
+
+});
+
+executeFormMaxCutReal.addEventListener("submit", function(event) {
+    event.preventDefault();
+    resultDiv.innerHTML = "";
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', executeFormMaxCutReal.action);
+    xhr.onload = function() {
+
+        resultDiv.appendChild(document.createTextNode(xhr.responseText));
+
+        const imgGrafico = document.createElement("img");
+        imgGrafico.src = "../static/img/graph.png";
+        resultDiv.appendChild(imgGrafico);
+
+    };
+    xhr.send(new FormData(executeFormMaxCutReal));
+
 });

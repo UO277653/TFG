@@ -11,7 +11,11 @@ def index():
 @app.route('/executeMaxCutLocal', methods=['POST'])
 def execute_MaxCutLocal():
     output = subprocess.check_output(['python', 'maxCutLocal.py'])
-    # pdb.set_trace() # Para debug
+    return output
+
+@app.route('/executeMaxCutReal', methods=['POST'])
+def execute_MaxCutReal():
+    output = subprocess.check_output(['python', 'maxCutReal.py'])
     return output
 
 if __name__ == '__main__':

@@ -1,17 +1,13 @@
 # useful additional packages
 import matplotlib.pyplot as plt
-import numpy as np
 import networkx as nx
-
-from qiskit_aer import Aer
-from qiskit.tools.visualization import plot_histogram
-from qiskit.circuit.library import TwoLocal
-from qiskit_optimization.applications import Maxcut, Tsp
-from qiskit.algorithms.minimum_eigensolvers import SamplingVQE, NumPyMinimumEigensolver
-from qiskit.algorithms.optimizers import SPSA
-from qiskit.utils import algorithm_globals
-from qiskit.primitives import Sampler
-from qiskit_optimization.algorithms import MinimumEigenOptimizer
+import numpy as np
+from qiskit.algorithms.minimum_eigensolvers import \
+    NumPyMinimumEigensolver
+from qiskit_optimization.algorithms import \
+    MinimumEigenOptimizer
+from qiskit_optimization.applications import \
+    Maxcut
 
 # Generating a graph of 4 nodes
 

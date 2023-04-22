@@ -66,3 +66,36 @@ qubitOp, offset = qp.to_ising()
 exact = MinimumEigenOptimizer(NumPyMinimumEigensolver())
 result = exact.solve(qp)
 print(result.prettyprint())
+
+algorithm_globals.random_seed = 123
+seed = 10598
+
+# construct SamplingVQE
+optimizer = SPSA(maxiter=300)
+ry = TwoLocal(qubitOp.num_qubits, "ry", "cz", reps=5, entanglement="linear")
+vqe = SamplingVQE(sampler=Sampler(), ansatz=ry, optimizer=optimizer)
+
+# run SamplingVQE
+result = vqe.compute_minimum_eigenvalue(qubitOp)
+
+# print results
+x = max_cut.sample_most_likely(result.eigenstate)
+print("energy:", result.eigenvalue.real)
+print("time:", result.optimizer_time)
+print("max-cut objective:", result.eigenvalue.real + offset)
+print("solution:", x)
+print("solution objective:", qp.objective.evaluate(x))
+
+# plot results
+colors = ["r" if x[i] == 0 else "c" for i in range(n)]
+draw_graph(G, colors, pos)
+
+# create minimum eigen optimizer based on SamplingVQE
+vqe_optimizer = MinimumEigenOptimizer(vqe)
+
+# solve quadratic program
+result = vqe_optimizer.solve(qp)
+print(result.prettyprint())
+
+colors = ["r" if result.x[i] == 0 else "c" for i in range(n)]
+draw_graph(G, colors, pos)
