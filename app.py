@@ -13,6 +13,11 @@ def execute_MaxCutLocal():
     output = subprocess.check_output(['python', 'maxCutLocal.py'])
     return output
 
+@app.route('/executeMaxCutRemoto', methods=['POST'])
+def execute_MaxCutRemoto():
+    output = subprocess.check_output(['python', 'maxCutRemoto.py'])
+    return output
+
 @app.route('/executeMaxCutReal', methods=['POST'])
 def execute_MaxCutReal():
     output = subprocess.check_output(['python', 'maxCutReal.py'])

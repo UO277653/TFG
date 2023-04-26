@@ -15,7 +15,10 @@
                 <h1>Max-Cut</h1>
     <p>El problema de optimización Max-Cut consiste en particionar los vértices de un grafo en dos conjuntos de manera que el número de aristas entre los dos conjuntos sea máximo.</p>
     <form id="execute-MaxCutLocal" method="POST" action="{{ url_for('execute_MaxCutLocal') }}">
-        <button id="execute-btn" type="submit">Ejecutar ejemplo en simulador</button>
+        <button id="execute-btn" type="submit">Ejecutar ejemplo en simulador local</button>
+    </form>
+    <form id="execute-MaxCutRemoto" method="POST" action="{{ url_for('execute_MaxCutRemoto') }}">
+        <button id="execute-btn-MaxCutRemoto" type="submit">Ejecutar ejemplo en simulador remoto</button>
     </form>
     <form id="execute-MaxCutReal" method="POST" action="{{ url_for('execute_MaxCutReal') }}">
         <button id="execute-btn-MaxCutReal" type="submit">Ejecutar ejemplo en ordenador real</button>
