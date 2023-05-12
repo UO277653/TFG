@@ -1,40 +1,53 @@
-# useful additional packages
+##
+#
+# Max-Cut ejecutar en simulador
+#
+##
+
 import matplotlib.pyplot as plt
-import numpy as np
 import networkx as nx
-
+import numpy as np
+from qiskit.algorithms import QAOA
+from qiskit.algorithms.optimizers import COBYLA
+from qiskit.utils import QuantumInstance
 from qiskit_aer import Aer
-from qiskit.tools.visualization import plot_histogram
-from qiskit.circuit.library import TwoLocal
-from qiskit_optimization.applications import Maxcut, Tsp
-from qiskit.algorithms.minimum_eigensolvers import SamplingVQE, NumPyMinimumEigensolver
-from qiskit.algorithms.optimizers import SPSA
-from qiskit.utils import algorithm_globals
-from qiskit.primitives import Sampler
-from qiskit_optimization.algorithms import MinimumEigenOptimizer
+from qiskit_optimization.algorithms import \
+    MinimumEigenOptimizer
+from qiskit_optimization.applications import \
+    Maxcut
 
-# Generating a graph of 4 nodes
-
-n = 5  # Number of nodes in graph
-G = nx.Graph()
-G.add_nodes_from(np.arange(0, n, 1))
-#elist = [(0, 1, 1.0), (0, 2, 1.0), (1, 3, 1.0), (1, 2, 1.0), (2, 4, 1.0), (3, 4, 1.0)] # Ejemplo p84, n = 5
-elist = [(0, 1, 1.0), (0, 2, 1.0), (1, 3, 1.0), (1, 2, 1.0), (2, 4, 1.0), (3, 4, 1.0)]
-
-# tuple is (i,j,weight) where (i,j) is the edge
-G.add_weighted_edges_from(elist)
-
-colors = ["r" for node in G.nodes()]
-pos = nx.spring_layout(G)
+from qiskit import IBMQ
 
 
+# Función opcional para representar el grafo (para la aplicación puede ser útil)
 def draw_graph(G, colors, pos):
     default_axes = plt.axes(frameon=True)
     nx.draw_networkx(G, node_color=colors, node_size=600, alpha=0.8, ax=default_axes, pos=pos)
     edge_labels = nx.get_edge_attributes(G, "weight")
     nx.draw_networkx_edge_labels(G, pos=pos, edge_labels=edge_labels)
 
-# Computing the weight matrix from the random graph
+
+## DEFINICIÓN DEL PROBLEMA
+
+# Número de nodos
+n = 4
+
+# Creación del objeto NetworkX graph, que se usa después en la clase Maxcut
+G = nx.Graph()
+
+# Añadir los nodos del grafo
+G.add_nodes_from(np.arange(0, n, 1))
+
+# Añadir las conexiones del grafo
+elist = [(0, 1, 1.0), (0, 2, 1.0), (0, 3, 1.0), (1, 2, 1.0), (2, 3, 1.0)]
+G.add_weighted_edges_from(elist)
+colors = ["r" for node in G.nodes()]
+pos = nx.spring_layout(G)
+
+# Representar el problema de manera gráfica
+draw_graph(G, colors, pos)
+
+# Crear la matriz de pesos
 w = np.zeros([n, n])
 for i in range(n):
     for j in range(n):
@@ -42,60 +55,23 @@ for i in range(n):
         if temp != 0:
             w[i, j] = temp["weight"]
 
-best_cost_brute = 0
-for b in range(2**n):
-    x = [int(t) for t in reversed(list(bin(b)[2:].zfill(n)))]
-    cost = 0
-    for i in range(n):
-        for j in range(n):
-            cost = cost + w[i, j] * x[i] * (1 - x[j])
-    if best_cost_brute < cost:
-        best_cost_brute = cost
-        xbest_brute = x
-
-colors = ["r" if xbest_brute[i] == 0 else "c" for i in range(n)]
-draw_graph(G, colors, pos)
-print("\nBest solution = " + str(xbest_brute) + " cost = " + str(best_cost_brute))
-
+# Crear el objeto Maxcut
 max_cut = Maxcut(w)
 qp = max_cut.to_quadratic_program()
 
-qubitOp, offset = qp.to_ising()
+# Define el quantum_instance utilizando el simulador Qasm
+# Usar IBMQ
+provider = IBMQ.load_account()
+quantum_instance = QuantumInstance(provider.get_backend('ibmq_qasm_simulator'), shots=1024)
 
-# solving Quadratic Program using exact classical eigensolver
-exact = MinimumEigenOptimizer(NumPyMinimumEigensolver())
-result = exact.solve(qp)
-print(result.prettyprint())
+# Definir el optimizador para QAOA
+qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = 1)
 
-algorithm_globals.random_seed = 123
-seed = 10598
+# Define el optimizador para el problema cuántico
+qaoa_optimizer = MinimumEigenOptimizer(qaoa)
 
-# construct SamplingVQE
-optimizer = SPSA(maxiter=300)
-ry = TwoLocal(qubitOp.num_qubits, "ry", "cz", reps=5, entanglement="linear")
-vqe = SamplingVQE(sampler=Sampler(), ansatz=ry, optimizer=optimizer)
+# Resuelve el problema utilizando el algoritmo QAOA
+result = qaoa_optimizer.solve(qp)
 
-# run SamplingVQE
-result = vqe.compute_minimum_eigenvalue(qubitOp)
-
-# print results
-x = max_cut.sample_most_likely(result.eigenstate)
-print("energy:", result.eigenvalue.real)
-print("time:", result.optimizer_time)
-print("max-cut objective:", result.eigenvalue.real + offset)
-print("solution:", x)
-print("solution objective:", qp.objective.evaluate(x))
-
-# plot results
-colors = ["r" if x[i] == 0 else "c" for i in range(n)]
-draw_graph(G, colors, pos)
-
-# create minimum eigen optimizer based on SamplingVQE
-vqe_optimizer = MinimumEigenOptimizer(vqe)
-
-# solve quadratic program
-result = vqe_optimizer.solve(qp)
-print(result.prettyprint())
-
-colors = ["r" if result.x[i] == 0 else "c" for i in range(n)]
-draw_graph(G, colors, pos)
+# Imprime la solución
+print(result)

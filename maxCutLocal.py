@@ -53,12 +53,12 @@ for i in range(n):
         if temp != 0:
             w[i, j] = temp["weight"]
 
-# Crear el objeto Maxcut y
+# Crear el objeto Maxcut
 max_cut = Maxcut(w)
 qp = max_cut.to_quadratic_program()
 
 # Define el quantum_instance utilizando el simulador Aer
-quantum_instance = QuantumInstance(Aer.get_backend('aer_simulator'), shots=1024)
+quantum_instance = QuantumInstance(Aer.get_backend('aer_simulator'), shots=100)
 
 # Definir el optimizador para QAOA
 qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = 1)
