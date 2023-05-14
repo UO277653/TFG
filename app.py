@@ -23,6 +23,26 @@ def execute_MaxCutReal():
     output = subprocess.check_output(['python', 'maxCutReal.py'])
     return output
 
+@app.route('/executeMaxCutAnnealer', methods=['POST'])
+def execute_MaxCutAnnealer():
+    output = subprocess.check_output(['python', 'maxCutAnnealer.py'])
+    return output
+
+@app.route('/executeMaxCutAnnealerSimulatedAnnealingSolver', methods=['POST'])
+def execute_MaxCutAnnealerSimulatedAnnealingSolver():
+    output = subprocess.check_output(['python', 'maxCutAnnealerSimulatedAnnealingSampler.py'])
+    return output
+
+@app.route('/executeMacCutAnnealerTabuSolver', methods=['POST'])
+def execute_MaxCutAnnealerTabuSolver():
+    output = subprocess.check_output(['python', 'maxCutAnnealerTabuSolver.py'])
+    return output
+
+@app.route('/executeMaxCutSteepestDescentSolver', methods=['POST'])
+def execute_MaxCutAnnealerSteepestDescentSolver():
+    output = subprocess.check_output(['python', 'maxCutSteepestDescentSolver.py'])
+    return output
+
 if __name__ == '__main__':
     # pdb.set_trace() # Para debug, checkpoint()
     # app.debug = True # Para debug

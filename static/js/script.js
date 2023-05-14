@@ -7,31 +7,53 @@ $(document).ready(function() {
         resultDiv.innerHTML = "";
 
         var solver = document.getElementById("solver").value;
-        switch (solver) {
+        switch (solver) { // Se puede optimizar mucho si en el nombre del solver se incluye la URL del script
             case "simuladorLocal":
-                resultDiv.innerHTML = "1";
+                ejecutarScriptPython("/executeMaxCutLocal");
                 break;
             case "simuladorRemoto":
-                resultDiv.innerHTML = "2";
+                ejecutarScriptPython("/executeMaxCutRemoto");
                 break;
             case "ordenadorReal":
-                resultDiv.innerHTML = "3";
+                ejecutarScriptPython("/executeMaxCutReal");
                 break;
             case "annealer":
-                resultDiv.innerHTML = "4";
+                ejecutarScriptPython("/executeMaxCutAnnealer");
                 break;
             case "annealerSimulatedAnnealingSolver":
-                resultDiv.innerHTML = "5";
+                ejecutarScriptPython("/executeMaxCutAnnealerSimulatedAnnealingSolver");
                 break;
             case "annealerTabuSolver":
-                resultDiv.innerHTML = "6";
+                ejecutarScriptPython("/executeMacCutAnnealerTabuSolver");
                 break;
             case "annealerSteepestDescentSolver":
-                resultDiv.innerHTML = "7";
+                ejecutarScriptPython("/executeMaxCutSteepestDescentSolver");
                 break;
         }
     });
 });
+
+function ejecutarScriptPython(scriptUrl) {
+
+    //var xhr = new XMLHttpRequest();
+    //xhr.open('POST', executeFormMaxCutReal.action); // ME QUEDÉ AQUÍ, CAMBIAR URL A LA QUE CORRESPONDA
+
+
+    $.ajax({
+        type: "POST",
+        url: scriptUrl,
+        //data: {script_name: scriptName},
+        success: function(response) {
+            console.log(response);
+            resultDiv.appendChild(document.createTextNode(response));
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ": " + error);
+        }
+    });
+
+}
+
 
 /**
 executeFormMaxCutLocal.addEventListener("submit", function(event) {
