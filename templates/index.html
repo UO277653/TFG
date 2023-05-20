@@ -27,17 +27,20 @@
         <option value="annealerSteepestDescentSolver">Ejecutar con steepest descent solver</option>
     </select>
     <button type="submit" class="btn btn-primary" id="comoResolver">Elegir</button>
-<!--
-                <form id="execute-MaxCutLocal" method="POST" action="{{ url_for('execute_MaxCutLocal') }}">
-        <button id="execute-btn" type="submit">Ejecutar ejemplo en simulador local</button>
-    </form>
-    <form id="execute-MaxCutRemoto" method="POST" action="{{ url_for('execute_MaxCutRemoto') }}">
-        <button id="execute-btn-MaxCutRemoto" type="submit">Ejecutar ejemplo en simulador remoto</button>
-    </form>
-    <form id="execute-MaxCutReal" method="POST" action="{{ url_for('execute_MaxCutReal') }}">
-        <button id="execute-btn-MaxCutReal" type="submit">Ejecutar ejemplo en ordenador real</button>
-    </form>
-    -->
+                <br>
+                <input type="text" name="nodoMaxCut" id="nodoMaxCut">
+                <button onclick="agregarNodoMaxCut()">Agregar nodo</button>
+                <!--
+                                <form id="execute-MaxCutLocal" method="POST" action="{{ url_for('execute_MaxCutLocal') }}">
+                        <button id="execute-btn" type="submit">Ejecutar ejemplo en simulador local</button>
+                    </form>
+                    <form id="execute-MaxCutRemoto" method="POST" action="{{ url_for('execute_MaxCutRemoto') }}">
+                        <button id="execute-btn-MaxCutRemoto" type="submit">Ejecutar ejemplo en simulador remoto</button>
+                    </form>
+                    <form id="execute-MaxCutReal" method="POST" action="{{ url_for('execute_MaxCutReal') }}">
+                        <button id="execute-btn-MaxCutReal" type="submit">Ejecutar ejemplo en ordenador real</button>
+                    </form>
+                    -->
             </td>
         </tr>
     </table>
