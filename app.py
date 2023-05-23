@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import subprocess
-import pdb;
 
 app = Flask(__name__)
 
@@ -10,7 +9,11 @@ def index():
 
 @app.route('/executeMaxCutLocal', methods=['POST'])
 def execute_MaxCutLocal():
-    output = subprocess.check_output(['python', 'maxCutLocal.py'])
+    datos = request.get_json()
+    print(datos)
+    #print(request)
+
+    output = subprocess.check_output(['python', 'maxCutLocal.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones')])
     return output
 
 @app.route('/executeMaxCutRemoto', methods=['POST'])
