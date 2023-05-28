@@ -5,6 +5,7 @@ var executeFormMaxCutReal = document.getElementById("execute-MaxCutReal");
 var numeroNodos = 0;
 var numeroRep = 0;
 var arrayConexiones = [];
+var arrayConexionesString = "";
 
 
 $(document).ready(function() {
@@ -40,15 +41,21 @@ $(document).ready(function() {
 
 function ejecutarScriptPython(scriptUrl) {
 
-    var arrayConexionesString = "";
+    if(arrayConexiones.length > 0) {
+        arrayConexionesString = "";
 
-    for (var i = 0; i < arrayConexiones.length-1; i++) {
-        arrayConexionesString += arrayConexiones[i] + ";";
+        for (var i = 0; i < arrayConexiones.length - 1; i++) {
+            arrayConexionesString += arrayConexiones[i] + ";";
+        }
+
+        arrayConexionesString += arrayConexiones[arrayConexiones.length - 1];
+
+        console.log(arrayConexionesString);
+    } else {
+        console.log(arrayConexionesString);
     }
 
-    arrayConexionesString += arrayConexiones[arrayConexiones.length-1];
 
-    console.log(arrayConexionesString);
 
     var parametros = {
         "nodos": numeroNodos,
@@ -118,6 +125,33 @@ function limpiarTextoConexion() {
     document.getElementById("conexionMaxCutNodo1").value = "";
     document.getElementById("conexionMaxCutNodo2").value = "";
     document.getElementById("conexionMaxCutValor").value = "";
+}
+
+function cargarArchivoProblema(){
+    var archivo = document.getElementById("archivoTexto").files[0];
+    var lector = new FileReader();
+
+    arrayConexionesString = ""; // TODO TENGO QUE HACER ALGO PARA BORRARLA SI LA CARGO DE LA OTRA FORMA
+
+    lector.onload = function(evento) {
+        var contenido = evento.target.result;
+        var lineas = contenido.split('\n');
+        var parametro1 = lineas[0].trim();
+        var parametro2 = lineas[1].trim();
+        var parametro3 = lineas[2].trim();
+
+        //
+        numeroNodos = parametro1;
+        numeroRep = parametro2;
+        arrayConexionesString = parametro3;
+        //
+
+        console.log("Parámetro 1: " + parametro1);
+        console.log("Parámetro 2: " + parametro2);
+        console.log("Parámetro 3: " + parametro3);
+    };
+
+    lector.readAsText(archivo);
 }
 
 class Conexion {
