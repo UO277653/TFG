@@ -10,40 +10,43 @@ def index():
 @app.route('/executeMaxCutLocal', methods=['POST'])
 def execute_MaxCutLocal():
     datos = request.get_json()
-    print(datos)
-    #print(request)
-
     output = subprocess.check_output(['python', 'maxCutLocal.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones')])
     return output
 
 @app.route('/executeMaxCutRemoto', methods=['POST'])
 def execute_MaxCutRemoto():
-    output = subprocess.check_output(['python', 'maxCutRemoto.py'])
+    datos = request.get_json()
+    output = subprocess.check_output(['python', 'maxCutRemoto.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones')])
     return output
 
 @app.route('/executeMaxCutReal', methods=['POST'])
 def execute_MaxCutReal():
-    output = subprocess.check_output(['python', 'maxCutReal.py'])
+    datos = request.get_json()
+    output = subprocess.check_output(['python', 'maxCutReal.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones')])
     return output
 
 @app.route('/executeMaxCutAnnealer', methods=['POST'])
 def execute_MaxCutAnnealer():
-    output = subprocess.check_output(['python', 'maxCutAnnealer.py'])
+    datos = request.get_json()
+    output = subprocess.check_output(['python', 'maxCutAnnealer.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones')])
     return output
 
 @app.route('/executeMaxCutAnnealerSimulatedAnnealingSolver', methods=['POST'])
 def execute_MaxCutAnnealerSimulatedAnnealingSolver():
-    output = subprocess.check_output(['python', 'maxCutAnnealerSimulatedAnnealingSampler.py'])
+    datos = request.get_json()
+    output = subprocess.check_output(['python', 'maxCutAnnealerSimulatedAnnealingSampler.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones')])
     return output
 
 @app.route('/executeMacCutAnnealerTabuSolver', methods=['POST'])
 def execute_MaxCutAnnealerTabuSolver():
-    output = subprocess.check_output(['python', 'maxCutAnnealerTabuSolver.py'])
+    datos = request.get_json()
+    output = subprocess.check_output(['python', 'maxCutAnnealerTabuSolver.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones')])
     return output
 
 @app.route('/executeMaxCutSteepestDescentSolver', methods=['POST'])
 def execute_MaxCutAnnealerSteepestDescentSolver():
-    output = subprocess.check_output(['python', 'maxCutSteepestDescentSolver.py'])
+    datos = request.get_json()
+    output = subprocess.check_output(['python', 'maxCutSteepestDescentSolver.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones')])
     return output
 
 if __name__ == '__main__':

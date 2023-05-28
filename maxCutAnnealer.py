@@ -7,9 +7,23 @@
 import dimod
 from dwave.system import DWaveSampler, \
     EmbeddingComposite
+import sys
+
+conexiones = sys.argv[2]
+coleccion = {}
+
+# Dividir la cadena por el punto y coma (;) para obtener cada elemento separado
+elementos = conexiones.split(";")
+
+# Recorrer cada elemento y crear una tupla para cada uno
+for elemento in elementos:
+    valores = elemento.split(",")
+    tupla = (int(valores[0]), int(valores[1]))
+    valor = int(valores[2])
+    coleccion[tupla] = valor
 
 ## DEFINICIÓN DEL PROBLEMA
-J = {(0,1):1, (0,2):1, (1,2):1, (0,3):1, (2,3):1} # Conexiones
+J = coleccion  # Conexiones
 h = {}
 
 problem = dimod.BinaryQuadraticModel(h, J, 0.0, dimod.SPIN)

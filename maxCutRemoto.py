@@ -15,11 +15,17 @@ from qiskit_optimization.algorithms import \
     MinimumEigenOptimizer
 from qiskit_optimization.applications import \
     Maxcut
+import sys
 
 from qiskit import IBMQ
 
+# Guardar parámetros
+numeroNodos = sys.argv[1]
+conexiones = sys.argv[2]
+repeticiones = int(sys.argv[3])
+elist = [tuple(map(int, elemento.split(','))) for elemento in conexiones.split(';')]
 
-# Función opcional para representar el grafo (para la aplicación puede ser útil)
+# Función opcional para representar el grafo
 def draw_graph(G, colors, pos):
     default_axes = plt.axes(frameon=True)
     nx.draw_networkx(G, node_color=colors, node_size=600, alpha=0.8, ax=default_axes, pos=pos)
@@ -30,7 +36,7 @@ def draw_graph(G, colors, pos):
 ## DEFINICIÓN DEL PROBLEMA
 
 # Número de nodos
-n = 4
+n = int(numeroNodos)
 
 # Creación del objeto NetworkX graph, que se usa después en la clase Maxcut
 G = nx.Graph()
@@ -39,7 +45,6 @@ G = nx.Graph()
 G.add_nodes_from(np.arange(0, n, 1))
 
 # Añadir las conexiones del grafo
-elist = [(0, 1, 1.0), (0, 2, 1.0), (0, 3, 1.0), (1, 2, 1.0), (2, 3, 1.0)]
 G.add_weighted_edges_from(elist)
 colors = ["r" for node in G.nodes()]
 pos = nx.spring_layout(G)

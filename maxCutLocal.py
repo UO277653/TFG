@@ -17,13 +17,13 @@ from qiskit_optimization.applications import \
     Maxcut
 import sys
 
-parametro = sys.argv[1]
+numeroNodos = sys.argv[1]
 conexiones = sys.argv[2]
 repeticiones = int(sys.argv[3])
 
 elist = [tuple(map(int, elemento.split(','))) for elemento in conexiones.split(';')]
 print("SCRIPT PYTHON") ##
-print(parametro) ##
+print(numeroNodos) ##
 print(conexiones) ##
 print(elist)
 # Función opcional para representar el grafo (para la aplicación puede ser útil)
@@ -37,7 +37,7 @@ def draw_graph(G, colors, pos):
 ## DEFINICIÓN DEL PROBLEMA
 
 # Número de nodos
-n = int(parametro)
+n = int(numeroNodos)
 
 # Creación del objeto NetworkX graph, que se usa después en la clase Maxcut
 G = nx.Graph()

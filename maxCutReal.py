@@ -17,6 +17,13 @@ from qiskit_optimization.applications import \
     Maxcut
 from qiskit_optimization.runtime import QAOAClient
 from qiskit import IBMQ
+import sys
+
+numeroNodos = sys.argv[1]
+conexiones = sys.argv[2]
+repeticiones = int(sys.argv[3])
+
+elist = [tuple(map(int, elemento.split(','))) for elemento in conexiones.split(';')]
 
 # Función opcional para representar el grafo (para la aplicación puede ser útil)
 def draw_graph(G, colors, pos):
@@ -29,7 +36,7 @@ def draw_graph(G, colors, pos):
 ## DEFINICIÓN DEL PROBLEMA
 
 # Número de nodos
-n = 4
+n = int(numeroNodos)
 
 # Creación del objeto NetworkX graph, que se usa después en la clase Maxcut
 G = nx.Graph()
@@ -38,7 +45,6 @@ G = nx.Graph()
 G.add_nodes_from(np.arange(0, n, 1))
 
 # Añadir las conexiones del grafo
-elist = [(0, 1, 1.0), (0, 2, 1.0), (0, 3, 1.0), (1, 2, 1.0), (2, 3, 1.0)]
 G.add_weighted_edges_from(elist)
 colors = ["r" for node in G.nodes()]
 pos = nx.spring_layout(G)
