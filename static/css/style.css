@@ -1,12 +1,30 @@
-#maxcut-container {
-    max-width: 75%;
+body{
+    background-color: #f2f2f2;
+}
+
+#cargarProblemaMaxCut{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto auto;
+    gap:20%;
+}
+
+#resolverProblema{
     margin: 0 auto;
-    border: 2px double;
+    width: 85%;
     padding: 1em;
 }
 
+#maxcut-container {
+    max-width: 85%;
+    margin: 0 auto;
+    border: 10px double;
+    padding: 1em;
+    background-color: white;
+}
+
 #result {
-    width: 75%;
+    width: 85%;
     padding: 1em;
     margin: 0 auto;
 }
@@ -31,8 +49,13 @@ td{
 }
 
 h1 {
+    text-align: center;
     font-size: 2em;
     margin-bottom: 0.5em;
+}
+
+h5 {
+    margin: 0.5em;
 }
 
 p {
@@ -40,15 +63,57 @@ p {
     margin-bottom: 1em;
 }
 
+button {
+    padding: 0.25em 0.8em;
+    background-color: white;
+    color: #000;
+    border: 2px solid #000;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+input {
+    padding: 0.25em;
+}
+
 fieldset {
     border: thick solid #000;
+    background-color: #ececec;
+    padding-bottom: 1em;
 }
+
+
 legend {
     color: #FFF;
     background: #000;
     font-size: 1.5em;
     padding: 5px;
 
+}
+
+.navbar {
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    display: inline-block;
+    padding: 10px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
 }
 
 

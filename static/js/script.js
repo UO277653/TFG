@@ -79,11 +79,58 @@ function ejecutarScriptPython(scriptUrl) {
 
 }
 
+function actualizarDatosProblema(){
+    var txtNumNodosMaxCut = document.getElementById("txtNumNodosMaxCut");
+    var txtNumRepMaxCut = document.getElementById("txtNumRepMaxCut");
+    var txtConexionesMaxCut = document.getElementById("txtConexMaxCut");
 
+    if(txtNumNodosMaxCut != null) {
+        txtNumNodosMaxCut.textContent = numeroNodos;
+    }
+    if(txtNumRepMaxCut != null) {
+        txtNumRepMaxCut.textContent = numeroRep;
+    }
+    if(txtConexionesMaxCut != null) {
+        var arrayConexionesStringBonita = "";
+
+        for (var i = 0; i < arrayConexiones.length; i++) {
+            arrayConexionesStringBonita += arrayConexiones[i].toStringPretty() + "<br>";
+        }
+
+        txtConexionesMaxCut.innerHTML = arrayConexionesStringBonita;
+    }
+
+    // Si los 3 no son null, entonces se puede generar la imagen
+    // ESTO PARA CUANDO TENGA EL SCRIPT DE PYTHON QUE GENERE LA IMAGEN
+    /*
+
+    $.ajax({
+        type: "POST",
+        url: TODO URL DEL SCRIPT QUE GENERA LA IMAGEN
+        data: JSON.stringify(parametros),
+        contentType: 'application/json',
+        success: function(response) {
+
+            var contenedorGrafico = document.getElementById("graficoMaxCut");
+            var image = document.createElement("img");
+            image.src = "ruta_de_la_imagen.jpg";
+            image.alt = "Texto alternativo de la imagen";
+            container.appendChild(image);
+
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ": " + error);
+        }
+    });
+     */
+}
 
 function seleccionarNumeroNodosMaxCut() {
     var texto = document.getElementById("numeroNodosMaxCut").value;
     numeroNodos = texto;
+
+    actualizarDatosProblema();
+
     limpiarTexto();
 }
 
@@ -92,6 +139,8 @@ function seleccionarNumeroRepsMaxCut() {
     numeroRep = texto;
 
     document.getElementById("numeroRepMaxCut").value = "";
+
+    actualizarDatosProblema();
 }
 
 function agregarConexionMaxCut() {
@@ -111,7 +160,7 @@ function agregarConexionMaxCut() {
     // Guardar conexión en array
     arrayConexiones.push(conexion);
 
-    console.log(conexion.toString());
+    actualizarDatosProblema();
 
     /// VIEJO
     limpiarTextoConexion();
@@ -149,9 +198,40 @@ function cargarArchivoProblema(){
         console.log("Parámetro 1: " + parametro1);
         console.log("Parámetro 2: " + parametro2);
         console.log("Parámetro 3: " + parametro3);
+
+        const conexiones = [];
+        const partes = arrayConexionesString.split(";");
+
+        for (let i = 0; i < partes.length; i++) {
+            const valores = partes[i].split(",");
+            const conexion = new Conexion(parseInt(valores[0]), parseInt(valores[1]), parseInt(valores[2]));
+            conexiones.push(conexion);
+        }
+
+        arrayConexiones = conexiones;
+
+        actualizarDatosProblema();
     };
 
     lector.readAsText(archivo);
+
+
+}
+
+function limpiarNumNodosMaxCut(){
+    numeroNodos = 0;
+    actualizarDatosProblema();
+}
+
+function limpiarNumRepsMaxCut(){
+    numeroRep = 0;
+    actualizarDatosProblema();
+}
+
+function limpiarConexionesMaxCut(){
+    arrayConexiones = [];
+    arrayConexionesString = "";
+    actualizarDatosProblema();
 }
 
 class Conexion {
@@ -163,5 +243,10 @@ class Conexion {
 
     toString() {
         return this.nodo1 + "," + this.nodo2 + "," + this.valor;
+    }
+
+    toStringPretty(){
+        //return "Nodo 1: " + this.nodo1 + ", Nodo 2: " + this.nodo2 + ", Valor: " + this.valor;
+        return this.nodo1 + " - " + this.nodo2 + " (" + this.valor + ")";
     }
 }
