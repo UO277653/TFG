@@ -68,6 +68,21 @@
             <button onclick="agregarConexionMaxCut()">Agregar conexión</button> <button onclick="limpiarConexionesMaxCut()">Limpiar</button>
         <br>
 
+            <div>
+                <h2>Resolver el problema</h2>
+                <label for="solver">Elige una forma de resolverlo:</label>
+                <select name="solver" id="solver">
+                    <option value="simuladorLocal">Ejecutar en simulador local</option>
+                    <option value="simuladorRemoto">Ejecutar en simulador remoto</option>
+                    <option value="ordenadorReal">Ejecutar en ordenador real</option>
+                    <option value="annealer">Ejecutar en annealer</option>
+                    <option value="annealerSimulatedAnnealingSolver">Ejecutar con simmulated annealing solver</option>
+                    <option value="annealerTabuSolver">Ejecutar con tabu solver</option>
+                    <option value="annealerSteepestDescentSolver">Ejecutar con steepest descent solver</option>
+                </select>
+                <button type="submit" class="btn btn-primary" id="comoResolver">Elegir</button>
+            </div>
+
         </div>
         <div id="cargarProblemaMaxCutArchivo">
 
@@ -88,18 +103,7 @@
         </div>
 
     </div>
-    <h2>Resolver el problema</h2>
-    <label for="solver">Elige una forma de resolverlo:</label>
-    <select name="solver" id="solver">
-        <option value="simuladorLocal">Ejecutar en simulador local</option>
-        <option value="simuladorRemoto">Ejecutar en simulador remoto</option>
-        <option value="ordenadorReal">Ejecutar en ordenador real</option>
-        <option value="annealer">Ejecutar en annealer</option>
-        <option value="annealerSimulatedAnnealingSolver">Ejecutar con simmulated annealing solver</option>
-        <option value="annealerTabuSolver">Ejecutar con tabu solver</option>
-        <option value="annealerSteepestDescentSolver">Ejecutar con steepest descent solver</option>
-    </select>
-    <button type="submit" class="btn btn-primary" id="comoResolver">Elegir</button>
+
     </fieldset>
 </div>
 

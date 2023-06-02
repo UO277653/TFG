@@ -6,7 +6,7 @@ body{
     display: grid;
     justify-content: center;
     grid-template-columns: auto auto;
-    gap:20%;
+    gap:15%;
 }
 
 #resolverProblema{
@@ -56,6 +56,7 @@ h1 {
 
 h5 {
     margin: 0.5em;
+    font-size: 1.05em;
 }
 
 p {
@@ -81,7 +82,7 @@ input {
 fieldset {
     border: thick solid #000;
     background-color: #ececec;
-    padding-bottom: 1em;
+    padding-bottom: 3em;
 }
 
 
@@ -91,6 +92,10 @@ legend {
     font-size: 1.5em;
     padding: 5px;
 
+}
+
+label {
+    font-size: 1.1em;
 }
 
 .navbar {
