@@ -34,13 +34,14 @@ elist = [tuple(map(int, elemento.split(','))) for elemento in conexiones.split('
 # DEFINICIÓN DEL PROBLEMA
 #
 
+# TODO cambiar este a la formulación de este problema
 def formularProblemaDocplex():
 
     ##
     ## DATOS DEL PROBLEMA
     ##
-    cities = list(range(int(numeroNodos)))
-    connections = elist
+    cities = [0, 1, 2, 3]
+    connections = [(0, 1, 2), (0, 2, 1), (0, 3, 3), (1, 2, 4), (1, 3, 1), (2, 3, 1), (1, 0, 2), (2, 0, 1), (3, 0, 3), (2, 1, 4), (3, 1, 1), (3, 2, 1)]
 
     # Pesos
     w = {(j, k): cost for j, k, cost in connections}
@@ -95,7 +96,7 @@ def formularProblemaDwave(qp):
 def metodoSimuladorLocal(qp):
 
     quantum_instance = QuantumInstance(Aer.get_backend('aer_simulator'), shots=100)
-    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = repeticiones)
+    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = 1) # TODO cambiar a parametro
     qaoa_optimizer = MinimumEigenOptimizer(qaoa)
     result = qaoa_optimizer.solve(qp)
 
@@ -108,7 +109,7 @@ def metodoSimuladorRemoto(qp):
     quantum_instance = QuantumInstance(provider.get_backend('ibmq_qasm_simulator'), shots=1024)
 
     # Definir el optimizador para QAOA
-    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = repeticiones)
+    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = 1) # TODO cambiar a parametro
 
     # Define el optimizador para el problema cuántico
     qaoa_optimizer = MinimumEigenOptimizer(qaoa)
@@ -122,7 +123,7 @@ def metodoSimuladorReal(qp):
 
     # Utilizar ordenador real
     provider = IBMQ.load_account()
-    qaoa_client = QAOAClient(provider=provider , backend=provider.get_backend("ibm_lagos"), reps=repeticiones)
+    qaoa_client = QAOAClient(provider=provider , backend=provider.get_backend("ibm_lagos"), reps=1) # TODO cambiar a parametro
 
     qaoa = MinimumEigenOptimizer(qaoa_client)
 

@@ -21,7 +21,7 @@
 <div id="problem-container">
    <table>
        <tr>
-           <td id="imagenProblema"><img src="../static/img/tspImg.png" alt="Imagen del problema TSP"></td>
+           <td id="imagenProblema"><img src="../static/img/graphColorImg.png" alt="Imagen del problema graph coloring"></td>
            <td>
                <h1>TSP</h1>
                <p>El Problema del Viajante de Comercio (TSP, por sus siglas en inglés) es un desafío matemático y de optimización que busca encontrar la ruta más corta posible para que un viajante visite un conjunto de ciudades y regrese a su punto de partida. En este problema, se supone que el viajante debe visitar cada ciudad exactamente una vez.
@@ -42,39 +42,8 @@
 <div id="resolverProblema">
     <fieldset id="cajaTSP">
         <legend>Problema</legend>
-    <div id="cargarProblema">
+    <div id="cargarProblemaTSP">
         <div id="cargarProblemaTSPManual">
-
-            <h2>Cargar problema manualmente</h2>
-            <!-- Introducir número de nodos del grafo -->
-            <div>
-                <input type="text" name="numeroNodosTSP" id="numeroNodosTSP">
-                <button onclick="seleccionarNumeroNodosTSP()">Número de nodos</button> <button onclick="limpiarNumNodosTSP()">Limpiar</button>
-                <br>
-                <br>
-                <input type="text" name="numeroRepTSP" id="numeroRepTSP">
-                <button onclick="seleccionarNumeroRepsTSP()">Número de repeticiones</button> <button onclick="limpiarNumRepsTSP()">Limpiar</button>
-            </div>
-            <br>
-            <!-- Agregar las conexiones entre nodos del grafo TERMINAR -->
-            <h5>Agregar conexiones</h5>
-            <table>
-                <tr>
-                    <td>
-                        <h5>Nodo 1</h5>
-                        <input type="text" name="conexionTSPNodo1" id="conexionTSPNodo1">
-                    </td>
-                    <td>
-                        <h5>Nodo 2</h5>
-                        <input type="text" name="conexionTSPNodo2" id="conexionTSPNodo2">
-                    </td>
-                </tr>
-            </table>
-            <h5>Valor</h5>
-            <input type="text" name="conexionTSPValor" id="conexionTSPValor">
-            <button onclick="agregarConexionTSP()">Agregar conexión</button> <button onclick="limpiarConexionesTSP()">Limpiar</button>
-            <br>
-
             <div>
                 <h2>Resolver el problema</h2>
                 <label for="solver">Elige una forma de resolverlo:</label>
@@ -94,18 +63,8 @@
         <div id="cargarProblemaTSPArchivo">
 
             <h2>Cargar problema a través de archivo</h2>
-            <input type="file" id="archivoTextoTSP" accept=".txt">
+            <input type="file" id="archivoTexto" accept=".txt">
             <button onclick="cargarArchivoProblema()">Cargar</button>
-
-            <div>
-                <h2>Datos del problema</h2>
-                <div id="datosProblemaTSP">
-                    <h5>Número de nodos: <h5 id="txtNumNodosTSP"></h5></h5>
-                    <h5>Número de repeticiones: <h5 id="txtNumRepTSP"></h5> </h5>
-                    <h5>Conexiones: <h5 id="txtConexTSP"></h5> </h5>
-                    <div id="graficoTSP"></div>
-                </div>
-            </div>
 
         </div>
 
@@ -120,7 +79,7 @@
     </fieldset>
 </div>
 
-<script src="{{ url_for('static', filename='js/scriptTSP.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>

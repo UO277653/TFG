@@ -9,7 +9,7 @@ metodo = ""
 $(document).ready(function() {
     $("#comoResolver").click(function() {
         resultDiv.innerHTML = "";
-        solver = document.getElementById("solver").value;
+        metodo = document.getElementById("solver").value;
         ejecutarScriptPython();
     });
 });

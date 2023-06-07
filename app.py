@@ -15,6 +15,14 @@ def pagMaxCut():
 def pagTSP():
     return render_template('tsp.html')
 
+@app.route('/knapsack')
+def pagKnapsack():
+    return render_template('knapsack.html')
+
+@app.route('/graphColor')
+def pagGraphColor():
+    return render_template('graphColor.html')
+
 @app.route('/executeTSP', methods=['POST'])
 def execute_TSP():
     datos = request.get_json()

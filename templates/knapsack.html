@@ -9,9 +9,11 @@
 
 <nav class="navbar">
     <ul>
+        <li><a href="/">Home</a></li>
         <li><a href="/maxcut">Max-Cut</a></li>
         <li><a href="/tsp">TSP</a></li>
-        <li><a href="#">Problema 3</a></li>
+        <li><a href="/knapsack">Knapsack</a></li>
+        <li><a href="/graphColor">Graph coloring</a></li>
     </ul>
 </nav>
 
@@ -19,18 +21,18 @@
 <div id="problem-container">
    <table>
        <tr>
-           <td id="imagenProblema"><img src="../static/img/tspImg.png" alt="Imagen del problema TSP"></td>
+           <td id="imagenProblema"><img src="../static/img/knapsackImg.png" alt="Imagen del problema knapsack"></td>
            <td>
-               <h1>TSP</h1>
-               <p>El Problema del Viajante de Comercio (TSP, por sus siglas en inglés) es un desafío matemático y de optimización que busca encontrar la ruta más corta posible para que un viajante visite un conjunto de ciudades y regrese a su punto de partida. En este problema, se supone que el viajante debe visitar cada ciudad exactamente una vez.
+               <h1>Knapsack</h1>
+               <p>El problema de la mochila, también conocido como "knapsack problem" en inglés, es un desafío clásico en la optimización combinatoria. Este problema se basa en una situación en la que se tiene una mochila de capacidad limitada y una serie de objetos con diferentes valores y pesos. El objetivo es determinar qué objetos deben colocarse en la mochila para maximizar el valor total, teniendo en cuenta la capacidad máxima de la mochila.
 
-                   El objetivo es minimizar la distancia total recorrida, lo que implica encontrar el recorrido óptimo que pase por todas las ciudades sin repetir ninguna, volviendo al punto de partida y minimizando la distancia total recorrida.
+                   El problema se plantea de la siguiente manera: se tienen n objetos, cada uno con un valor y un peso asociados. La mochila tiene una capacidad máxima, es decir, solo puede contener hasta cierto peso. El desafío radica en seleccionar una combinación de objetos que maximice el valor total sin superar la capacidad de la mochila.
 
-                   El TSP tiene importantes aplicaciones en logística, planificación de rutas, diseño de circuitos integrados, programación de producción y muchas otras áreas donde la optimización de la secuencia de visitas es fundamental.
+                   Existen diferentes variantes del problema de la mochila, como la versión binaria en la que se debe tomar una decisión binaria (tomar o no tomar) para cada objeto, o la versión fraccionaria en la que se pueden tomar fracciones de los objetos.
 
-                   El problema es conocido por ser NP-duro, lo que significa que no se ha encontrado una solución eficiente que funcione en todos los casos. Sin embargo, existen algoritmos y técnicas heurísticas que pueden proporcionar soluciones aproximadas de buena calidad para casos prácticos.
+                   El problema de la mochila es conocido por ser NP-duro, lo que significa que no hay un algoritmo eficiente conocido para resolverlo en tiempo polinomial para todas las instancias posibles. Sin embargo, se han desarrollado algoritmos y técnicas heurísticas que proporcionan soluciones aproximadas eficientes en muchos casos.
 
-                   Resolver el TSP es de gran interés debido a su complejidad y aplicaciones prácticas, y ha sido objeto de estudio e investigación durante décadas.</p>
+                   El problema de la mochila tiene aplicaciones prácticas en diversos campos, como la gestión de inventarios, la optimización de recursos en logística, la planificación financiera y la asignación de recursos en proyectos. Su estudio y resolución han contribuido al desarrollo de algoritmos y estrategias de optimización en general.</p>
 
             </td>
         </tr>
