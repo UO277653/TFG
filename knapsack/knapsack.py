@@ -23,16 +23,11 @@ from qiskit_optimization.translators import \
 #
 # PARÁMETROS
 #
-numeroNodos = sys.argv[1]
-conexiones = sys.argv[2]
-repeticiones = int(sys.argv[3])
-metodo = sys.argv[4]
-
-elist = [tuple(map(int, elemento.split(','))) for elemento in conexiones.split(';')]
 
 #
 # DEFINICIÓN DEL PROBLEMA
 #
+metodo = sys.argv[4]
 
 # TODO cambiar este a la formulación de este problema
 def formularProblemaDocplex():
@@ -40,36 +35,27 @@ def formularProblemaDocplex():
     ##
     ## DATOS DEL PROBLEMA
     ##
-    cities = [0, 1, 2, 3]
-    connections = [(0, 1, 2), (0, 2, 1), (0, 3, 3), (1, 2, 4), (1, 3, 1), (2, 3, 1), (1, 0, 2), (2, 0, 1), (3, 0, 3), (2, 1, 4), (3, 1, 1), (3, 2, 1)]
+    # Define the object values, weights, and maximum weight
+    values = [int(x) for x in sys.argv[2].split(",")]
+    weights = [int(x) for x in sys.argv[3].split(",")]
+    max_weight = int(sys.argv[1])
+    num_objects = len(values)
 
-    # Pesos
-    w = {(j, k): cost for j, k, cost in connections}
-    # Número de nodos
-    m = len(cities)
+    # Create the model
+    mdl = Model(name='Knapsack')
 
-    ####################
-    ## MODELO docplex ##
-    ####################
-    mdl = Model(name="TSP")
+    # Define the decision variables
+    x = mdl.binary_var_list(num_objects)
 
-    # Variables binarias
-    x = {(j, l): mdl.binary_var(name=f"x{j}{l}") for j in cities for l in cities}
+    # Define the objective function
+    objective = mdl.sum(-values[j] * x[j] for j in range(num_objects))
+    mdl.minimize(objective)
 
-    # Restricción 1
-    for j in cities:
-        mdl.add_constraint(mdl.sum(x[(j, l)] for l in cities) == 1)
+    # Add the constraint for the maximum weight
+    mdl.add_constraint(mdl.sum(weights[j] * x[j] for j in range(num_objects)) <= max_weight)
 
-    # Restricción 2
-    for l in cities:
-        mdl.add_constraint(mdl.sum(x[(j, l)] for j in cities) == 1)
-
-    # Expresión del costo
-    total_cost = mdl.sum(w[(j, k)] * x[(j, l)] * x[(k, (l + 1))] for l in range(len(cities)) for j in cities for k in cities if j != k if(j,k) in w if (j,l) in x and(k, l+1) in x)
-    mdl.minimize(total_cost)
-
-    # Resolver el modelo docplex
-    solution = mdl.solve()
+    # Solve the model
+    mdl.solve()
 
     return mdl
 

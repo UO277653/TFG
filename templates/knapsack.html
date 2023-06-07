@@ -33,17 +33,41 @@
                    El problema de la mochila es conocido por ser NP-duro, lo que significa que no hay un algoritmo eficiente conocido para resolverlo en tiempo polinomial para todas las instancias posibles. Sin embargo, se han desarrollado algoritmos y técnicas heurísticas que proporcionan soluciones aproximadas eficientes en muchos casos.
 
                    El problema de la mochila tiene aplicaciones prácticas en diversos campos, como la gestión de inventarios, la optimización de recursos en logística, la planificación financiera y la asignación de recursos en proyectos. Su estudio y resolución han contribuido al desarrollo de algoritmos y estrategias de optimización en general.</p>
-
             </td>
         </tr>
     </table>
 </div>
 
 <div id="resolverProblema">
-    <fieldset id="cajaTSP">
+    <fieldset id="cajaKnapsack">
         <legend>Problema</legend>
-    <div id="cargarProblemaTSP">
-        <div id="cargarProblemaTSPManual">
+    <div id="cargarProblema">
+        <div id="cargarProblemaKnapsackManual">
+
+            <h2>Cargar problema manualmente</h2>
+            <!-- Introducir peso máximo -->
+            <div>
+                <input type="text" name="pesoMaximo" id="pesoMaximo">
+                <button onclick="seleccionarPesoMaximoKnapsack()">Peso máximo</button> <button onclick="limpiarPesoMaximoKnapsack()">Limpiar</button>
+            </div>
+            <br>
+            <!-- Agregar objetos -->
+            <h5>Agregar objeto</h5>
+            <table>
+                <tr>
+                    <td>
+                        <h5>Valor</h5>
+                        <input type="text" name="valorObjeto" id="valorObjeto">
+                    </td>
+                    <td>
+                        <h5>Peso</h5>
+                        <input type="text" name="pesoObjeto" id="pesoObjeto">
+                    </td>
+                </tr>
+            </table>
+            <button onclick="agregarObjetoKnapsack()">Agregar objeto</button> <button onclick="limpiarObjetoKnapsack()">Limpiar</button>
+            <br>
+
             <div>
                 <h2>Resolver el problema</h2>
                 <label for="solver">Elige una forma de resolverlo:</label>
@@ -60,12 +84,21 @@
             </div>
 
         </div>
-        <div id="cargarProblemaTSPArchivo">
+        <div id="cargarProblemaKnapsackArchivo">
 
             <h2>Cargar problema a través de archivo</h2>
             <input type="file" id="archivoTexto" accept=".txt">
             <button onclick="cargarArchivoProblema()">Cargar</button>
 
+            <div>
+                <h2>Datos del problema</h2>
+                <div id="datosProblemaKnapsack">
+                    <h5>Peso máximo: <h5 id="txtPesoMaximo"></h5></h5>
+                    <h5>Número de objetos: <h5 id="txtNumObjetos"></h5></h5>
+                    <h5>Valores de los objetos: <h5 id="txtValores"></h5></h5>
+                    <h5>Pesos de los objetos: <h5 id="txtPesos"></h5></h5>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -79,7 +112,7 @@
     </fieldset>
 </div>
 
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/scriptKnapsack.js') }}"></script>
 
 </body>
 </html>
