@@ -1,43 +1,20 @@
 var resultDiv = document.getElementById("cajaResultado");
 
-var numeroNodos = 0;
-var numeroRep = 0;
-var arrayConexiones = [];
-var arrayConexionesString = "";
-
+numeroNodos = 0
+numeroRep = 0
+arrayConexiones = []
+arrayConexionesString = ""
+metodo = ""
 
 $(document).ready(function() {
     $("#comoResolver").click(function() {
         resultDiv.innerHTML = "";
-
-        var solver = document.getElementById("solver").value;
-        switch (solver) {
-            case "simuladorLocal":
-                ejecutarScriptPython("/executeMaxCutLocal");
-                break;
-            case "simuladorRemoto":
-                ejecutarScriptPython("/executeMaxCutRemoto");
-                break;
-            case "ordenadorReal":
-                ejecutarScriptPython("/executeMaxCutReal");
-                break;
-            case "annealer":
-                ejecutarScriptPython("/executeMaxCutAnnealer");
-                break;
-            case "annealerSimulatedAnnealingSolver":
-                ejecutarScriptPython("/executeMaxCutAnnealerSimulatedAnnealingSolver");
-                break;
-            case "annealerTabuSolver":
-                ejecutarScriptPython("/executeMacCutAnnealerTabuSolver");
-                break;
-            case "annealerSteepestDescentSolver":
-                ejecutarScriptPython("/executeMaxCutSteepestDescentSolver");
-                break;
-        }
+        solver = document.getElementById("solver").value;
+        ejecutarScriptPython();
     });
 });
 
-function ejecutarScriptPython(scriptUrl) {
+function ejecutarScriptPython() {
 
     if(arrayConexiones.length > 0) {
         arrayConexionesString = "";
@@ -56,12 +33,13 @@ function ejecutarScriptPython(scriptUrl) {
     var parametros = {
         "nodos": numeroNodos,
         "conexiones": arrayConexionesString,
-        "repeticiones": numeroRep
+        "repeticiones": numeroRep,
+        "metodo": metodo
     }
 
     $.ajax({
         type: "POST",
-        url: scriptUrl,
+        url: "executeTSP",
         data: JSON.stringify(parametros), // JSON.stringify(arrayConexiones)
         contentType: 'application/json',
         success: function(response) {
@@ -75,10 +53,11 @@ function ejecutarScriptPython(scriptUrl) {
 
 }
 
+
 function actualizarDatosProblema(){
-    var txtNumNodosMaxCut = document.getElementById("txtNumNodosMaxCut");
-    var txtNumRepMaxCut = document.getElementById("txtNumRepMaxCut");
-    var txtConexionesMaxCut = document.getElementById("txtConexMaxCut");
+    var txtNumNodosMaxCut = document.getElementById("txtNumNodosTSP");
+    var txtNumRepMaxCut = document.getElementById("txtNumRepTSP");
+    var txtConexionesMaxCut = document.getElementById("txtConexTSP");
 
     if(txtNumNodosMaxCut != null) {
         txtNumNodosMaxCut.textContent = numeroNodos;
@@ -97,32 +76,11 @@ function actualizarDatosProblema(){
     }
 
     // Si los 3 no son null, entonces se puede generar la imagen
-    // ESTO PARA CUANDO TENGA EL SCRIPT DE PYTHON QUE GENERE LA IMAGEN
-    /*
-
-    $.ajax({
-        type: "POST",
-        url: TODO URL DEL SCRIPT QUE GENERA LA IMAGEN
-        data: JSON.stringify(parametros),
-        contentType: 'application/json',
-        success: function(response) {
-
-            var contenedorGrafico = document.getElementById("graficoMaxCut");
-            var image = document.createElement("img");
-            image.src = "ruta_de_la_imagen.jpg";
-            image.alt = "Texto alternativo de la imagen";
-            container.appendChild(image);
-
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ": " + error);
-        }
-    });
-     */
+    // ESTO PARA CUANDO TENGA EL SCRIPT DE PYTHON QUE GENERE LA IMAGEN mirar script.js
 }
 
-function seleccionarNumeroNodosMaxCut() {
-    var texto = document.getElementById("numeroNodosMaxCut").value;
+function seleccionarNumeroNodosTSP() {
+    var texto = document.getElementById("numeroNodosTSP").value;
     numeroNodos = texto;
 
     actualizarDatosProblema();
@@ -130,25 +88,41 @@ function seleccionarNumeroNodosMaxCut() {
     limpiarTexto();
 }
 
-function seleccionarNumeroRepsMaxCut() {
-    var texto = document.getElementById("numeroRepMaxCut").value;
+function seleccionarNumeroRepsTSP() {
+    var texto = document.getElementById("numeroRepTSP").value;
     numeroRep = texto;
 
-    document.getElementById("numeroRepMaxCut").value = "";
+    document.getElementById("numeroRepTSP").value = "";
 
     actualizarDatosProblema();
 }
 
-function agregarConexionMaxCut() {
+function limpiarNumNodosTSP(){
+    numeroNodos = 0;
+    actualizarDatosProblema();
+}
+
+function limpiarNumRepsTSP(){
+    numeroRep = 0;
+    actualizarDatosProblema();
+}
+
+function limpiarConexionesTSP(){
+    arrayConexiones = [];
+    arrayConexionesString = "";
+    actualizarDatosProblema();
+}
+
+function agregarConexionTSP() {
 
     // Pillar nodo 1
-    var nodo1 = document.getElementById("conexionMaxCutNodo1").value;
+    var nodo1 = document.getElementById("conexionTSPNodo1").value;
 
     // Pillar nodo 2
-    var nodo2 = document.getElementById("conexionMaxCutNodo2").value;
+    var nodo2 = document.getElementById("conexionTSPNodo2").value;
 
     // Pillar valor conexión
-    var valorConexion = document.getElementById("conexionMaxCutValor").value;
+    var valorConexion = document.getElementById("conexionTSPValor").value;
 
     // Construir objeto conexión
     var conexion = new Conexion(nodo1, nodo2, valorConexion);
@@ -161,18 +135,8 @@ function agregarConexionMaxCut() {
     limpiarTextoConexion();
 }
 
-function limpiarTexto() {
-    document.getElementById("numeroNodosMaxCut").value = "";
-}
-
-function limpiarTextoConexion() {
-    document.getElementById("conexionMaxCutNodo1").value = "";
-    document.getElementById("conexionMaxCutNodo2").value = "";
-    document.getElementById("conexionMaxCutValor").value = "";
-}
-
 function cargarArchivoProblema(){
-    var archivo = document.getElementById("archivoTexto").files[0];
+    var archivo = document.getElementById("archivoTextoTSP").files[0];
     var lector = new FileReader();
 
     arrayConexionesString = ""; // TODO TENGO QUE HACER ALGO PARA BORRARLA SI LA CARGO DE LA OTRA FORMA
@@ -209,24 +173,6 @@ function cargarArchivoProblema(){
     };
 
     lector.readAsText(archivo);
-
-
-}
-
-function limpiarNumNodosMaxCut(){
-    numeroNodos = 0;
-    actualizarDatosProblema();
-}
-
-function limpiarNumRepsMaxCut(){
-    numeroRep = 0;
-    actualizarDatosProblema();
-}
-
-function limpiarConexionesMaxCut(){
-    arrayConexiones = [];
-    arrayConexionesString = "";
-    actualizarDatosProblema();
 }
 
 class Conexion {

@@ -15,17 +15,17 @@ from qiskit_optimization.algorithms import \
     MinimumEigenOptimizer
 from qiskit_optimization.applications import \
     Maxcut
-from qiskit_optimization.runtime import QAOAClient
-from qiskit import IBMQ
 import sys
 
+from qiskit import IBMQ
+
+# Guardar parámetros
 numeroNodos = sys.argv[1]
 conexiones = sys.argv[2]
 repeticiones = int(sys.argv[3])
-
 elist = [tuple(map(int, elemento.split(','))) for elemento in conexiones.split(';')]
 
-# Función opcional para representar el grafo (para la aplicación puede ser útil)
+# Función opcional para representar el grafo
 def draw_graph(G, colors, pos):
     default_axes = plt.axes(frameon=True)
     nx.draw_networkx(G, node_color=colors, node_size=600, alpha=0.8, ax=default_axes, pos=pos)
@@ -64,14 +64,19 @@ for i in range(n):
 max_cut = Maxcut(w)
 qp = max_cut.to_quadratic_program()
 
-# Utilizar ordenador real
+# Define el quantum_instance utilizando el simulador Qasm
+# Usar IBMQ
 provider = IBMQ.load_account()
-qaoa_client = QAOAClient(provider=provider , backend=provider.get_backend("ibm_lagos"), reps=1)
-#quantum_instance = QuantumInstance(Aer.get_backend('aer_simulator'), shots=1024)
-qaoa = MinimumEigenOptimizer(qaoa_client)
+quantum_instance = QuantumInstance(provider.get_backend('ibmq_qasm_simulator'), shots=1024)
+
+# Definir el optimizador para QAOA
+qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = repeticiones)
+
+# Define el optimizador para el problema cuántico
+qaoa_optimizer = MinimumEigenOptimizer(qaoa)
 
 # Resuelve el problema utilizando el algoritmo QAOA
-result = qaoa.solve(qp)
+result = qaoa_optimizer.solve(qp)
 
 # Imprime la solución
 print(result)

@@ -2,7 +2,7 @@ body{
     background-color: #f2f2f2;
 }
 
-#cargarProblemaMaxCut{
+#cargarProblema{
     display: grid;
     justify-content: center;
     grid-template-columns: auto auto;
@@ -15,7 +15,7 @@ body{
     padding: 1em;
 }
 
-#maxcut-container {
+#problem-container {
     max-width: 85%;
     margin: 0 auto;
     border: 10px double;

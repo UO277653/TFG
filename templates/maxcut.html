@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TFG</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!--<script src="../jquery-3.6.4.js"></script> ¿¿ por que no va si no tienes internet no te carga si dejo la otra ?? -->
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <ul>
+        <li><a href="/maxcut">Max-Cut</a></li>
+        <li><a href="/tsp">TSP</a></li>
+        <li><a href="#">Problema 3</a></li>
+    </ul>
+</nav>
+
+
+<div id="problem-container">
+   <table>
+       <tr>
+           <td id="imagenProblema"><img src="../static/img/maxCutImg.png" alt="Imagen del problema Max Cut"></td>
+           <td>
+               <h1>Max-Cut</h1>
+   <p>El problema de optimización Max-Cut consiste en particionar los vértices de un grafo en dos conjuntos de manera que el número de aristas entre los dos conjuntos sea máximo.</p>
+
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="resolverProblema">
+    <fieldset id="cajaMaxCut">
+        <legend>Problema</legend>
+    <div id="cargarProblema">
+        <div id="cargarProblemaMaxCutManual">
+            <h2>Cargar problema manualmente</h2>
+            <!-- Introducir número de nodos del grafo -->
+            <div>
+                <input type="text" name="numeroNodosMaxCut" id="numeroNodosMaxCut">
+                <button onclick="seleccionarNumeroNodosMaxCut()">Número de nodos</button> <button onclick="limpiarNumNodosMaxCut()">Limpiar</button>
+                <!-- ESTO CAMBIARLO, QUE SOLO SE PUEDAN NÚMEROS, SERÍA EL NÚMERO DE NODOS -->
+                <br>
+                <br>
+                <input type="text" name="numeroRepMaxCut" id="numeroRepMaxCut">
+                <button onclick="seleccionarNumeroRepsMaxCut()">Número de repeticiones</button> <button onclick="limpiarNumRepsMaxCut()">Limpiar</button>
+            </div>
+            <br>
+            <!-- Agregar las conexiones entre nodos del grafo TERMINAR -->
+            <h5>Agregar conexiones</h5>
+            <table>
+                <tr>
+                    <td>
+                        <h5>Nodo 1</h5>
+                        <input type="text" name="conexionMaxCutNodo1" id="conexionMaxCutNodo1">
+                    </td>
+                    <td>
+                        <h5>Nodo 2</h5>
+                        <input type="text" name="conexionMaxCutNodo2" id="conexionMaxCutNodo2">
+                    </td>
+                </tr>
+            </table>
+            <h5>Valor</h5>
+            <input type="text" name="conexionMaxCutValor" id="conexionMaxCutValor">
+            <button onclick="agregarConexionMaxCut()">Agregar conexión</button> <button onclick="limpiarConexionesMaxCut()">Limpiar</button>
+        <br>
+
+            <div>
+                <h2>Resolver el problema</h2>
+                <label for="solver">Elige una forma de resolverlo:</label>
+                <select name="solver" id="solver">
+                    <option value="simuladorLocal">Ejecutar en simulador local</option>
+                    <option value="simuladorRemoto">Ejecutar en simulador remoto</option>
+                    <option value="ordenadorReal">Ejecutar en ordenador real</option>
+                    <option value="annealer">Ejecutar en annealer</option>
+                    <option value="annealerSimulatedAnnealingSolver">Ejecutar con simmulated annealing solver</option>
+                    <option value="annealerTabuSolver">Ejecutar con tabu solver</option>
+                    <option value="annealerSteepestDescentSolver">Ejecutar con steepest descent solver</option>
+                </select>
+                <button type="submit" class="btn btn-primary" id="comoResolver">Elegir</button>
+            </div>
+
+        </div>
+        <div id="cargarProblemaMaxCutArchivo">
+
+            <h2>Cargar problema a través de archivo</h2>
+            <input type="file" id="archivoTexto" accept=".txt">
+            <button onclick="cargarArchivoProblema()">Cargar</button>
+
+            <div>
+                <h2>Datos del problema</h2>
+                <div id="datosProblemaMaxCut">
+                    <h5>Número de nodos: <h5 id="txtNumNodosMaxCut"></h5></h5>
+                    <h5>Número de repeticiones: <h5 id="txtNumRepMaxCut"></h5> </h5>
+                        <h5>Conexiones: <h5 id="txtConexMaxCut"></h5> </h5>
+                        <!-- <h5>Representación gráfica: </h5> -->
+                    <div id="graficoMaxCut"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    </fieldset>
+</div>
+
+<div id="result">
+    <fieldset id="cajaResultado">
+        <legend>Salida</legend>
+    </fieldset>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
