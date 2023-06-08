@@ -23,28 +23,59 @@
        <tr>
            <td id="imagenProblema"><img src="../static/img/graphColorImg.png" alt="Imagen del problema graph coloring"></td>
            <td>
-               <h1>TSP</h1>
-               <p>El Problema del Viajante de Comercio (TSP, por sus siglas en inglés) es un desafío matemático y de optimización que busca encontrar la ruta más corta posible para que un viajante visite un conjunto de ciudades y regrese a su punto de partida. En este problema, se supone que el viajante debe visitar cada ciudad exactamente una vez.
+               <h1>Coloreado de grafos</h1>
+               <p>El problema de coloreado de grafos es un desafío fundamental en la teoría de grafos y la optimización combinatoria. El objetivo es asignar colores a los vértices de un grafo de manera que dos vértices adyacentes no tengan el mismo color. La idea principal es encontrar una asignación de colores que cumpla con esta restricción utilizando el menor número posible de colores.
 
-                   El objetivo es minimizar la distancia total recorrida, lo que implica encontrar el recorrido óptimo que pase por todas las ciudades sin repetir ninguna, volviendo al punto de partida y minimizando la distancia total recorrida.
+                   El coloreado de grafos tiene aplicaciones prácticas en diversos campos, como la asignación de horarios en instituciones educativas, la asignación de frecuencias en redes de comunicación, el diseño de mapas y la programación de tareas en la planificación de proyectos. Además, el problema es NP-completo, lo que significa que no se conoce ningún algoritmo eficiente que pueda resolver todas las instancias del problema en tiempo polinómico.
 
-                   El TSP tiene importantes aplicaciones en logística, planificación de rutas, diseño de circuitos integrados, programación de producción y muchas otras áreas donde la optimización de la secuencia de visitas es fundamental.
+                   El enfoque más común para resolver el problema de coloreado de grafos es mediante algoritmos heurísticos y metaheurísticos. Estos algoritmos buscan encontrar soluciones subóptimas utilizando estrategias inteligentes de búsqueda y optimización. Algunos ejemplos populares son el algoritmo greedy, que colorea los vértices en un orden determinado asignando el color disponible más bajo, y el algoritmo de búsqueda local, que mejora iterativamente una solución inicial intercambiando colores entre los vértices.
 
-                   El problema es conocido por ser NP-duro, lo que significa que no se ha encontrado una solución eficiente que funcione en todos los casos. Sin embargo, existen algoritmos y técnicas heurísticas que pueden proporcionar soluciones aproximadas de buena calidad para casos prácticos.
+                   Además de los métodos clásicos, el problema de coloreado de grafos también ha sido abordado utilizando técnicas de computación cuántica, como el uso de algoritmos de optimización cuántica y simuladores cuánticos. Estos enfoques aprovechan las propiedades de superposición y entrelazamiento de la computación cuántica para explorar el espacio de soluciones de manera más eficiente.
 
-                   Resolver el TSP es de gran interés debido a su complejidad y aplicaciones prácticas, y ha sido objeto de estudio e investigación durante décadas.</p>
-
+                   En resumen, el problema de coloreado de grafos es un desafío importante en la teoría de grafos y la optimización combinatoria, con aplicaciones prácticas en diversos campos. Aunque no existen algoritmos eficientes para resolverlo en tiempo polinómico, se han desarrollado enfoques heurísticos y metaheurísticos, así como técnicas de computación cuántica, para abordar el problema y encontrar soluciones subóptimas.</p>
             </td>
         </tr>
     </table>
 </div>
 
 <div id="resolverProblema">
-    <fieldset id="cajaTSP">
+    <fieldset id="cajaGraphColor">
         <legend>Problema</legend>
     <div id="cargarProblema">
-        <div id="cargarProblemaTSPManual">
+        <div id="cargarProblemaGraphColorManual">
             <div>
+                <h2>Cargar problema manualmente</h2>
+                <!-- Introducir número de nodos del grafo -->
+                <div>
+                    <input type="text" name="numeroNodosGraphColor" id="numeroNodosGraphColor">
+                    <button onclick="seleccionarNumeroNodosGraphColor()">Número de vertices</button> <button onclick="limpiarNumNodosGraphColor()">Limpiar</button>
+                    <br>
+                    <br>
+                    <input type="text" name="numeroColores" id="numeroColores">
+                    <button onclick="seleccionarNumeroColores()">Número de colores</button> <button onclick="limpiarNumColores()">Limpiar</button>
+                    <br>
+                    <br>
+                    <input type="text" name="numeroRepGraphColor" id="numeroRepGraphColor">
+                    <button onclick="seleccionarNumeroRepsGraphColor()">Número de repeticiones</button> <button onclick="limpiarNumRepsGraphColor()">Limpiar</button>
+                </div>
+                <br>
+                <!-- Agregar las conexiones entre nodos del grafo TERMINAR -->
+                <h5>Agregar conexiones</h5>
+                <table>
+                    <tr>
+                        <td>
+                            <h5>Nodo 1</h5>
+                            <input type="text" name="conexionNodo1" id="conexionNodo1">
+                        </td>
+                        <td>
+                            <h5>Nodo 2</h5>
+                            <input type="text" name="conexionNodo2" id="conexionNodo2">
+                        </td>
+                    </tr>
+                </table>
+                <button onclick="agregarConexionGraphColor()">Agregar conexión</button> <button onclick="limpiarConexionesGraphColor()">Limpiar</button>
+                <br>
+
                 <h2>Resolver el problema</h2>
                 <label for="solver">Elige una forma de resolverlo:</label>
                 <select name="solver" id="solver">
@@ -60,12 +91,21 @@
             </div>
 
         </div>
-        <div id="cargarProblemaTSPArchivo">
+        <div id="cargarProblemaGraphColorArchivo">
 
             <h2>Cargar problema a través de archivo</h2>
             <input type="file" id="archivoTexto" accept=".txt">
             <button onclick="cargarArchivoProblema()">Cargar</button>
 
+            <div>
+                <h2>Datos del problema</h2>
+                <div id="datosProblemaGraphColor">
+                    <h5>Número de vertices: <h5 id="txtNumVerticesGraphColor"></h5></h5>
+                    <h5>Número de colores: <h5 id="txtNumColoresGraphColor"></h5></h5>
+                    <h5>Número de repeticiones: <h5 id="txtNumRepGraphColor"></h5></h5>
+                    <h5>Conexiones: <h5 id="txtConexGraphColor"></h5> </h5>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -79,7 +119,7 @@
     </fieldset>
 </div>
 
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/scriptGraphColor.js') }}"></script>
 
 </body>
 </html>

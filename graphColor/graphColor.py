@@ -23,12 +23,13 @@ from qiskit_optimization.translators import \
 #
 # PARÁMETROS
 #
-numeroNodos = sys.argv[1]
-conexiones = sys.argv[2]
-repeticiones = int(sys.argv[3])
-metodo = sys.argv[4]
+numeroNodos = int(sys.argv[1])
+numeroColores = int(sys.argv[2])
+numeroRep = int(sys.argv[3])
+conexiones = sys.argv[4]
+metodo = sys.argv[5]
 
-elist = [tuple(map(int, elemento.split(','))) for elemento in conexiones.split(';')]
+print(conexiones)
 
 #
 # DEFINICIÓN DEL PROBLEMA
@@ -40,36 +41,28 @@ def formularProblemaDocplex():
     ##
     ## DATOS DEL PROBLEMA
     ##
-    cities = [0, 1, 2, 3]
-    connections = [(0, 1, 2), (0, 2, 1), (0, 3, 3), (1, 2, 4), (1, 3, 1), (2, 3, 1), (1, 0, 2), (2, 0, 1), (3, 0, 3), (2, 1, 4), (3, 1, 1), (3, 2, 1)]
-
-    # Pesos
-    w = {(j, k): cost for j, k, cost in connections}
-    # Número de nodos
-    m = len(cities)
+    num_vertices = numeroNodos
+    num_colors = numeroColores
+    edges = [(0, 1), (0, 2), (1, 3), (2, 3)]
 
     ####################
     ## MODELO docplex ##
     ####################
-    mdl = Model(name="TSP")
+    mdl = Model(name='Graph Coloring')
 
-    # Variables binarias
-    x = {(j, l): mdl.binary_var(name=f"x{j}{l}") for j in cities for l in cities}
+    # Diccionario para guardar las variables binarias
+    x = {}
 
-    # Restricción 1
-    for j in cities:
-        mdl.add_constraint(mdl.sum(x[(j, l)] for l in cities) == 1)
+    # Crear variables binarias para cada vértice y combinación de color
+    for j in range(num_vertices):
+        for l in range(num_colors):
+            x[j, l] = mdl.binary_var(name=f'x{j}{l}')
 
-    # Restricción 2
-    for l in cities:
-        mdl.add_constraint(mdl.sum(x[(j, l)] for j in cities) == 1)
+    # Definir función objetivo teniendo en cuenta penalty terms
+    objective = mdl.sum((mdl.sum(x[j, l] for l in range(num_colors)) - 1) ** 2 for j in range(num_vertices))
+    objective += mdl.sum(x[j, l] * x[h, l] for (j, h) in edges for l in range((num_colors)-1))
 
-    # Expresión del costo
-    total_cost = mdl.sum(w[(j, k)] * x[(j, l)] * x[(k, (l + 1))] for l in range(len(cities)) for j in cities for k in cities if j != k if(j,k) in w if (j,l) in x and(k, l+1) in x)
-    mdl.minimize(total_cost)
-
-    # Resolver el modelo docplex
-    solution = mdl.solve()
+    mdl.minimize(objective)
 
     return mdl
 

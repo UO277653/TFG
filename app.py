@@ -35,6 +35,12 @@ def execute_Knapsack():
     output = subprocess.check_output(['python', './knapsack/knapsack.py', datos.get('pesoMaximo'), datos.get('arrayValores'), datos.get('arrayPesos'), datos.get('metodo')])
     return output
 
+@app.route('/executeGraphColor', methods=['POST'])
+def execute_GraphColor():
+    datos = request.get_json()
+    output = subprocess.check_output(['python', './graphColor/graphColor.py', datos.get('numeroNodos'), datos.get('numeroColores'), datos.get('numeroRep'), datos.get('conexiones'), datos.get('metodo')])
+    return output
+
 @app.route('/executeMaxCutLocal', methods=['POST'])
 def execute_MaxCutLocal():
     datos = request.get_json()

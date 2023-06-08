@@ -154,10 +154,6 @@ function cargarArchivoProblema(){
         arrayConexionesString = parametro3;
         //
 
-        console.log("Parámetro 1: " + parametro1);
-        console.log("Parámetro 2: " + parametro2);
-        console.log("Parámetro 3: " + parametro3);
-
         const conexiones = [];
         const partes = arrayConexionesString.split(";");
 
