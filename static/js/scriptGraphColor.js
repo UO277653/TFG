@@ -159,14 +159,6 @@ function procesarArchivoProblema(archivoTexto) {
     actualizarDatosProblema();
 }
 
-$(document).ready(function() {
-    $("#comoResolver").click(function() {
-        resultDiv.innerHTML = "";
-        metodo = document.getElementById("solver").value;
-        ejecutarScriptPython();
-    });
-});
-
 function cargarArchivoProblema(){
     var archivoInput = document.getElementById('archivoTexto');
     var archivo = archivoInput.files[0];

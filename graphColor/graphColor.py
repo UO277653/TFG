@@ -29,7 +29,18 @@ numeroRep = int(sys.argv[3])
 conexiones = sys.argv[4]
 metodo = sys.argv[5]
 
-print(conexiones)
+# Eliminar los espacios en blanco y separar la cadena por comas
+conexionesLimpio = conexiones.replace(" ", "").split(",")
+
+lista_tuplas = []
+for valor in conexionesLimpio:
+    valores = valor.strip("()").split(",")
+    if len(valores) == 2:
+        tupla = tuple(map(int, valores))
+    else:
+        # Asignar valores predeterminados si la tupla tiene menos de 2 elementos
+        tupla = (int(valores[0]), 0)
+    lista_tuplas.append(tupla)
 
 #
 # DEFINICIÓN DEL PROBLEMA
@@ -43,7 +54,7 @@ def formularProblemaDocplex():
     ##
     num_vertices = numeroNodos
     num_colors = numeroColores
-    edges = [(0, 1), (0, 2), (1, 3), (2, 3)]
+    edges = lista_tuplas
 
     ####################
     ## MODELO docplex ##
