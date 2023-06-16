@@ -4,40 +4,17 @@ var numeroNodos = 0;
 var numeroRep = 0;
 var arrayConexiones = [];
 var arrayConexionesString = "";
-
+var metodo = "";
 
 $(document).ready(function() {
     $("#comoResolver").click(function() {
         resultDiv.innerHTML = "";
-
-        var solver = document.getElementById("solver").value;
-        switch (solver) {
-            case "simuladorLocal":
-                ejecutarScriptPython("/executeMaxCutLocal");
-                break;
-            case "simuladorRemoto":
-                ejecutarScriptPython("/executeMaxCutRemoto");
-                break;
-            case "ordenadorReal":
-                ejecutarScriptPython("/executeMaxCutReal");
-                break;
-            case "annealer":
-                ejecutarScriptPython("/executeMaxCutAnnealer");
-                break;
-            case "annealerSimulatedAnnealingSolver":
-                ejecutarScriptPython("/executeMaxCutAnnealerSimulatedAnnealingSolver");
-                break;
-            case "annealerTabuSolver":
-                ejecutarScriptPython("/executeMacCutAnnealerTabuSolver");
-                break;
-            case "annealerSteepestDescentSolver":
-                ejecutarScriptPython("/executeMaxCutSteepestDescentSolver");
-                break;
-        }
+        metodo = document.getElementById("solver").value
+        ejecutarScriptPython();
     });
 });
 
-function ejecutarScriptPython(scriptUrl) {
+function ejecutarScriptPython() {
 
     if(arrayConexiones.length > 0) {
         arrayConexionesString = "";
@@ -54,14 +31,15 @@ function ejecutarScriptPython(scriptUrl) {
     }
 
     var parametros = {
-        "nodos": numeroNodos,
+        "nodos": numeroNodos + "",
         "conexiones": arrayConexionesString,
-        "repeticiones": numeroRep
+        "repeticiones": numeroRep + "",
+        "metodo": metodo
     }
 
     $.ajax({
         type: "POST",
-        url: scriptUrl,
+        url: "executeMaxCut",
         data: JSON.stringify(parametros), // JSON.stringify(arrayConexiones)
         contentType: 'application/json',
         success: function(response) {
