@@ -330,4 +330,4 @@ reps = 1
 shots = 1024
 num_reads = 100
 
-experimento1(4, 7, 1)
+experimento1(3, 5, 1)
