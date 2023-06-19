@@ -1,6 +1,7 @@
 import random
 
 import dimod
+import numpy as np
 from dwave.system import DWaveSampler
 from dwave.system import EmbeddingComposite
 from qiskit import IBMQ
@@ -16,6 +17,7 @@ from qiskit_optimization.algorithms import \
 from qiskit_optimization.runtime import QAOAClient
 from qiskit.providers.ibmq import least_busy
 
+
 def metodoSimuladorLocal(num_nodos, conexiones, shots):
 
     # Creamos los términos de Pauli correspondientes a las conexiones
@@ -30,8 +32,9 @@ def metodoSimuladorLocal(num_nodos, conexiones, shots):
     # Suma de los términos de Pauli
     H1 = sum(pauli_terms)
 
-    quantum_instance = QuantumInstance(Aer.get_backend("aer_simulator"),shots = shots)
-    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance, reps=reps)
+    seed = 277653
+    quantum_instance = QuantumInstance(Aer.get_backend("aer_simulator"),shots = shots, seed_simulator=seed, seed_transpiler=seed)
+    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance, reps=reps, initial_point=np.zeros(2*reps))
     result = qaoa.compute_minimum_eigenvalue(H1)
 
     datosResultados = {}
@@ -71,9 +74,10 @@ def metodoSimuladorReal(num_nodos, conexiones):
     print("Ejecutando en:", backend)
 
     # Configurar QuantumInstance con el backend seleccionado
-    quantum_instance = QuantumInstance(backend, shots=shots)
+    seed = 277653
+    quantum_instance = QuantumInstance(backend, shots=shots, seed_simulator=seed, seed_transpiler=seed)
 
-    qaoa = QAOA(optimizer=COBYLA(), quantum_instance=quantum_instance, reps=reps)
+    qaoa = QAOA(optimizer=COBYLA(), quantum_instance=quantum_instance, reps=reps, initial_point=np.zeros(2*reps))
     result = qaoa.compute_minimum_eigenvalue(H1)
 
     # Probar todos los posibles expectationValue
@@ -238,11 +242,40 @@ def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cu
             archivo.write(str(aEscribir))
             n+=1
 
+def leerInstancias(nombreArchivo, numGrafosMin, numGrafosMax):
+    instancias = []
 
+    with open(nombreArchivo, 'r') as archivo:
+        lineas = archivo.readlines()
+
+        for linea in lineas:
+            numeroVertices, conexiones = linea.strip().split('-')
+            numeroVertices = int(numeroVertices)
+
+            if(numeroVertices < numGrafosMin or numeroVertices > numGrafosMax):
+                continue
+
+            # Crear el diccionario de la instancia
+            instancia = {
+                'numeroVertices': numeroVertices,
+                'conexiones': []
+            }
+
+            conexiones = conexiones.split(';')
+            conexiones = conexiones[:-1]
+
+            # Leer las conexiones de la instancia
+            for con in conexiones:
+                num1, num2 = con.split(',')
+                instancia['conexiones'].append((int(num1), int(num2)))
+
+            instancias.append(instancia)
+
+    return instancias
 
 def experimento1(numGrafosMin, numGrafosMax, numInstancias):
 
-    # TODO Limpiar archivos en los que se van a exportar los datos
+    # Limpiar archivos en los que se van a exportar los datos
     with open("ultimosDatosSimulacionQAOA.txt", 'w') as archivo:
         archivo.write("")
 
@@ -260,10 +293,7 @@ def experimento1(numGrafosMin, numGrafosMax, numInstancias):
     n = 0
     grafosAleatorios = []
 
-    for num_vertices in range(numGrafosMin,numGrafosMax):
-        num_instancias = numInstancias
-        instancias = generarGrafoAleatorio(num_vertices, num_instancias)
-        grafosAleatorios.extend(instancias)
+    grafosAleatorios.extend(leerInstancias("grafosMaxCut.txt", numGrafosMin, numGrafosMax))
 
     for grafo in grafosAleatorios:
 
@@ -330,7 +360,6 @@ def experimento1(numGrafosMin, numGrafosMax, numInstancias):
     imprimirResultadosExperimento('QAOA local: ', porcentajeSolucionOptimaQAOALocal, porcentajeSolucionCumpleRestriccionesQAOALocal, energiaMediaQAOALocal, energiaMediaOptimaQAOALocal)
     ##    imprimirResultadosExperimento('QAOA Real: ', porcentajeSolucionOptimaQAOAReal, porcentajeSolucionCumpleRestriccionesQAOAReal, energiaMediaQAOAReal, energiaMediaOptimaQAOAReal)
     imprimirResultadosExperimento('Annealer: ', porcentajeSolucionOptimaAnnealer, porcentajeSolucionCumpleRestriccionesAnnealer, energiaMediaAnnealer, energiaMediaOptimaAnnealer)
-
 
 num_reads_annealer = 100
 shots = 1024
