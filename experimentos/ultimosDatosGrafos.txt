@@ -1,0 +1,320 @@
+Max-Cut,5,Annealer,1.0,100,-5.0
+Max-Cut,5,Simulación QAOA (reps=2),0.5889872173058014,100,-3.54
+Max-Cut,5,Annealer,1.0,100,-3.0
+Max-Cut,5,Simulación QAOA (reps=2),0.14243614931237722,100,-0.98
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.2222222222222222,100,-1.93
+Max-Cut,5,Annealer,1.0,100,-5.0
+Max-Cut,5,Simulación QAOA (reps=2),0.5275590551181102,100,-3.43
+Max-Cut,5,Annealer,1.0,100,-3.0
+Max-Cut,5,Simulación QAOA (reps=2),0.13542688910696762,100,-0.92
+Max-Cut,5,Annealer,1.0,100,-5.0
+Max-Cut,5,Simulación QAOA (reps=2),0.23893805309734514,100,-2.26
+Max-Cut,5,Annealer,0.0,100,-2.0
+Max-Cut,5,Simulación QAOA (reps=2),0.2903543307086614,100,-0.96
+Max-Cut,5,Annealer,1.0,100,-3.0
+Max-Cut,5,Simulación QAOA (reps=2),0.5512820512820513,100,-1.92
+Max-Cut,5,Annealer,1.0,100,-3.0
+Max-Cut,5,Simulación QAOA (reps=2),0.5426052889324192,100,-2.06
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.1772771792360431,100,-0.66
+Max-Cut,5,Annealer,1.0,100,-3.0
+Max-Cut,5,Simulación QAOA (reps=2),0.5639763779527559,100,-1.95
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.0756385068762279,100,-0.88
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.3228346456692913,100,-2.4
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.17850098619329388,100,-1.16
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.14285714285714285,100,-1.14
+Max-Cut,5,Annealer,1.0,100,-3.0
+Max-Cut,5,Simulación QAOA (reps=2),0.9249753208292202,100,-2.69
+Max-Cut,5,Annealer,1.0,100,-5.0
+Max-Cut,5,Simulación QAOA (reps=2),0.39782823297137215,100,-2.92
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.28220255653883974,100,-2.24
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.1717369970559372,100,-0.77
+Max-Cut,5,Annealer,1.0,100,-4.0
+Max-Cut,5,Simulación QAOA (reps=2),0.21322803553800593,100,-1.91
+Max-Cut,6,Annealer,1.0,100,-4.0
+Max-Cut,6,Simulación QAOA (reps=2),0.2241035856573705,100,-1.32
+Max-Cut,6,Annealer,1.0,100,-4.0
+Max-Cut,6,Simulación QAOA (reps=2),0.3904856293359762,100,-2.29
+Max-Cut,6,Annealer,1.0,100,-6.0
+Max-Cut,6,Simulación QAOA (reps=2),0.04369414101290963,100,-1.38
+Max-Cut,6,Annealer,1.0,100,-5.0
+Max-Cut,6,Simulación QAOA (reps=2),0.23198420533070088,100,-2.94
+Max-Cut,6,Annealer,1.0,100,-5.0
+Max-Cut,6,Simulación QAOA (reps=2),0.25691699604743085,100,-2.63
+Max-Cut,6,Annealer,1.0,100,-4.0
+Max-Cut,6,Simulación QAOA (reps=2),0.43873517786561267,100,-2.47
+Max-Cut,6,Annealer,1.0,100,-4.0
+Max-Cut,6,Simulación QAOA (reps=2),0.10515873015873016,100,-1.33
+Max-Cut,6,Annealer,1.0,100,-5.0
+Max-Cut,6,Simulación QAOA (reps=2),0.17012858555885263,100,-2.65
+Max-Cut,6,Annealer,1.0,100,-4.0
+Max-Cut,6,Simulación QAOA (reps=2),0.35258964143426297,100,-1.65
+Max-Cut,6,Annealer,1.0,100,-5.0
+Max-Cut,6,Simulación QAOA (reps=2),0.030815109343936383,100,-1.6
+Max-Cut,6,Annealer,1.0,100,-5.0
+Max-Cut,6,Simulación QAOA (reps=2),0.4380574826560951,100,-3.46
+Max-Cut,6,Annealer,1.0,100,-7.0
+Max-Cut,6,Simulación QAOA (reps=2),0.18361303060217177,100,-2.67
+Max-Cut,6,Annealer,1.0,100,-4.0
+Max-Cut,6,Simulación QAOA (reps=2),0.3399405351833499,100,-1.6
+Max-Cut,6,Annealer,1.0,100,-4.0
+Max-Cut,6,Simulación QAOA (reps=2),0.17196819085487078,100,-0.47
+Max-Cut,6,Annealer,1.0,100,-7.0
+Max-Cut,6,Simulación QAOA (reps=2),0.152324431256182,100,-1.43
+Max-Cut,6,Annealer,1.0,100,-4.0
+Max-Cut,6,Simulación QAOA (reps=2),0.1553588987217306,100,-1.84
+Max-Cut,6,Annealer,1.0,100,-6.0
+Max-Cut,6,Simulación QAOA (reps=2),0.27460629921259844,100,-3.49
+Max-Cut,6,Annealer,1.0,100,-5.0
+Max-Cut,6,Simulación QAOA (reps=2),0.5203171456888008,100,-2.6
+Max-Cut,6,Annealer,1.0,100,-5.0
+Max-Cut,6,Simulación QAOA (reps=2),0.12003968253968254,100,-1.41
+Max-Cut,6,Annealer,1.0,100,-5.0
+Max-Cut,6,Simulación QAOA (reps=2),0.22376237623762377,100,-2.33
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA (reps=2),0.4044265593561368,100,-3.84
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA (reps=2),0.00909090909090909,100,-0.77
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA (reps=2),0.21747765640516387,100,-4.61
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA (reps=2),0.07684630738522955,100,-2.45
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA (reps=2),0.1277445109780439,100,-2.8
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA (reps=2),0.14796425024826215,100,-3.73
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA (reps=2),0.2637913741223671,100,-3.41
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA (reps=2),0.07707707707707707,100,-0.71
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA (reps=2),0.18686868686868688,100,-2.95
+Max-Cut,7,Annealer,1.0,100,-8.0
+Max-Cut,7,Simulación QAOA (reps=2),0.0572289156626506,100,-3.23
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA (reps=2),0.08673978065802593,100,-2.56
+Max-Cut,7,Annealer,1.0,100,-5.0
+Max-Cut,7,Simulación QAOA (reps=2),0.2754491017964072,100,-2.51
+Max-Cut,7,Annealer,1.0,100,-8.0
+Max-Cut,7,Simulación QAOA (reps=2),0.44543650793650796,100,-4.77
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA (reps=2),0.02814070351758794,100,0.25
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA (reps=2),0.22277722277722278,100,-3.44
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA (reps=2),0.0814070351758794,100,-1.35
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA (reps=2),0.05572441742654509,100,-0.48
+Max-Cut,7,Annealer,1.0,100,-5.0
+Max-Cut,7,Simulación QAOA (reps=2),0.07171314741035857,100,-1.98
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA (reps=2),0.07085828343313373,100,-2.0
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA (reps=2),0.12637913741223672,100,-1.54
+Max-Cut,8,Annealer,1.0,100,-10.0
+Max-Cut,8,Simulación QAOA (reps=2),0.23856858846918488,100,-5.71
+Max-Cut,8,Annealer,0.0,100,-5.0
+Max-Cut,8,Simulación QAOA (reps=2),0.2134944612286002,100,-4.22
+Max-Cut,8,Annealer,1.0,100,-9.0
+Max-Cut,8,Simulación QAOA (reps=2),0.020491803278688523,100,-1.01
+Max-Cut,8,Annealer,1.0,100,-8.0
+Max-Cut,8,Simulación QAOA (reps=2),0.08020304568527918,100,-2.23
+Max-Cut,8,Annealer,1.0,100,-8.0
+Max-Cut,8,Simulación QAOA (reps=2),0.042008196721311473,100,-1.99
+Max-Cut,8,Annealer,1.0,100,-8.0
+Max-Cut,8,Simulación QAOA (reps=2),0.08835341365461848,100,-3.21
+Max-Cut,8,Annealer,1.0,100,-9.0
+Max-Cut,8,Simulación QAOA (reps=2),0.13613101330603888,100,-1.04
+Max-Cut,8,Annealer,1.0,100,-9.0
+Max-Cut,8,Simulación QAOA (reps=2),0.03744939271255061,100,-2.75
+Max-Cut,8,Annealer,1.0,100,-6.0
+Max-Cut,8,Simulación QAOA (reps=2),0.1807967313585291,100,-2.85
+Max-Cut,8,Annealer,1.0,100,-8.0
+Max-Cut,8,Simulación QAOA (reps=2),0.022448979591836733,100,-2.83
+Max-Cut,8,Annealer,0.0,100,-5.0
+Max-Cut,8,Simulación QAOA (reps=2),0.19657258064516128,100,-3.77
+Max-Cut,8,Annealer,1.0,100,-8.0
+Max-Cut,8,Simulación QAOA (reps=2),0.2882703777335984,100,-5.41
+Max-Cut,8,Annealer,1.0,100,-6.0
+Max-Cut,8,Simulación QAOA (reps=2),0.18415637860082304,100,-2.58
+Max-Cut,8,Annealer,1.0,100,-6.0
+Max-Cut,8,Simulación QAOA (reps=2),0.053061224489795916,100,-1.63
+Max-Cut,8,Annealer,1.0,100,-8.0
+Max-Cut,8,Simulación QAOA (reps=2),0.1911021233569262,100,-3.84
+Max-Cut,8,Annealer,1.0,100,-6.0
+Max-Cut,8,Simulación QAOA (reps=2),0.3738601823708207,100,-2.94
+Max-Cut,8,Annealer,0.0,100,-5.0
+Max-Cut,8,Simulación QAOA (reps=2),0.025799793601651185,100,-0.28
+Max-Cut,8,Annealer,1.0,100,-7.0
+Max-Cut,8,Simulación QAOA (reps=2),0.30303030303030304,100,-4.11
+Max-Cut,8,Annealer,0.0,100,-6.0
+Max-Cut,8,Simulación QAOA (reps=2),0.013333333333333334,100,-1.58
+Max-Cut,8,Annealer,1.0,100,-8.0
+Max-Cut,8,Simulación QAOA (reps=2),0.005035246727089627,100,-1.98
+Max-Cut,9,Annealer,1.0,100,-9.0
+Max-Cut,9,Simulación QAOA (reps=2),0.0255863539445629,100,-0.45
+Max-Cut,9,Annealer,1.0,100,-10.0
+Max-Cut,9,Simulación QAOA (reps=2),0.007231404958677686,100,-0.61
+Max-Cut,9,Annealer,1.0,100,-14.0
+Max-Cut,9,Simulación QAOA (reps=2),0.0,100,-0.84
+Max-Cut,9,Annealer,1.0,100,-8.0
+Max-Cut,9,Simulación QAOA (reps=2),0.10040983606557377,100,-4.54
+Max-Cut,9,Annealer,1.0,100,-10.0
+Max-Cut,9,Simulación QAOA (reps=2),0.016753926701570682,100,-0.9
+Max-Cut,9,Annealer,1.0,100,-7.0
+Max-Cut,9,Simulación QAOA (reps=2),0.2841025641025641,100,-4.1
+Max-Cut,9,Annealer,1.0,100,-10.0
+Max-Cut,9,Simulación QAOA (reps=2),0.012618296529968454,100,-2.8
+Max-Cut,9,Annealer,0.0,100,-8.0
+Max-Cut,9,Simulación QAOA (reps=2),0.009278350515463918,100,-1.52
+Max-Cut,9,Annealer,1.0,100,-8.0
+Max-Cut,9,Simulación QAOA (reps=2),0.022916666666666665,100,-1.15
+Max-Cut,9,Annealer,0.0,100,-9.0
+Max-Cut,9,Simulación QAOA (reps=2),0.037987679671457907,100,-4.21
+Max-Cut,9,Annealer,1.0,100,-8.0
+Max-Cut,9,Simulación QAOA (reps=2),0.17163412127440905,100,-4.04
+Max-Cut,9,Annealer,1.0,100,-9.0
+Max-Cut,9,Simulación QAOA (reps=2),0.17293997965412003,100,-5.62
+Max-Cut,9,Annealer,1.0,100,-10.0
+Max-Cut,9,Simulación QAOA (reps=2),0.021649484536082474,100,-4.1
+Max-Cut,9,Annealer,1.0,100,-10.0
+Max-Cut,9,Simulación QAOA (reps=2),0.009249743062692703,100,-3.29
+Max-Cut,9,Annealer,0.0,100,-7.0
+Max-Cut,9,Simulación QAOA (reps=2),0.01865284974093264,100,-4.12
+Max-Cut,9,Annealer,1.0,100,-8.0
+Max-Cut,9,Simulación QAOA (reps=2),0.017507723995880537,100,-1.28
+Max-Cut,9,Annealer,0.0,100,-7.0
+Max-Cut,9,Simulación QAOA (reps=2),0.0,100,-1.54
+Max-Cut,9,Annealer,1.0,100,-9.0
+Max-Cut,9,Simulación QAOA (reps=2),0.4030150753768844,100,-6.53
+Max-Cut,9,Annealer,1.0,100,-9.0
+Max-Cut,9,Simulación QAOA (reps=2),0.007238883143743537,100,-0.82
+Max-Cut,9,Annealer,1.0,100,-8.0
+Max-Cut,9,Simulación QAOA (reps=2),0.17453798767967146,100,-4.27
+Max-Cut,10,Annealer,1.0,100,-12.0
+Max-Cut,10,Simulación QAOA (reps=2),0.029045643153526972,100,-2.82
+Max-Cut,10,Annealer,1.0,100,-11.0
+Max-Cut,10,Simulación QAOA (reps=2),0.005230125523012552,100,-1.9
+Max-Cut,10,Annealer,1.0,100,-11.0
+Max-Cut,10,Simulación QAOA (reps=2),0.012526096033402923,100,-1.23
+Max-Cut,10,Annealer,1.0,100,-12.0
+Max-Cut,10,Simulación QAOA (reps=2),0.030518819938962362,100,-4.34
+Max-Cut,10,Annealer,1.0,100,-13.0
+Max-Cut,10,Simulación QAOA (reps=2),0.05394190871369295,100,-5.8
+Max-Cut,10,Annealer,1.0,100,-12.0
+Max-Cut,10,Simulación QAOA (reps=2),0.0020491803278688526,100,-1.84
+Max-Cut,10,Annealer,1.0,100,-11.0
+Max-Cut,10,Simulación QAOA (reps=2),0.0,100,-2.48
+Max-Cut,10,Annealer,1.0,100,-12.0
+Max-Cut,10,Simulación QAOA (reps=2),0.002098635886673662,100,-0.14
+Max-Cut,10,Annealer,1.0,100,-13.0
+Max-Cut,10,Simulación QAOA (reps=2),0.02182952182952183,100,-4.91
+Max-Cut,10,Annealer,1.0,100,-13.0
+Max-Cut,10,Simulación QAOA (reps=2),0.01053740779768177,100,-4.62
+Max-Cut,10,Annealer,0.0,100,-9.0
+Max-Cut,10,Simulación QAOA (reps=2),0.0541922290388548,100,-6.2
+Max-Cut,10,Annealer,0.0,100,-9.0
+Max-Cut,10,Simulación QAOA (reps=2),0.007391763463569166,100,-0.24
+Max-Cut,10,Annealer,1.0,100,-19.0
+Max-Cut,10,Simulación QAOA (reps=2),0.0,100,-1.78
+Max-Cut,10,Annealer,1.0,100,-12.0
+Max-Cut,10,Simulación QAOA (reps=2),0.0010298661174047373,100,-1.74
+Max-Cut,10,Annealer,0.0,100,-9.0
+Max-Cut,10,Simulación QAOA (reps=2),0.006141248720573183,100,-3.07
+Max-Cut,10,Annealer,1.0,100,-10.0
+Max-Cut,10,Simulación QAOA (reps=2),0.025853154084798345,100,-5.01
+Max-Cut,10,Annealer,1.0,100,-13.0
+Max-Cut,10,Simulación QAOA (reps=2),0.11278952668680765,100,-7.38
+Max-Cut,10,Annealer,1.0,100,-10.0
+Max-Cut,10,Simulación QAOA (reps=2),0.06914344685242518,100,-4.33
+Max-Cut,10,Annealer,0.0,100,-9.0
+Max-Cut,10,Simulación QAOA (reps=2),0.014583333333333334,100,-3.96
+Max-Cut,10,Annealer,1.0,100,-12.0
+Max-Cut,10,Simulación QAOA (reps=2),0.04,100,-4.79
+Max-Cut,11,Annealer,1.0,100,-13.0
+Max-Cut,11,Simulación QAOA (reps=2),0.003033367037411527,100,-2.48
+Max-Cut,11,Annealer,0.0,100,-12.0
+Max-Cut,11,Simulación QAOA (reps=2),0.0,100,-0.9
+Max-Cut,11,Annealer,0.0,100,-10.0
+Max-Cut,11,Simulación QAOA (reps=2),0.003036437246963563,100,0.07
+Max-Cut,11,Annealer,1.0,100,-12.0
+Max-Cut,11,Simulación QAOA (reps=2),0.04979253112033195,100,-5.11
+Max-Cut,11,Annealer,1.0,100,-12.0
+Max-Cut,11,Simulación QAOA (reps=2),0.0031380753138075313,100,-0.21
+Max-Cut,11,Annealer,0.0,100,-10.0
+Max-Cut,11,Simulación QAOA (reps=2),0.0030991735537190084,100,-3.16
+Max-Cut,11,Annealer,0.0,100,-9.0
+Max-Cut,11,Simulación QAOA (reps=2),0.07329842931937172,100,-5.13
+Max-Cut,11,Annealer,1.0,100,-12.0
+Max-Cut,11,Simulación QAOA (reps=2),0.1728395061728395,100,-7.04
+Max-Cut,11,Annealer,1.0,100,-15.0
+Max-Cut,11,Simulación QAOA (reps=2),0.022058823529411766,100,-5.38
+Max-Cut,11,Annealer,0.0,100,-10.0
+Max-Cut,11,Simulación QAOA (reps=2),0.006160164271047228,100,-2.73
+Max-Cut,11,Annealer,1.0,100,-13.0
+Max-Cut,11,Simulación QAOA (reps=2),0.0,100,-0.92
+Max-Cut,11,Annealer,1.0,100,-14.0
+Max-Cut,11,Simulación QAOA (reps=2),0.0020470829068577278,100,-0.14
+Max-Cut,11,Annealer,1.0,100,-12.0
+Max-Cut,11,Simulación QAOA (reps=2),0.002028397565922921,100,-1.48
+Max-Cut,11,Annealer,0.0,100,-9.0
+Max-Cut,11,Simulación QAOA (reps=2),0.010319917440660475,100,-0.87
+Max-Cut,11,Annealer,0.0,100,-10.0
+Max-Cut,11,Simulación QAOA (reps=2),0.013374485596707819,100,-6.79
+Max-Cut,11,Annealer,0.0,100,-9.0
+Max-Cut,11,Simulación QAOA (reps=2),0.012371134020618556,100,-0.46
+Max-Cut,11,Annealer,0.0,100,-10.0
+Max-Cut,11,Simulación QAOA (reps=2),0.0,100,-2.03
+Max-Cut,11,Annealer,0.0,100,-10.0
+Max-Cut,11,Simulación QAOA (reps=2),0.0020855057351407717,100,-3.74
+Max-Cut,11,Annealer,1.0,100,-11.0
+Max-Cut,11,Simulación QAOA (reps=2),0.009268795056642637,100,-1.97
+Max-Cut,11,Annealer,1.0,100,-12.0
+Max-Cut,11,Simulación QAOA (reps=2),0.004069175991861648,100,-1.25
+Max-Cut,12,Annealer,0.0,100,-12.0
+Max-Cut,12,Simulación QAOA (reps=2),0.07489878542510121,100,-5.07
+Max-Cut,12,Annealer,0.0,100,-10.0
+Max-Cut,12,Simulación QAOA (reps=2),0.12601626016260162,100,-6.71
+Max-Cut,12,Annealer,1.0,100,-15.0
+Max-Cut,12,Simulación QAOA (reps=2),0.0010050251256281408,100,-0.93
+Max-Cut,12,Annealer,1.0,100,-15.0
+Max-Cut,12,Simulación QAOA (reps=2),0.007157464212678937,100,-2.69
+Max-Cut,12,Annealer,1.0,100,-18.0
+Max-Cut,12,Simulación QAOA (reps=2),0.03696098562628337,100,-8.69
+Max-Cut,12,Annealer,0.0,100,-12.0
+Max-Cut,12,Simulación QAOA (reps=2),0.0040650406504065045,100,-3.23
+Max-Cut,12,Annealer,0.0,100,-8.0
+Max-Cut,12,Simulación QAOA (reps=2),0.004965243296921549,100,-2.56
+Max-Cut,12,Annealer,1.0,100,-13.0
+Max-Cut,12,Simulación QAOA (reps=2),0.00796812749003984,100,0.03
+Max-Cut,12,Annealer,0.0,100,-12.0
+Max-Cut,12,Simulación QAOA (reps=2),0.0020898641588296763,100,-3.15
+Max-Cut,12,Annealer,0.0,100,-13.0
+Max-Cut,12,Simulación QAOA (reps=2),0.009202453987730062,100,-6.3
+Max-Cut,12,Annealer,1.0,100,-15.0
+Max-Cut,12,Simulación QAOA (reps=2),0.007135575942915392,100,-3.26
+Max-Cut,12,Annealer,0.0,100,-14.0
+Max-Cut,12,Simulación QAOA (reps=2),0.001006036217303823,100,-3.03
+Max-Cut,12,Annealer,1.0,100,-13.0
+Max-Cut,12,Simulación QAOA (reps=2),0.01001001001001001,100,-0.43
+Max-Cut,12,Annealer,0.0,100,-13.0
+Max-Cut,12,Simulación QAOA (reps=2),0.0,100,-3.44
+Max-Cut,12,Annealer,0.0,100,-15.0
+Max-Cut,12,Simulación QAOA (reps=2),0.0,100,-0.57
+Max-Cut,12,Annealer,1.0,100,-16.0
+Max-Cut,12,Simulación QAOA (reps=2),0.007142857142857143,100,-6.03
+Max-Cut,12,Annealer,1.0,100,-18.0
+Max-Cut,12,Simulación QAOA (reps=2),0.0,100,-0.76
+Max-Cut,12,Annealer,0.0,100,-9.0
+Max-Cut,12,Simulación QAOA (reps=2),0.01748971193415638,100,-7.71
+Max-Cut,12,Annealer,1.0,100,-14.0
+Max-Cut,12,Simulación QAOA (reps=2),0.0010121457489878543,100,-3.21
+Max-Cut,12,Annealer,1.0,100,-15.0
+Max-Cut,12,Simulación QAOA (reps=2),0.02268041237113402,100,-5.91

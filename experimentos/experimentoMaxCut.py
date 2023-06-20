@@ -2,6 +2,7 @@ import random
 import time
 import dimod
 import numpy as np
+from util import leerInstancias, escribirDatosGrafo
 
 from dwave.system import DWaveSampler
 from dwave.system import EmbeddingComposite
@@ -18,6 +19,7 @@ from qiskit_optimization.algorithms import \
 from qiskit_optimization.runtime import QAOAClient
 from qiskit.providers.ibmq import least_busy
 import time
+
 
 def metodoSimuladorLocal(num_nodos, conexiones, shots):
 
@@ -117,39 +119,6 @@ def metodoExactoAnnealer(problem):
 
     return result
 
-def imprimirResultadosExperimento(metodo, porcentajeSolucionOptima, porcentajeSolucionCumpleRestricciones, energiaMedia, energiaMediaOptima):
-
-    print('Porcentaje de veces que se obtiene la solución óptima:')
-    print(metodo + str(porcentajeSolucionOptima))
-    print('Porcentaje de veces que se obtiene una solución que cumple las restricciones:')
-    print(metodo + str(porcentajeSolucionCumpleRestricciones))
-    print('Energía media de las soluciones obtenidas:')
-    print(metodo + str(energiaMedia))
-    print('Energía media de las soluciones óptimas:')
-    print(metodo + str(energiaMediaOptima))
-    print("")
-
-def generarGrafoAleatorio(numeroVertices, numInstancias):
-    instancias = []
-
-    for _ in range(numInstancias):
-        # Generar todas las posibles conexiones entre los vértices
-        conexiones = [(i, j) for i in range(numeroVertices) for j in range(i + 1, numeroVertices)]
-
-        # Seleccionar aleatoriamente un subconjunto de conexiones
-        numConexiones = random.randint(1, len(conexiones))
-        conexionesSeleccionadas = random.sample(conexiones, numConexiones)
-
-        # Crear el diccionario de la instancia
-        instancia = {
-            'numeroVertices': numeroVertices,
-            'conexiones': conexionesSeleccionadas
-        }
-
-        instancias.append(instancia)
-
-    return instancias
-
 def cumpleRestriccionesMaxCut():
 
     # La restricción es que se usen valores binarios, para indicar que el vértice
@@ -166,11 +135,17 @@ def obtenerEstadisticasAnnealer(result, optimalResult, nNodos):
     array_sol_optima = []
     n = 0
 
+    porcentajeSolOptima = 0
+
     for res in result.data_vectors['energy']:
         comparativaSoluciones[res] = solucion_optima == res ## TODO tengo que usar el vector, no la energia, que lo cambie en el for
         for i in range(0, result.data_vectors['num_occurrences'][n]):
             array_sol_optima.append(comparativaSoluciones[res])
+            if comparativaSoluciones[res]:
+                porcentajeSolOptima += 1
         n += 1
+
+    porcentajeSolOptima /= float(num_reads_annealer)
 
     # Verificar si la solución cumple las restricciones
     cumple_restricciones = cumpleRestriccionesMaxCut()
@@ -181,10 +156,15 @@ def obtenerEstadisticasAnnealer(result, optimalResult, nNodos):
 
     n = 0
 
+    energia = 0
+
     for res in result.data_vectors['energy']:
         for i in range(0, result.data_vectors['num_occurrences'][n]):
             array_sol_obtenida.append(str(res))
+            energia += res
         n += 1
+
+    energia /= float(num_reads_annealer)
 
     # Obtener la energía de la solución óptima
     energia_solucion_optima = solucion_optima
@@ -195,6 +175,8 @@ def obtenerEstadisticasAnnealer(result, optimalResult, nNodos):
     # Crear archivo .txt con datos
     metodo = "Annealer"
     crearArchivoTxt("ultimosDatosAnnealer.txt", "Max-Cut", nNodos, metodo, array_sol_optima, True, array_sol_obtenida, optimalResult.first.energy, 0)
+
+    escribirDatosGrafo("Max-Cut", nNodos, metodo, porcentajeSolOptima, "100", energia)
 
     # Devolver el array de resultados
     return resultados
@@ -207,10 +189,19 @@ def obtenerEstadisticasQAOA(result, optimalResult, datosResultados, nNodos, tiem
     comparativaSoluciones = {}
     array_sol_optima = []
 
+    porcentajeSolOptima = 0
+
+    n = 0
+
     for solucion in datosResultados:
         comparativaSoluciones[solucion] = datosResultados[solucion][1] == optimalResult.first.energy
         for i in range(0, datosResultados[solucion][0]):
             array_sol_optima.append(comparativaSoluciones[solucion])
+            n += 1
+            if(comparativaSoluciones[solucion]):
+                porcentajeSolOptima += 1
+
+    porcentajeSolOptima /= n
 
     # Verificar si la solución cumple las restricciones
     cumple_restricciones = cumpleRestriccionesMaxCut()
@@ -220,10 +211,15 @@ def obtenerEstadisticasQAOA(result, optimalResult, datosResultados, nNodos, tiem
     energia_solucion_obtenida = 0
     array_sol_obtenida = []
 
+    energia = 0
+
     for solucion in datosResultados:
         for i in range(0, datosResultados[solucion][0]):
             array_sol_obtenida.append(datosResultados[solucion][1])
             energia_solucion_obtenida += datosResultados[solucion][1]
+            energia += datosResultados[solucion][1]
+
+    energia /= n
 
     energia_solucion_obtenida /= len(datosResultados)
 
@@ -237,8 +233,9 @@ def obtenerEstadisticasQAOA(result, optimalResult, datosResultados, nNodos, tiem
     metodo = "Simulación QAOA (reps=" +  str(reps) + ")"
     crearArchivoTxt("ultimosDatosSimulacionQAOA.txt", "Max-Cut", nNodos, metodo, array_sol_optima, True, array_sol_obtenida, optimalResult.first.energy, tiempoQAOA)
 
+    escribirDatosGrafo("Max-Cut", nNodos, metodo, porcentajeSolOptima, "100", round(energia,2))
 
-    # Devolver el array de resultados
+# Devolver el array de resultados
     return resultados
 
 def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cumpleRestricciones, vectorEnergiaSolObtenida, energiaSolOptima, tiempo):
@@ -251,38 +248,9 @@ def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cu
             archivo.write(str(aEscribir))
             n+=1
 
-def leerInstancias(nombreArchivo, numGrafosMin, numGrafosMax):
-    instancias = []
 
-    with open(nombreArchivo, 'r') as archivo:
-        lineas = archivo.readlines()
 
-        for linea in lineas:
-            numeroVertices, conexiones = linea.strip().split('-')
-            numeroVertices = int(numeroVertices)
-
-            if(numeroVertices < numGrafosMin or numeroVertices > numGrafosMax):
-                continue
-
-            # Crear el diccionario de la instancia
-            instancia = {
-                'numeroVertices': numeroVertices,
-                'conexiones': []
-            }
-
-            conexiones = conexiones.split(';')
-            conexiones = conexiones[:-1]
-
-            # Leer las conexiones de la instancia
-            for con in conexiones:
-                num1, num2 = con.split(',')
-                instancia['conexiones'].append((int(num1), int(num2)))
-
-            instancias.append(instancia)
-
-    return instancias
-
-def experimento1(numGrafosMin, numGrafosMax, numInstancias):
+def experimento1(numGrafosMin, numGrafosMax):
 
     # Limpiar archivos en los que se van a exportar los datos
     with open("ultimosDatosSimulacionQAOA.txt", 'w') as archivo:
@@ -291,11 +259,8 @@ def experimento1(numGrafosMin, numGrafosMax, numInstancias):
     with open("ultimosDatosAnnealer.txt", 'w') as archivo:
         archivo.write("")
 
-    # Variables para ir guardando resultados
-    porcentajeSolucionOptimaQAOALocal, porcentajeSolucionOptimaQAOAReal, porcentajeSolucionOptimaAnnealer = 0, 0, 0
-    porcentajeSolucionCumpleRestriccionesQAOALocal, porcentajeSolucionCumpleRestriccionesQAOAReal, porcentajeSolucionCumpleRestriccionesAnnealer  = 0, 0, 0
-    energiaMediaQAOALocal, energiaMediaQAOAReal, energiaMediaAnnealer = 0, 0, 0
-    energiaMediaOptimaQAOALocal, energiaMediaOptimaQAOAReal, energiaMediaOptimaAnnealer = 0, 0, 0
+    with open("ultimosDatosGrafos.txt", 'w') as archivo:
+        archivo.write("")
 
     # Generar grafos aleatorios
     datosGrafos = {}
@@ -317,22 +282,6 @@ def experimento1(numGrafosMin, numGrafosMax, numInstancias):
         estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA)
         ##        estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
-        # Actualizar resultados
-        porcentajeSolucionOptimaQAOALocal += estadisticasQAOALocal[0]
-        porcentajeSolucionCumpleRestriccionesQAOALocal += estadisticasQAOALocal[1]
-        energiaMediaQAOALocal += estadisticasQAOALocal[2]
-        energiaMediaOptimaQAOALocal += estadisticasQAOALocal[3]
-
-        ##        porcentajeSolucionOptimaQAOAReal += estadisticasQAOAReal[0]
-        ##        porcentajeSolucionCumpleRestriccionesQAOAReal += estadisticasQAOAReal[1]
-        ##        energiaMediaQAOAReal += estadisticasQAOAReal[2]
-        ##        energiaMediaOptimaQAOAReal += estadisticasQAOAReal[3]
-
-        porcentajeSolucionOptimaAnnealer += estadisticasAnnealer[0]
-        porcentajeSolucionCumpleRestriccionesAnnealer += estadisticasAnnealer[1]
-        energiaMediaAnnealer += estadisticasAnnealer[2]
-        energiaMediaOptimaAnnealer += estadisticasAnnealer[3]
-
         datosGrafos[grafo['numeroVertices'], n] = {
             'estadisticasQAOALocal': estadisticasQAOALocal,
             'estadisticasAnnealer': estadisticasAnnealer
@@ -340,38 +289,15 @@ def experimento1(numGrafosMin, numGrafosMax, numInstancias):
 
         n += 1
 
-    ## Calcular medias
-    # QAOA Local
-    porcentajeSolucionOptimaQAOALocal /= len(grafosAleatorios) * 0.01
-    porcentajeSolucionCumpleRestriccionesQAOALocal /= len(grafosAleatorios) * 0.01
-    energiaMediaQAOALocal /= len(grafosAleatorios)
-    energiaMediaOptimaQAOALocal /= len(grafosAleatorios)
-
-    ## QAOA Real
-    ##    porcentajeSolucionOptimaQAOAReal /= len(grafosAleatorios) * 0.01
-    ##    porcentajeSolucionCumpleRestriccionesQAOAReal /= len(grafosAleatorios) * 0.01
-    ##    energiaMediaQAOAReal /= len(grafosAleatorios)
-    ##    energiaMediaOptimaQAOAReal /= len(grafosAleatorios)
-
-    # Annealer
-    porcentajeSolucionOptimaAnnealer /= len(grafosAleatorios) * 0.01
-    porcentajeSolucionCumpleRestriccionesAnnealer /= len(grafosAleatorios) * 0.01
-    energiaMediaAnnealer /= len(grafosAleatorios)
-    energiaMediaOptimaAnnealer /= len(grafosAleatorios)
-
     print("")
 
     for dato in datosGrafos:
         print(dato, " QAOA Local: ", datosGrafos[dato]['estadisticasQAOALocal'], " Annealer:", datosGrafos[dato]['estadisticasAnnealer'])
 
     print("")
-    ## Imprimir resultados
-    imprimirResultadosExperimento('QAOA local: ', porcentajeSolucionOptimaQAOALocal, porcentajeSolucionCumpleRestriccionesQAOALocal, energiaMediaQAOALocal, energiaMediaOptimaQAOALocal)
-    ##    imprimirResultadosExperimento('QAOA Real: ', porcentajeSolucionOptimaQAOAReal, porcentajeSolucionCumpleRestriccionesQAOAReal, energiaMediaQAOAReal, energiaMediaOptimaQAOAReal)
-    imprimirResultadosExperimento('Annealer: ', porcentajeSolucionOptimaAnnealer, porcentajeSolucionCumpleRestriccionesAnnealer, energiaMediaAnnealer, energiaMediaOptimaAnnealer)
 
-num_reads_annealer = 100
+num_reads_annealer = 1 ## TODO cambiar a 100
 shots = 1024
-reps = 4
+reps = 2
 
-experimento1(5,10,3)
+experimento1(5,12)
