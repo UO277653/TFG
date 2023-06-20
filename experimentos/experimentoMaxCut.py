@@ -1,7 +1,8 @@
 import random
-
+import time
 import dimod
 import numpy as np
+
 from dwave.system import DWaveSampler
 from dwave.system import EmbeddingComposite
 from qiskit import IBMQ
@@ -16,7 +17,7 @@ from qiskit_optimization.algorithms import \
     MinimumEigenOptimizer
 from qiskit_optimization.runtime import QAOAClient
 from qiskit.providers.ibmq import least_busy
-
+import time
 
 def metodoSimuladorLocal(num_nodos, conexiones, shots):
 
@@ -32,10 +33,17 @@ def metodoSimuladorLocal(num_nodos, conexiones, shots):
     # Suma de los términos de Pauli
     H1 = sum(pauli_terms)
 
+    # Establecer las seeds
     seed = 277653
+    np.random.seed(277653)
+
     quantum_instance = QuantumInstance(Aer.get_backend("aer_simulator"),shots = shots, seed_simulator=seed, seed_transpiler=seed)
-    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance, reps=reps, initial_point=np.zeros(2*reps))
+    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance, reps=reps, initial_point=np.random.uniform(0, 2*np.pi, 2*reps)) # np.ones(2*reps)
+
+    inicio = time.time()
     result = qaoa.compute_minimum_eigenvalue(H1)
+    start = time.time()
+    tiempoCalculo = (int((start - inicio)*1000))/shots
 
     datosResultados = {}
 
@@ -51,7 +59,7 @@ def metodoSimuladorLocal(num_nodos, conexiones, shots):
 
     print(datosResultados)
 
-    return expectationValue.real, datosResultados
+    return expectationValue.real, datosResultados, tiempoCalculo
 
 def metodoSimuladorReal(num_nodos, conexiones):
 
@@ -75,9 +83,10 @@ def metodoSimuladorReal(num_nodos, conexiones):
 
     # Configurar QuantumInstance con el backend seleccionado
     seed = 277653
+
     quantum_instance = QuantumInstance(backend, shots=shots, seed_simulator=seed, seed_transpiler=seed)
 
-    qaoa = QAOA(optimizer=COBYLA(), quantum_instance=quantum_instance, reps=reps, initial_point=np.zeros(2*reps))
+    qaoa = QAOA(optimizer=COBYLA(), quantum_instance=quantum_instance, reps=reps, initial_point=np.ones(2*reps))
     result = qaoa.compute_minimum_eigenvalue(H1)
 
     # Probar todos los posibles expectationValue
@@ -185,12 +194,12 @@ def obtenerEstadisticasAnnealer(result, optimalResult, nNodos):
 
     # Crear archivo .txt con datos
     metodo = "Annealer"
-    crearArchivoTxt("ultimosDatosAnnealer.txt", "Max-Cut", nNodos, metodo, array_sol_optima, True, array_sol_obtenida, optimalResult.first.energy)
+    crearArchivoTxt("ultimosDatosAnnealer.txt", "Max-Cut", nNodos, metodo, array_sol_optima, True, array_sol_obtenida, optimalResult.first.energy, 0)
 
     # Devolver el array de resultados
     return resultados
 
-def obtenerEstadisticasQAOA(result, optimalResult, datosResultados, nNodos):
+def obtenerEstadisticasQAOA(result, optimalResult, datosResultados, nNodos, tiempoQAOA):
 
     # Verificar si se ha obtenido la solución óptima
     solucion_optima = optimalResult.first.energy == result ## Comparar con el resultado optimo
@@ -226,19 +235,19 @@ def obtenerEstadisticasQAOA(result, optimalResult, datosResultados, nNodos):
 
     # Crear archivo .txt con datos
     metodo = "Simulación QAOA (reps=" +  str(reps) + ")"
-    crearArchivoTxt("ultimosDatosSimulacionQAOA.txt", "Max-Cut", nNodos, metodo, array_sol_optima, True, array_sol_obtenida, optimalResult.first.energy)
+    crearArchivoTxt("ultimosDatosSimulacionQAOA.txt", "Max-Cut", nNodos, metodo, array_sol_optima, True, array_sol_obtenida, optimalResult.first.energy, tiempoQAOA)
 
 
     # Devolver el array de resultados
     return resultados
 
-def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cumpleRestricciones, vectorEnergiaSolObtenida, energiaSolOptima):
+def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cumpleRestricciones, vectorEnergiaSolObtenida, energiaSolOptima, tiempo):
 
     n = 0
 
     with open(nombreArchivo, 'a') as archivo:
         for sol in vectorSolOptima:
-            aEscribir = str(problema) + "," + str(nNodos) + "," + str(metodo) + "," + str(sol) + "," + str(cumpleRestricciones) + "," + str(vectorEnergiaSolObtenida[n]) + "," + str(energiaSolOptima) + "\n"
+            aEscribir = str(problema) + "," + str(nNodos) + "," + str(metodo) + "," + str(sol) + "," + str(cumpleRestricciones) + "," + str(vectorEnergiaSolObtenida[n]) + "," + str(energiaSolOptima) + "," + str(tiempo) + "\n"
             archivo.write(str(aEscribir))
             n+=1
 
@@ -298,14 +307,14 @@ def experimento1(numGrafosMin, numGrafosMax, numInstancias):
     for grafo in grafosAleatorios:
 
         # Resolver el problema
-        resultAnnealer, problem = metodoAnnealer(grafo['conexiones'], num_reads_annealer)
-        resultQAOALocal, datosResultadosQAOA = metodoSimuladorLocal(grafo['numeroVertices'], grafo['conexiones'], shots)
+        resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(grafo['numeroVertices'], grafo['conexiones'], shots)
         ##        resultQAOAReal = metodoSimuladorReal(grafo['numeroVertices'], grafo['conexiones'])
+        resultAnnealer, problem = metodoAnnealer(grafo['conexiones'], num_reads_annealer)
         resultAnnealerOptimal = metodoExactoAnnealer(problem)
 
         # Obtener estadísticas
         estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'])
-        estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'])
+        estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA)
         ##        estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
         # Actualizar resultados
@@ -363,6 +372,6 @@ def experimento1(numGrafosMin, numGrafosMax, numInstancias):
 
 num_reads_annealer = 100
 shots = 1024
-reps = 1
+reps = 4
 
-experimento1(11,13,3)
+experimento1(5,10,3)

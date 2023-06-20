@@ -8,7 +8,7 @@ def generarGrafosAleatoriosMaxCut(numeroVertices, numInstancias, nombreArchivo):
         conexiones = [(i, j) for i in range(numeroVertices) for j in range(i + 1, numeroVertices)]
 
         # Seleccionar aleatoriamente un subconjunto de conexiones
-        numConexiones = random.randint(1, len(conexiones))
+        numConexiones = random.randint(int(len(conexiones)/2), int(len(conexiones)*0.8))
         conexionesSeleccionadas = random.sample(conexiones, numConexiones)
 
         # Crear el diccionario de la instancia
