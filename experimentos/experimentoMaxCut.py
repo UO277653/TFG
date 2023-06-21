@@ -138,7 +138,7 @@ def obtenerEstadisticasAnnealer(result, optimalResult, nNodos):
     porcentajeSolOptima = 0
 
     for res in result.data_vectors['energy']:
-        comparativaSoluciones[res] = solucion_optima == res ## TODO tengo que usar el vector, no la energia, que lo cambie en el for
+        comparativaSoluciones[res] = solucion_optima == res
         for i in range(0, result.data_vectors['num_occurrences'][n]):
             array_sol_optima.append(comparativaSoluciones[res])
             if comparativaSoluciones[res]:
@@ -296,8 +296,8 @@ def experimento1(numGrafosMin, numGrafosMax):
 
     print("")
 
-num_reads_annealer = 1 ## TODO cambiar a 100
+num_reads_annealer = 1
 shots = 1024
-reps = 2
+reps = 4
 
-experimento1(5,12)
+experimento1(13,13)
