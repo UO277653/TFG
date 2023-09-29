@@ -72,3 +72,21 @@ TSP,5,Simulación QAOA (reps=1),0.0,100,155.0
 TSP,5,Annealer,0.0,100,-5791.0
 TSP,5,Simulación QAOA (reps=1),0.0,100,219.0
 TSP,5,Annealer,0.0,100,-5783.0
+Knapsack,3,Annealer,0.0,100,-198.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-4.0
+Knapsack,3,Annealer,0.0,100,-106.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-2.0
+Knapsack,3,Annealer,0.0,100,-177.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-3.0
+Knapsack,3,Annealer,0.0,100,-254.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-3.0
+Knapsack,3,Annealer,0.0,100,-99.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-2.0
+Knapsack,3,Annealer,0.0,100,-211.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-6.15
+Knapsack,3,Annealer,0.0,100,-116.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-3.13
+Knapsack,3,Annealer,0.0,100,-200.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-5.3
+Knapsack,3,Annealer,0.0,100,-114.0
+Knapsack,3,Simulación QAOA (reps=1),0.0,100,-3.01

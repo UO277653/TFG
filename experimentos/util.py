@@ -141,6 +141,26 @@ def generarGrafoAleatorioTSP(numeroVertices, numInstancias, pesoMaximoConexion):
 
     return instancias
 
+def generarGrafoAleatorioKnapsack(numeroVertices, numInstancias, pesoMaximoConexion):
+    instancias = []
+
+    for _ in range(numInstancias):
+        # Generar todas las posibles conexiones entre los vértices
+        valores = [(random.randint(1,pesoMaximoConexion)) for i in range(numeroVertices)]
+        pesos = [(random.randint(1,pesoMaximoConexion)) for i in range(numeroVertices)]
+        pesoMaximo = pesoMaximoConexion
+
+        # Crear el diccionario de la instancia
+        instancia = {
+            'valores': valores,
+            'pesos': pesos,
+            'pesoMaximo': pesoMaximo
+        }
+
+        instancias.append(instancia)
+
+    return instancias
+
 def leerInstancias(nombreArchivo):
     instancias = []
 
@@ -230,6 +250,43 @@ def leerInstanciasTSP(nombreArchivo, numGrafosMin, numGrafosMax):
             instancias.append(instancia)
 
     return instancias
+
+def leerInstanciasKnapsack(nombreArchivo, numObjetosMin, numObjetosMax):
+    instancias = []
+
+    with open(nombreArchivo, 'r') as archivo:
+        lineas = archivo.readlines()
+
+        for linea in lineas:
+            numeroVertices, valores, pesos, pesoMaximo = linea.strip().split(';')
+            numeroVertices = int(numeroVertices)
+
+            if(numeroVertices < numObjetosMin or numeroVertices > numObjetosMax):
+                continue
+
+            # Crear el diccionario de la instancia
+            instancia = {
+                'numeroVertices': numeroVertices,
+                'valores': [],
+                'pesos': [],
+                'pesoMaximo': int(pesoMaximo)
+            }
+
+            valores = valores.split(',')
+
+            for val in valores:
+                instancia['valores'].append(int(val))
+
+            pesos = pesos.split(',')
+
+            for peso in pesos:
+                instancia['pesos'].append(int(peso))
+
+            instancias.append(instancia)
+
+    return instancias
+
+
 
 def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cumpleRestricciones, vectorEnergiaSolObtenida, energiaSolOptima, tiempo):
 

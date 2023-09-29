@@ -31,26 +31,6 @@ def formularProblemaDocplex(valores, pesos, max_weight):
 
     return mdl
 
-def generarGrafoAleatorioKnapsack(numeroVertices, numInstancias, pesoMaximoConexion):
-    instancias = []
-
-    for _ in range(numInstancias):
-        # Generar todas las posibles conexiones entre los vértices
-        valores = [(random.randint(1,pesoMaximoConexion)) for i in range(numeroVertices)]
-        pesos = [(random.randint(1,pesoMaximoConexion)) for i in range(numeroVertices)]
-        pesoMaximo = pesoMaximoConexion
-
-        # Crear el diccionario de la instancia
-        instancia = {
-            'valores': valores,
-            'pesos': pesos,
-            'pesoMaximo': pesoMaximo
-        }
-
-        instancias.append(instancia)
-
-    return instancias
-
 def cumpleRestriccionesKnapsackAnnealer(result, pesos, pesoMaximo):
 
     nodos = len(pesos)
@@ -66,98 +46,53 @@ def cumpleRestriccionesKnapsackAnnealer(result, pesos, pesoMaximo):
 
     return True
 
-def experimento1(numGrafosMin, numGrafosMax, numInstancias, pesoMaximo):
+def experimento1(numObjetosMin, numObjetosMax):
 
-    #
-    # Variables para ir guardando resultados
-    #
+    limpiarArchivosExperimentos("ultimosDatosSimulacionQAOA_Knapsack.txt", "ultimosDatosAnnealer_Knapsack.txt", "ultimosDatosGrafos_Knapsack.txt")
 
-    # Porcentaje de veces que se obtiene la solución óptima
-    porcentajeSolucionOptimaQAOALocal, porcentajeSolucionOptimaQAOAReal, porcentajeSolucionOptimaAnnealer = 0, 0, 0
+    # Obtener grafos
+    datosGrafos = {}
+    n = 0
+    grafos = []
+    grafos.extend(leerInstanciasKnapsack("grafosKnapsack.txt", numObjetosMin, numObjetosMax))
 
-    # Porcentaje de veces que se obtiene una solución que cumple las restricciones
-    porcentajeSolucionCumpleRestriccionesQAOALocal, porcentajeSolucionCumpleRestriccionesQAOAReal, porcentajeSolucionCumpleRestriccionesAnnealer  = 0, 0, 0
+    # Procesar grafos
+    for grafo in grafos:
 
-    # Energía media de las soluciones obtenidas
-    energiaMediaQAOALocal, energiaMediaQAOAReal, energiaMediaAnnealer = 0, 0, 0
-
-    # Energía media de las soluciones óptimas
-    energiaMediaOptimaQAOALocal, energiaMediaOptimaQAOAReal, energiaMediaOptimaAnnealer = 0, 0, 0
-
-    #
-    # Generar grafos aleatorios
-    #
-    grafosAleatorios = []
-
-    for num_vertices in range(numGrafosMin, numGrafosMax):
-        # Número de instancias a generar para cada número de vértices
-        instancias = generarGrafoAleatorioKnapsack(num_vertices, numInstancias, pesoMaximo)
-        grafosAleatorios.extend(instancias)
-
-    print(len(grafosAleatorios))
-
-    for grafo in grafosAleatorios:
-
-        print(f"Valores: ", grafo['valores'], "\nPesos: ", grafo['pesos'], "\nPeso máximo: ", grafo['pesoMaximo'])
         # Formular el problema
         mdl = formularProblemaDocplex(grafo['valores'], grafo['pesos'], grafo['pesoMaximo'])
         qp = formularProblemaQiskit(mdl)
         bqm_binary = formularProblemaDwave(qp)
 
         # Resolver el problema
-        resultQAOALocal = metodoSimuladorLocal(qp, shots, reps)
-        # resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
-        resultAnnealer = metodoAnnealer(bqm_binary, num_reads)
+        resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, reps)
+        ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
+        resultAnnealer = metodoAnnealer(bqm_binary, num_reads_annealer)
         resultAnnealerOptimal = metodoExactoAnnealer(bqm_binary)
 
         # Obtener estadísticas
-        estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal)
-        # estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultAnnealerOptimal)
-        estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['pesos'], grafo['pesoMaximo'])
+        estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], True, num_reads_annealer, "ultimosDatosAnnealer_Knapsack.txt", "Knapsack")
+        estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, True, reps, "ultimosDatosSimulacionQAOA_Knapsack.txt", "Knapsack")
+        ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
-        # Actualizar resultados
-        porcentajeSolucionOptimaQAOALocal += estadisticasQAOALocal[0]
-        porcentajeSolucionCumpleRestriccionesQAOALocal += estadisticasQAOALocal[1]
-        energiaMediaQAOALocal += estadisticasQAOALocal[2]
-        energiaMediaOptimaQAOALocal += estadisticasQAOALocal[3]
+        datosGrafos[grafo['numeroVertices'], n] = {
+            'estadisticasQAOALocal': estadisticasQAOALocal,
+            'estadisticasAnnealer': estadisticasAnnealer
+        }
 
-        # porcentajeSolucionOptimaQAOAReal += estadisticasQAOAReal[0]
-        # porcentajeSolucionCumpleRestriccionesQAOAReal += estadisticasQAOAReal[1]
-        # energiaMediaQAOAReal += estadisticasQAOAReal[2]
-        # energiaMediaOptimaQAOAReal += estadisticasQAOAReal[3]
+        print(n)
 
-        porcentajeSolucionOptimaAnnealer += estadisticasAnnealer[0]
-        porcentajeSolucionCumpleRestriccionesAnnealer += estadisticasAnnealer[1]
-        energiaMediaAnnealer += estadisticasAnnealer[2]
-        energiaMediaOptimaAnnealer += estadisticasAnnealer[3]
-
-    ## Calcular medias
-    # QAOA Local
-    porcentajeSolucionOptimaQAOALocal /= len(grafosAleatorios) * 0.01
-    porcentajeSolucionCumpleRestriccionesQAOALocal /= len(grafosAleatorios) * 0.01
-    energiaMediaQAOALocal /= len(grafosAleatorios)
-    energiaMediaOptimaQAOALocal /= len(grafosAleatorios)
-
-    ## QAOA Real
-    porcentajeSolucionOptimaQAOAReal /= len(grafosAleatorios) * 0.01
-    porcentajeSolucionCumpleRestriccionesQAOAReal /= len(grafosAleatorios) * 0.01
-    energiaMediaQAOAReal /= len(grafosAleatorios)
-    energiaMediaOptimaQAOAReal /= len(grafosAleatorios)
-
-    # Annealer
-    porcentajeSolucionOptimaAnnealer /= len(grafosAleatorios) * 0.01
-    porcentajeSolucionCumpleRestriccionesAnnealer /= len(grafosAleatorios) * 0.01
-    energiaMediaAnnealer /= len(grafosAleatorios)
-    energiaMediaOptimaAnnealer /= len(grafosAleatorios)
+        n += 1
 
     print("")
-    ## Imprimir resultados
-    imprimirResultadosExperimento('QAOA local: ', porcentajeSolucionOptimaQAOALocal, porcentajeSolucionCumpleRestriccionesQAOALocal, energiaMediaQAOALocal, energiaMediaOptimaQAOALocal)
-    # imprimirResultadosExperimento('QAOA Real: ', porcentajeSolucionOptimaQAOAReal, porcentajeSolucionCumpleRestriccionesQAOAReal, energiaMediaQAOAReal, energiaMediaOptimaQAOAReal)
-    imprimirResultadosExperimento('Annealer: ', porcentajeSolucionOptimaAnnealer, porcentajeSolucionCumpleRestriccionesAnnealer, energiaMediaAnnealer, energiaMediaOptimaAnnealer)
+
+    for dato in datosGrafos:
+        print(dato, " QAOA Local: ", datosGrafos[dato]['estadisticasQAOALocal'], " Annealer:", datosGrafos[dato]['estadisticasAnnealer'])
+
+    print("")
 
 reps = 1
-shots = 1024
-num_reads = 100
+shots = 100
+num_reads_annealer = 1
 
-experimento1(3, 5, 1, 20)
+experimento1(3, 3)
