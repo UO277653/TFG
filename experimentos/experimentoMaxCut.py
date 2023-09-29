@@ -2,7 +2,8 @@ import random
 import time
 import dimod
 import numpy as np
-from util import leerInstancias, escribirDatosGrafo
+from util import leerInstancias, \
+    escribirDatosGrafo, crearArchivoTxt
 
 from dwave.system import DWaveSampler
 from dwave.system import EmbeddingComposite
@@ -235,18 +236,8 @@ def obtenerEstadisticasQAOA(result, optimalResult, datosResultados, nNodos, tiem
 
     escribirDatosGrafo("Max-Cut", nNodos, metodo, porcentajeSolOptima, "100", round(energia,2))
 
-# Devolver el array de resultados
+    # Devolver el array de resultados
     return resultados
-
-def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cumpleRestricciones, vectorEnergiaSolObtenida, energiaSolOptima, tiempo):
-
-    n = 0
-
-    with open(nombreArchivo, 'a') as archivo:
-        for sol in vectorSolOptima:
-            aEscribir = str(problema) + "," + str(nNodos) + "," + str(metodo) + "," + str(sol) + "," + str(cumpleRestricciones) + "," + str(vectorEnergiaSolObtenida[n]) + "," + str(energiaSolOptima) + "," + str(tiempo) + "\n"
-            archivo.write(str(aEscribir))
-            n+=1
 
 
 
