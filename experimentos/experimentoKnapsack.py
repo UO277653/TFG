@@ -31,24 +31,9 @@ def formularProblemaDocplex(valores, pesos, max_weight):
 
     return mdl
 
-def cumpleRestriccionesKnapsackAnnealer(result, pesos, pesoMaximo):
-
-    nodos = len(pesos)
-
-    # Restricción: no se puede superar el peso máximo
-    for nodo in range(nodos):
-        sum = 0
-        if(result.first[0][nodo] == 1):
-            sum += pesos[nodo]
-
-    if(sum > pesoMaximo):
-        return False
-
-    return True
-
 def experimento1(numObjetosMin, numObjetosMax):
 
-    limpiarArchivosExperimentos("ultimosDatosSimulacionQAOA_Knapsack.txt", "ultimosDatosAnnealer_Knapsack.txt", "ultimosDatosGrafos_Knapsack.txt")
+    limpiarArchivosExperimentos("ultimosDatosSimulacionQAOA.txt", "ultimosDatosAnnealer.txt", "ultimosDatosGrafos.txt")
 
     # Obtener grafos
     datosGrafos = {}
@@ -71,8 +56,8 @@ def experimento1(numObjetosMin, numObjetosMax):
         resultAnnealerOptimal = metodoExactoAnnealer(bqm_binary)
 
         # Obtener estadísticas
-        estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], True, num_reads_annealer, "ultimosDatosAnnealer_Knapsack.txt", "Knapsack")
-        estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, True, reps, "ultimosDatosSimulacionQAOA_Knapsack.txt", "Knapsack")
+        estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], True, num_reads_annealer, "ultimosDatosAnnealer.txt", "Knapsack")
+        estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, True, reps, "ultimosDatosSimulacionQAOA.txt", "Knapsack")
         ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
         datosGrafos[grafo['numeroVertices'], n] = {
@@ -91,8 +76,57 @@ def experimento1(numObjetosMin, numObjetosMax):
 
     print("")
 
-reps = 1
-shots = 100
-num_reads_annealer = 1
+def experimento2(numGrafosMin, numGrafosMax):
 
-experimento1(3, 3)
+    limpiarArchivosExperimentos("ultimosDatosSimulacionQAOA.txt", "ultimosDatosAnnealer.txt", "ultimosDatosGrafos.txt")
+
+    # Obtener grafos
+    datosGrafos = {}
+    n = 0
+    grafos = []
+    grafos.extend(leerInstanciasKnapsack("grafosKnapsack.txt", numGrafosMin, numGrafosMax))
+
+    # Procesar grafos
+    for grafo in grafos:
+
+        # Formular el problema
+        mdl = formularProblemaDocplex(grafo['valores'], grafo['pesos'], grafo['pesoMaximo'])
+        qp = formularProblemaQiskit(mdl)
+        bqm_binary = formularProblemaDwave(qp)
+
+        # Resolver el problema
+        resultAnnealer = metodoAnnealer(bqm_binary, num_reads_annealer)
+        resultAnnealerOptimal = metodoExactoAnnealer(bqm_binary)
+
+        # Obtener estadísticas
+        estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], num_reads_annealer, "ultimosDatosAnnealer.txt", "Knapsack", grafo['pesos'], grafo['pesoMaximo'])
+
+        for rep in range (1, reps+1):
+            resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, rep)
+            ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
+
+            estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots)
+            ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
+
+        datosGrafos[grafo['numeroVertices'], n] = {
+            'estadisticasQAOALocal': estadisticasQAOALocal,
+            'estadisticasAnnealer': estadisticasAnnealer
+        }
+
+        print(n)
+
+        n += 1
+
+
+    print("")
+
+    for dato in datosGrafos:
+        print(dato, " QAOA Local: ", datosGrafos[dato]['estadisticasQAOALocal'], " Annealer:", datosGrafos[dato]['estadisticasAnnealer'])
+
+    print("")
+
+num_reads_annealer = 100
+reps = 4
+shots = 1024
+
+experimento2(3, 5)

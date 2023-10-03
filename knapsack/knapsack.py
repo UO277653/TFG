@@ -29,7 +29,6 @@ from qiskit_optimization.translators import \
 #
 metodo = sys.argv[4]
 
-# TODO cambiar este a la formulación de este problema
 def formularProblemaDocplex():
 
     ##

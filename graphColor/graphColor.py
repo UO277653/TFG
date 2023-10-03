@@ -46,7 +46,6 @@ for valor in conexionesLimpio:
 # DEFINICIÓN DEL PROBLEMA
 #
 
-# TODO cambiar este a la formulación de este problema
 def formularProblemaDocplex():
 
     ##
