@@ -1,5 +1,6 @@
 body{
     background-color: #f2f2f2;
+    margin: 0.75em 0 0;
 }
 
 #cargarProblema{
@@ -17,10 +18,11 @@ body{
 
 #problem-container {
     max-width: 85%;
-    margin: 0 auto;
+    margin: 3em auto 4em;
     border: 10px double;
     padding: 1em;
     background-color: white;
+    box-shadow: 7px 7px;
 }
 
 #result {
@@ -34,6 +36,8 @@ body{
 }
 
 #imagenProblema img{
+
+    /*border: 10px double;*/
     max-width: 10em;
     max-height: 10em;
 }
@@ -103,6 +107,9 @@ label {
     color: white;
     text-align: center;
     margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    font-size: large;
 }
 
 .navbar ul {
@@ -119,6 +126,7 @@ label {
 .navbar ul li a {
     text-decoration: none;
     color: white;
+    margin: 0 1em;
 }
 
 
