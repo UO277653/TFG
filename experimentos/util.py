@@ -467,6 +467,35 @@ def metodoSimuladorLocal(qp, shots, reps):
 
     return valorMinimo, datosResultados, tiempoCalculo
 
+def metodoSimuladorRemoto(qp, shots, reps):
+
+    # Establecer las seeds
+    seed = 277653
+    np.random.seed(277653)
+
+    provider = IBMQ.load_account()
+    quantum_instance = QuantumInstance(provider.get_backend('ibmq_qasm_simulator'), shots=shots, seed_simulator=seed, seed_transpiler=seed)
+    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = reps, initial_point=np.random.uniform(0, 2*np.pi, 2*reps))
+    qaoa_optimizer = MinimumEigenOptimizer(qaoa)
+    inicio = time.time()
+    result = qaoa_optimizer.solve(qp)
+    start = time.time()
+    tiempoCalculo = (int((start - inicio)*1000))/shots
+
+    datosResultados = {}
+
+    valorMinimo = float('inf')
+    index = 0
+    for x in result.samples:
+
+        datosResultados[index] = [round((x.probability) * shots), x.fval, x.x, x.status]
+        index += 1
+
+        if(valorMinimo > x.fval):
+            valorMinimo = x.fval
+
+    return valorMinimo, datosResultados, tiempoCalculo
+
 def metodoSimuladorReal(qp, reps, num_nodos):
 
     provider = IBMQ.load_account()

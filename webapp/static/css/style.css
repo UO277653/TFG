@@ -23,6 +23,8 @@ body{
     padding: 1em;
     background-color: white;
     box-shadow: 7px 7px;
+
+    position: relative;
 }
 
 #result {
@@ -32,14 +34,23 @@ body{
 }
 
 #imagenProblema{
-    border-right: 10px double;
+    border-right: none;
+    padding-right: 5em;
 }
 
 #imagenProblema img{
 
-    /*border: 10px double;*/
+    border: 10px solid black;
     max-width: 10em;
     max-height: 10em;
+    position: absolute;
+    vertical-align: center;
+    left: -8%;
+    top: 5%;
+    padding: 0.5em 0.5em 0.5em 0.75em;
+    z-index: 200000;
+    border-inline-color: rgb(128, 128, 128);
+    background: white;
 }
 
 #result img {
