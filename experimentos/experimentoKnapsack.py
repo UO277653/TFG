@@ -76,6 +76,7 @@ def experimento1(numObjetosMin, numObjetosMax):
 
     print("")
 
+# Optimizado para consumir menos recursos de D-Wave
 def experimento2(numGrafosMin, numGrafosMax):
 
     limpiarArchivosExperimentos("ultimosDatosSimulacionQAOA.txt", "ultimosDatosAnnealer.txt", "ultimosDatosGrafos.txt")
@@ -102,11 +103,14 @@ def experimento2(numGrafosMin, numGrafosMax):
         estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], num_reads_annealer, "ultimosDatosAnnealer.txt", "Knapsack", grafo['pesos'], grafo['pesoMaximo'])
 
         for rep in range (1, reps+1):
-            resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, rep)
+            #resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, rep)
+            resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorRemoto(qp, shots, rep)
             ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
 
-            estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots)
-            ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
+            #estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots)
+            estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots, remoto=True)
+
+        ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
         datosGrafos[grafo['numeroVertices'], n] = {
             'estadisticasQAOALocal': estadisticasQAOALocal,

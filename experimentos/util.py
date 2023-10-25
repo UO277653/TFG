@@ -467,7 +467,7 @@ def metodoSimuladorLocal(qp, shots, reps):
 
     return valorMinimo, datosResultados, tiempoCalculo
 
-def metodoSimuladorRemoto(qp, shots, reps):
+def metodoSimuladorRemoto(qp, shots, reps, ):
 
     # Establecer las seeds
     seed = 277653
@@ -673,7 +673,7 @@ def obtenerEstadisticasAnnealer(result, optimalResult, nNodos, num_reads_anneale
     # Devolver el array de resultados
     return resultados
 
-def obtenerEstadisticasQAOA(optimalResult, datosResultados, nNodos, tiempoQAOA, reps, nombreArchivo, nombreProblema, shots):
+def obtenerEstadisticasQAOA(optimalResult, datosResultados, nNodos, tiempoQAOA, reps, nombreArchivo, nombreProblema, shots, remoto = False):
 
     # Para guardar cuantas veces se ha encontrado la solucion optima
     comparativaSoluciones = {} # Para guardar si una solucion es la optima o no
@@ -740,7 +740,7 @@ def obtenerEstadisticasQAOA(optimalResult, datosResultados, nNodos, tiempoQAOA, 
     resultados = [solucion_optima, porcentajeSolValida, energia_solucion_obtenida, energia_solucion_optima]
 
     # Crear archivo .txt con datos
-    metodo = "Simulación QAOA (reps=" +  str(reps) + ")"
+    metodo = "Simulación QAOA (reps=" +  str(reps) + ")" if not remoto else "Simulación QAOA remota (reps=" +  str(reps) + ")"
     crearArchivoTxt(nombreArchivo, nombreProblema, nNodos, metodo, array_sol_optima, array_sol_valida, array_sol_obtenida, energia_solucion_optima, tiempoQAOA)
 
     escribirDatosGrafo(nombreProblema, nNodos, metodo, porcentajeSolOptima, porcentajeSolValida, round(energia_solucion_obtenida,2))
