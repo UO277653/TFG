@@ -1,25 +1,2 @@
-Knapsack,5,Annealer,0.0,1.0,-3539.0
-Knapsack,5,Simulación QAOA remota (reps=1),0.0107421875,1.0,-2556.91
-Knapsack,5,Simulación QAOA remota (reps=2),0.0185546875,1.0,-2492.03
-Knapsack,5,Simulación QAOA remota (reps=3),0.0234375,1.0,-2511.24
-Knapsack,5,Simulación QAOA remota (reps=4),0.0166015625,1.0,-2373.17
-Knapsack,5,Annealer,0.0,1.0,-2291.0
-Knapsack,5,Simulación QAOA remota (reps=1),0.0,0.9365234375,-1760.06
-Knapsack,5,Simulación QAOA remota (reps=2),0.0,0.9423828125,-1622.27
-Knapsack,5,Simulación QAOA remota (reps=3),0.0,0.9306640625,-1744.57
-Knapsack,5,Simulación QAOA remota (reps=4),0.0,0.9443359375,-1747.63
-Knapsack,5,Annealer,0.0,1.0,-2565.0
-Knapsack,5,Simulación QAOA remota (reps=1),0.0,0.9404296875,-2074.68
-Knapsack,5,Simulación QAOA remota (reps=2),0.0,0.9755859375,-1934.13
-Knapsack,5,Simulación QAOA remota (reps=3),0.0,0.9541015625,-1977.92
-Knapsack,5,Simulación QAOA remota (reps=4),0.0,0.9716796875,-2012.68
-Knapsack,5,Annealer,0.0,1.0,-3146.0
-Knapsack,5,Simulación QAOA remota (reps=1),0.0,0.9580078125,-2288.95
-Knapsack,5,Simulación QAOA remota (reps=2),0.0,0.9814453125,-2468.83
-Knapsack,5,Simulación QAOA remota (reps=3),0.0,0.986328125,-2280.14
-Knapsack,5,Simulación QAOA remota (reps=4),0.0,0.9501953125,-2263.64
-Knapsack,5,Annealer,0.0,1.0,-3607.0
-Knapsack,5,Simulación QAOA remota (reps=1),0.029296875,1.0,-2472.82
-Knapsack,5,Simulación QAOA remota (reps=2),0.0263671875,1.0,-2438.99
-Knapsack,5,Simulación QAOA remota (reps=3),0.021484375,1.0,-2386.49
-Knapsack,5,Simulación QAOA remota (reps=4),0.0322265625,1.0,-2472.9
+GraphColor,3,Annealer,1.0,1.0,-60.0
+Knapsack,3,Simulación QAOA remota (reps=1),0.173828125,1.0,-21.07

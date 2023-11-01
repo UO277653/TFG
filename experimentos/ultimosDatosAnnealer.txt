@@ -1,5 +1,1 @@
-Knapsack,5,Annealer,False,True,-3539.0,-3615.0,0
-Knapsack,5,Annealer,False,True,-2291.0,-2318.0,0
-Knapsack,5,Annealer,False,True,-2565.0,-2718.0,0
-Knapsack,5,Annealer,False,True,-3146.0,-3150.0,0
-Knapsack,5,Annealer,False,True,-3607.0,-3615.0,0
+GraphColor,3,Annealer,True,True,-60.0,-60.0,0
