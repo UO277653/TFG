@@ -112,7 +112,7 @@ def experimento2(numGrafosMin, numGrafosMax):
         ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
 
             #estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "GraphColor", shots)
-            estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots, remoto=True)
+            estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "GraphColor", shots, remoto=True)
         ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
         datosGrafos[grafo['numeroVertices'], n] = {
