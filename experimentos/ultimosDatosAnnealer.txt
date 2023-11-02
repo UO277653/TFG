@@ -1,1 +1,0 @@
-TSP,3,Annealer,True,True,-114.0,-114.0,0

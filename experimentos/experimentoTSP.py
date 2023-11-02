@@ -135,7 +135,7 @@ def experimento2(numGrafosMin, numGrafosMax):
     print("")
 
 num_reads_annealer = 1 # 100
-reps = 1 # 1,2,3,4
+reps = 4 # 1,2,3,4
 shots = 1024 # 1024
 
-experimento2(3, 3)
+experimento2(3, 4)
