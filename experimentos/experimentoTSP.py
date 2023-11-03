@@ -138,4 +138,4 @@ num_reads_annealer = 1 # 100
 reps = 4 # 1,2,3,4
 shots = 1024 # 1024
 
-experimento2(3, 4)
+experimento2(3, 5)
