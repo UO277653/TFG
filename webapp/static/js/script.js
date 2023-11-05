@@ -273,3 +273,12 @@ function obtenerResultados(response) {
     valorFinalP.textContent = "Valor de la función objetivo: " + valorFinal;
     return {variablesP, resultadoP, valorFinalP};
 }
+
+function cargarSesionQiskit(){
+
+}
+
+function cargarSesionDWave(){
+
+
+}

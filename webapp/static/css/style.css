@@ -120,8 +120,8 @@ button {
 }
 
 button:hover {
-    background-color: #00578e;
-    color: #fff;
+    background-color: rgba(255, 236, 11, 0.9);
+    color: #262626;
 }
 
 input {
@@ -290,4 +290,11 @@ footer > img{
     margin: 3em auto 4em;
     text-align: justify;
     width: 80%;
+}
+
+.botones-sesiones{
+    display:flex;
+    margin: 0 auto;
+    gap: 10%;
+    justify-content: center;
 }

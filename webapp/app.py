@@ -47,6 +47,20 @@ def execute_MaxCut():
     output = subprocess.check_output(['python', './python/maxCut.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones'), datos.get('metodo')])
     return output
 
+@app.route('/configQiskit')
+def configQiskit():
+
+    subprocess.run(['python', './python/configQiskit.py'])
+
+    return render_template('index.html')
+
+@app.route('/configDWave')
+def configDWave():
+
+    subprocess.run(['python', './python/configDWave.py'])
+
+    return render_template('index.html')
+
 if __name__ == '__main__':
     # pdb.set_trace() # Para debug, checkpoint()
     # app.debug = True # Para debug
