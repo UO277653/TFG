@@ -3,15 +3,13 @@
 <head>
     <title>TFG</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <!--<script src="../jquery-3.6.4.js"></script> ¿¿ por que no va ?? -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-    <!--<link rel="stylesheet" type="text/css" href="../static/css/estiloNuevo.css">-->
 </head>
 <body>
 
 <nav class="navbar">
     <ul>
-        <li><a href="/webapp/static">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/maxcut">Max-Cut</a></li>
         <li><a href="/tsp">TSP</a></li>
         <li><a href="/knapsack">Knapsack</a></li>
@@ -19,13 +17,33 @@
     </ul>
 </nav>
 
-
-<div id="problem-container">
-    <h1>TFG</h1>
-   <p>Stelian Adrian Stanci</p>
+<div id="contenedor-titulo">
+    <h1>Diseño e implementación de algoritmos cuánticos para problemas de optimización combinatoria</h1>
 </div>
 
+<div class="izquierda">
+    <h2>Trabajo de Fin de Grado</h2>
+</div>
+
+<p class="texto-descripcion">En el estudio realizado en el TFG, se compara la efectividad de distintos métodos a la hora de resolver diferentes problemas de optimización combinatoria. <br><br>
+    El objetivo de esta aplicación es el de permitir al usuario resolver sus propias instancias de los problemas utilizando dichos métodos, y poder ver de primera mano la efectividad de los mismos, y la calidad de las soluciones obtenidas. <br><br>
+    Para cada problema se presenta una descripción del mismo, una explicación de cómo escribir las instancias para poder cargarlas en la aplicación y otra de cómo interpretar los resultados obtenidos. <br><br>
+    Cabe mencionar que, además de poder introducir los problemas a través de un .txt, estos se pueden introducir también de forma manual. <br><br>
+    Otro apunte relevante es que, además de los métodos vistos en el estudio, también se pueden ejecutar algoritmos clásicos (annealing simulado, el tabú solver, que es una búsqueda local, y el steepest descent), a modo de comparación y de brindar más posibilidades al usuario.
+
+</p>
+
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+<footer class="flex">
+    <img src="../static/img/logouniovi.png" alt="Logo de la Universidad de Oviedo">
+    <div class="grid">
+    <p class="texto-footer">Autor: Stelian Adrian Stanci</p>
+       <p class="texto-footer">Tutor: Elías Fernández-Combarro Álvarez</p>
+    </div>
+    <img src="../static/img/logoeii.png" alt="Logo de la Escuela de Ingeniería Informática">
+</footer>
 
 </body>
 </html>

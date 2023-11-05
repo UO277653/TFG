@@ -8,7 +8,7 @@ var metodo = "";
 
 $(document).ready(function() {
     $("#comoResolver").click(function() {
-        resultDiv.innerHTML = "";
+        resultDiv.appendChild(limpiarResultado());
         metodo = document.getElementById("solver").value
         ejecutarScriptPython();
     });
@@ -43,8 +43,15 @@ function ejecutarScriptPython() {
         data: JSON.stringify(parametros), // JSON.stringify(arrayConexiones)
         contentType: 'application/json',
         success: function(response) {
-            console.log(response);
-            resultDiv.appendChild(document.createTextNode(response));
+            var {
+                variablesP,
+                resultadoP,
+                valorFinalP
+            } = obtenerResultados(response);
+
+            resultDiv.appendChild(variablesP);
+            resultDiv.appendChild(resultadoP);
+            resultDiv.appendChild(valorFinalP);
         },
         error: function(xhr, status, error) {
             console.error(status + ": " + error);
@@ -222,4 +229,47 @@ class Conexion {
         //return "Nodo 1: " + this.nodo1 + ", Nodo 2: " + this.nodo2 + ", Valor: " + this.valor;
         return this.nodo1 + " - " + this.nodo2 + " (" + this.valor + ")";
     }
+}
+
+function limpiarResultado() {
+    // Limpiar el div de resultados
+    var elementosP = resultDiv.getElementsByTagName("p");
+    while (elementosP.length > 0) {
+        resultDiv.removeChild(elementosP[0]);
+    }
+
+    var txtResolviendo = document.createElement("p");
+    txtResolviendo.textContent = "Resolviendo...";
+    return txtResolviendo;
+}
+
+function obtenerResultados(response) {
+    // Quitar mensaje temporal resolviendo
+    var elementosP = resultDiv.getElementsByTagName("p");
+    while (elementosP.length > 0) {
+        resultDiv.removeChild(elementosP[0]);
+    }
+
+    var info = response.split('/'); // Procesamos el output del programa .py
+    var variables = info[0].split(';'); // Dividir las variables
+    var resultado = info[1]; // Obtener el resultado
+    var valorFinal = info[2]; // Obtener el valor final
+    var variablesArray = []; // Array para guardar las variables y sus valores
+
+    console.log(variables)
+
+    for (var i = 0; i < variables.length - 1; i++) {
+        var variable = variables[i].split(',');
+        var nombre = variable[0];
+        var valor = variable[1];
+        variablesArray.push(nombre + ": " + valor);
+    }
+
+    var variablesP = document.createElement("p");
+    variablesP.textContent = "Valores de las variables: " + variablesArray.join(", ");
+    var resultadoP = document.createElement("p");
+    resultadoP.textContent = "Resultado ejecución: " + resultado;
+    var valorFinalP = document.createElement("p");
+    valorFinalP.textContent = "Valor de la función objetivo: " + valorFinal;
+    return {variablesP, resultadoP, valorFinalP};
 }

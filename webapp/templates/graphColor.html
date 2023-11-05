@@ -9,7 +9,7 @@
 
 <nav class="navbar">
     <ul>
-        <li><a href="/webapp/static">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/maxcut">Max-Cut</a></li>
         <li><a href="/tsp">TSP</a></li>
         <li><a href="/knapsack">Knapsack</a></li>
@@ -24,19 +24,53 @@
            <td id="imagenProblema"><img src="../static/img/graphColorImg.png" alt="Imagen del problema graph coloring"></td>
            <td>
                <h1>Coloreado de grafos</h1>
-               <p>El problema de coloreado de grafos es un desafío fundamental en la teoría de grafos y la optimización combinatoria. El objetivo es asignar colores a los vértices de un grafo de manera que dos vértices adyacentes no tengan el mismo color. La idea principal es encontrar una asignación de colores que cumpla con esta restricción utilizando el menor número posible de colores.
+               <p>En el problema de coloreado de grafos el objetivo es asignar colores a los vértices de un grafo de manera que dos vértices adyacentes no tengan el mismo color. La idea principal es encontrar una asignación de colores que cumpla con esta restricción utilizando el menor número posible de colores, o estableciendo un número de colores máximo. <br> <br>
 
-                   El coloreado de grafos tiene aplicaciones prácticas en diversos campos, como la asignación de horarios en instituciones educativas, la asignación de frecuencias en redes de comunicación, el diseño de mapas y la programación de tareas en la planificación de proyectos. Además, el problema es NP-completo, lo que significa que no se conoce ningún algoritmo eficiente que pueda resolver todas las instancias del problema en tiempo polinómico.
+                   El coloreado de grafos tiene aplicaciones prácticas en diversos campos, como la asignación de horarios en instituciones educativas, la asignación de frecuencias en redes de comunicación, el diseño de mapas y la programación de tareas en la planificación de proyectos. Además, el problema es NP-completo, lo que significa que no se conoce ningún algoritmo eficiente que pueda resolver todas las instancias del problema en tiempo polinómico. <br> <br>
 
-                   El enfoque más común para resolver el problema de coloreado de grafos es mediante algoritmos heurísticos y metaheurísticos. Estos algoritmos buscan encontrar soluciones subóptimas utilizando estrategias inteligentes de búsqueda y optimización. Algunos ejemplos populares son el algoritmo greedy, que colorea los vértices en un orden determinado asignando el color disponible más bajo, y el algoritmo de búsqueda local, que mejora iterativamente una solución inicial intercambiando colores entre los vértices.
+                   Existen numerosos métodos clásicos con los que se suele resolver este problema, como el algoritmo greedy o la búsqueda local, pero también ha sido abordado utilizando técnicas de computación cuántica, como el uso de algoritmos de optimización cuántica y simuladores cuánticos. Estos enfoques aprovechan las propiedades de superposición y entrelazamiento de la computación cuántica para explorar el espacio de soluciones de manera más eficiente. <br> <br>
 
-                   Además de los métodos clásicos, el problema de coloreado de grafos también ha sido abordado utilizando técnicas de computación cuántica, como el uso de algoritmos de optimización cuántica y simuladores cuánticos. Estos enfoques aprovechan las propiedades de superposición y entrelazamiento de la computación cuántica para explorar el espacio de soluciones de manera más eficiente.
+                   El problema de coloreado de grafos es un desafío importante en la teoría de grafos y la optimización combinatoria, con aplicaciones prácticas en diversos campos. Aunque no existen algoritmos eficientes para resolverlo en tiempo polinómico, se han desarrollado enfoques heurísticos y metaheurísticos, así como técnicas de computación cuántica, para abordar el problema y encontrar soluciones subóptimas. <br> <br>
 
-                   En resumen, el problema de coloreado de grafos es un desafío importante en la teoría de grafos y la optimización combinatoria, con aplicaciones prácticas en diversos campos. Aunque no existen algoritmos eficientes para resolverlo en tiempo polinómico, se han desarrollado enfoques heurísticos y metaheurísticos, así como técnicas de computación cuántica, para abordar el problema y encontrar soluciones subóptimas.</p>
-            </td>
+               <p> <b>Interpretación de los resultados</b> <br>
+                   En este caso todos los métodos generan el mismo número de variables, y se puede usar el mismo procedimiento para entender qué colores se han asignado a qué vértices. En el siguiente ejemplo, con 3 vértices y 2 colores </p>
+
+               <h3> <i> x00: 0, x01: 1, x10: 0, x11: 1, x20: 1, x21: 0, </i> </h3>
+
+               <p>los vértices 0 y 1 tienen asignado el color 1, y el vértice 2 tiene asignado el color 0.</p> <br>
+
+               <p> <b>Formato de los archivos</b> <br>
+               A continuación se especifica el formato para cargar problemas a través de un archivo .txt. Está compuesto de las siguientes 4 líneas </p> <br>
+
+               <table class="formatoProblema">
+                       <tr>
+                           <th>Dato de la línea</th>
+                           <th>Ejemplo</th>
+                       </tr>
+                       <tr>
+                           <td>Nº de vértices</td>
+                           <td>6</td>
+                       </tr>
+                       <tr>
+                           <td>Nº de colores</td>
+                           <td>3</td>
+                       </tr>
+                       <tr>
+                           <td>Nº de repeticiones</td>
+                           <td>1</td>
+                       </tr>
+                       <tr>
+                           <td>Conexiones</td>
+                           <td>0,1;0,2;0,3;1,2;1,4</td>
+                       </tr>
+                   </table>
+               <br>
+           </td>
         </tr>
     </table>
 </div>
+
+<div class="flex">
 
 <div id="resolverProblema">
     <fieldset id="cajaGraphColor">
@@ -44,58 +78,65 @@
     <div id="cargarProblema">
         <div id="cargarProblemaGraphColorManual">
             <div>
+
+                <h2>Cargar problema a través de archivo</h2>
+
+                <div class="flex">
+                    <input type="file" id="archivoTexto" accept=".txt">
+                    <button onclick="cargarArchivoProblema()">Cargar</button>
+                </div>
+
                 <h2>Cargar problema manualmente</h2>
                 <!-- Introducir número de nodos del grafo -->
-                <div>
-                    <input type="text" name="numeroNodosGraphColor" id="numeroNodosGraphColor">
-                    <button onclick="seleccionarNumeroNodosGraphColor()">Número de vertices</button> <button onclick="limpiarNumNodosGraphColor()">Limpiar</button>
+                <div class="flex">
+                    <input type="text" name="numeroNodosGraphColor" id="numeroNodosGraphColor" placeholder="Número de vértices">
+                    <button onclick="seleccionarNumeroNodosGraphColor()">Introducir</button> <button onclick="limpiarNumNodosGraphColor()">Limpiar</button>
+                </div>
                     <br>
+                <div class="flex">
+                    <input type="text" name="numeroColores" id="numeroColores" placeholder="Número de colores">
+                    <button onclick="seleccionarNumeroColores()">Introducir</button> <button onclick="limpiarNumColores()">Limpiar</button>
+                </div>
                     <br>
-                    <input type="text" name="numeroColores" id="numeroColores">
-                    <button onclick="seleccionarNumeroColores()">Número de colores</button> <button onclick="limpiarNumColores()">Limpiar</button>
-                    <br>
-                    <br>
-                    <input type="text" name="numeroRepGraphColor" id="numeroRepGraphColor">
-                    <button onclick="seleccionarNumeroRepsGraphColor()">Número de repeticiones</button> <button onclick="limpiarNumRepsGraphColor()">Limpiar</button>
+                <div class="flex">
+                    <input type="text" name="numeroRepGraphColor" id="numeroRepGraphColor" placeholder="Número de repeticiones">
+                    <button onclick="seleccionarNumeroRepsGraphColor()">Introducir</button> <button onclick="limpiarNumRepsGraphColor()">Limpiar</button>
                 </div>
                 <br>
                 <!-- Agregar las conexiones entre nodos del grafo TERMINAR -->
                 <h5>Agregar conexiones</h5>
-                <table>
+                <div class="flex">
                     <tr>
                         <td>
-                            <h5>Nodo 1</h5>
-                            <input type="text" name="conexionNodo1" id="conexionNodo1">
+                            <input type="text" class="muy_reducido" name="conexionNodo1" id="conexionNodo1" placeholder="Nodo 1">
                         </td>
                         <td>
-                            <h5>Nodo 2</h5>
-                            <input type="text" name="conexionNodo2" id="conexionNodo2">
+                            <input type="text" class="muy_reducido" name="conexionNodo2" id="conexionNodo2" placeholder="Nodo 2">
                         </td>
                     </tr>
-                </table>
                 <button onclick="agregarConexionGraphColor()">Agregar conexión</button> <button onclick="limpiarConexionesGraphColor()">Limpiar</button>
-                <br>
+                </div>
 
-                <h2>Resolver el problema</h2>
-                <label for="solver">Elige una forma de resolverlo:</label>
-                <select name="solver" id="solver">
-                    <option value="simuladorLocal">Ejecutar en simulador local</option>
-                    <option value="simuladorRemoto">Ejecutar en simulador remoto</option>
-                    <option value="ordenadorReal">Ejecutar en ordenador real</option>
-                    <option value="annealer">Ejecutar en annealer</option>
-                    <option value="annealerSimulatedAnnealingSolver">Ejecutar con simmulated annealing solver</option>
-                    <option value="annealerTabuSolver">Ejecutar con tabu solver</option>
-                    <option value="annealerSteepestDescentSolver">Ejecutar con steepest descent solver</option>
-                </select>
-                <button type="submit" class="btn btn-primary" id="comoResolver">Elegir</button>
             </div>
 
         </div>
         <div id="cargarProblemaGraphColorArchivo">
 
-            <h2>Cargar problema a través de archivo</h2>
-            <input type="file" id="archivoTexto" accept=".txt">
-            <button onclick="cargarArchivoProblema()">Cargar</button>
+            <div>
+            <h2>Resolver el problema</h2>
+            <div class="flex">
+            <select class="solver" name="solver" id="solver">
+                <option value="simuladorLocal">Ejecutar en simulador local</option>
+                <option value="simuladorRemoto">Ejecutar en simulador remoto</option>
+                <option value="ordenadorReal">Ejecutar en ordenador real</option>
+                <option value="annealer">Ejecutar en annealer</option>
+                <option value="annealerSimulatedAnnealingSolver">Ejecutar con simmulated annealing solver</option>
+                <option value="annealerTabuSolver">Ejecutar con tabu solver</option>
+                <option value="annealerSteepestDescentSolver">Ejecutar con steepest descent solver</option>
+            </select>
+            <button type="submit" class="btn btn-primary" id="comoResolver">Elegir</button>
+            </div>
+                </div>
 
             <div>
                 <h2>Datos del problema</h2>
@@ -111,13 +152,16 @@
     </div>
 
     </fieldset>
+    </div>
+
+    <div id="result">
+        <fieldset id="cajaResultado">
+            <legend>Salida</legend>
+        </fieldset>
+    </div>
 </div>
 
-<div id="result">
-    <fieldset id="cajaResultado">
-        <legend>Salida</legend>
-    </fieldset>
-</div>
+
 
 <script src="{{ url_for('static', filename='js/scriptGraphColor.js') }}"></script>
 
