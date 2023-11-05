@@ -1,0 +1,8 @@
+qiskit==0.39.2
+pylatexenc==2.10
+numpy==1.21.6
+pennylane==0.26
+pennylane-qiskit==0.24.0
+dwave-ocean-sdk==6.0.1
+qiskit-optimization==0.4.0
+scikit-learn==1.0.2
