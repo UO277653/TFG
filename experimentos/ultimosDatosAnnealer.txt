@@ -1,1 +1,5 @@
-Max-Cut,5,Annealer,True,True,-5.0,-5.0,0
+TSP,4,Annealer,True,True,-752.0,-752.0,0
+TSP,4,Annealer,False,True,-583.0,-584.0,0
+TSP,4,Annealer,False,False,-572.0,-776.0,0
+TSP,4,Annealer,False,False,-392.0,-536.0,0
+TSP,4,Annealer,False,True,-626.0,-632.0,0
