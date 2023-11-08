@@ -1,69 +1,41 @@
-Max-Cut,6,Annealer,1.0,100,-4.0
-Max-Cut,6,Simulación QAOA remota (reps=1),0.12027833001988071,100,-1.52
-Max-Cut,6,Simulación QAOA remota (reps=2),0.15634218289085547,100,-1.84
-Max-Cut,6,Simulación QAOA remota (reps=3),0.41287128712871285,100,-2.63
-Max-Cut,6,Simulación QAOA remota (reps=4),0.17524752475247524,100,-2.11
-Max-Cut,6,Annealer,1.0,100,-6.0
-Max-Cut,6,Simulación QAOA remota (reps=1),0.04287138584247258,100,-1.08
-Max-Cut,6,Simulación QAOA remota (reps=2),0.27460629921259844,100,-3.49
-Max-Cut,6,Simulación QAOA remota (reps=3),0.2418558736426456,100,-3.38
-Max-Cut,6,Simulación QAOA remota (reps=4),0.3165182987141444,100,-3.43
-Max-Cut,6,Annealer,1.0,100,-5.0
-Max-Cut,6,Simulación QAOA remota (reps=1),0.43267326732673267,100,-2.65
-Max-Cut,6,Simulación QAOA remota (reps=2),0.5491559086395233,100,-2.71
-Max-Cut,6,Simulación QAOA remota (reps=3),0.7415169660678643,100,-3.67
-Max-Cut,6,Simulación QAOA remota (reps=4),0.6188118811881188,100,-2.92
-Max-Cut,6,Annealer,0.0,100,-3.0
-Max-Cut,6,Simulación QAOA remota (reps=1),0.11904761904761904,100,-1.36
-Max-Cut,6,Simulación QAOA remota (reps=2),0.12512413108242304,100,-1.46
-Max-Cut,6,Simulación QAOA remota (reps=3),0.22386587771203156,100,-2.75
-Max-Cut,6,Simulación QAOA remota (reps=4),0.18199802176063304,100,-2.89
-Max-Cut,6,Annealer,1.0,100,-5.0
-Max-Cut,6,Simulación QAOA remota (reps=1),0.05163853028798411,100,-1.43
-Max-Cut,6,Simulación QAOA remota (reps=2),0.22376237623762377,100,-2.33
-Max-Cut,6,Simulación QAOA remota (reps=3),0.45320197044334976,100,-3.2
-Max-Cut,6,Simulación QAOA remota (reps=4),0.2089108910891089,100,-2.64
-Max-Cut,7,Annealer,1.0,100,-6.0
-Max-Cut,7,Simulación QAOA remota (reps=1),0.06659939455095863,100,-0.18
-Max-Cut,7,Simulación QAOA remota (reps=2),0.4,100,-3.84
-Max-Cut,7,Simulación QAOA remota (reps=3),0.2890231621349446,100,-3.15
-Max-Cut,7,Simulación QAOA remota (reps=4),0.02217741935483871,100,-0.18
-Max-Cut,7,Annealer,1.0,100,-7.0
-Max-Cut,7,Simulación QAOA remota (reps=1),0.06370070778564206,100,-1.55
-Max-Cut,7,Simulación QAOA remota (reps=2),0.009072580645161291,100,-0.78
-Max-Cut,7,Simulación QAOA remota (reps=3),0.2972972972972973,100,-4.05
-Max-Cut,7,Simulación QAOA remota (reps=4),0.18326693227091634,100,-3.21
-Max-Cut,7,Annealer,1.0,100,-7.0
-Max-Cut,7,Simulación QAOA remota (reps=1),0.015151515151515152,100,-0.23
-Max-Cut,7,Simulación QAOA remota (reps=2),0.21747765640516387,100,-4.61
-Max-Cut,7,Simulación QAOA remota (reps=3),0.11022840119165839,100,-3.3
-Max-Cut,7,Simulación QAOA remota (reps=4),0.104,100,-3.39
-Max-Cut,7,Annealer,0.0,100,-5.0
-Max-Cut,7,Simulación QAOA remota (reps=1),0.07221664994984955,100,-2.01
-Max-Cut,7,Simulación QAOA remota (reps=2),0.07622868605817452,100,-2.43
-Max-Cut,7,Simulación QAOA remota (reps=3),0.2947052947052947,100,-4.51
-Max-Cut,7,Simulación QAOA remota (reps=4),0.05905905905905906,100,-2.97
-Max-Cut,7,Annealer,1.0,100,-7.0
-Max-Cut,7,Simulación QAOA remota (reps=1),0.03896103896103896,100,-0.65
-Max-Cut,7,Simulación QAOA remota (reps=2),0.157,100,-3.02
-Max-Cut,7,Simulación QAOA remota (reps=3),0.18962075848303392,100,-3.29
-Max-Cut,7,Simulación QAOA remota (reps=4),0.10230692076228685,100,-2.94
-Max-Cut,7,Annealer,1.0,100,-7.0
-Max-Cut,7,Simulación QAOA remota (reps=1),0.09949748743718594,100,-2.97
-Max-Cut,7,Simulación QAOA remota (reps=2),0.14910536779324055,100,-3.76
-Max-Cut,7,Simulación QAOA remota (reps=3),0.14243027888446216,100,-3.73
-Max-Cut,7,Simulación QAOA remota (reps=4),0.24281466798810702,100,-4.02
-Max-Cut,7,Annealer,1.0,100,-6.0
-Max-Cut,7,Simulación QAOA remota (reps=1),0.08165322580645161,100,-1.79
-Max-Cut,7,Simulación QAOA remota (reps=2),0.263,100,-3.42
-Max-Cut,7,Simulación QAOA remota (reps=3),0.18981018981018982,100,-3.15
-Max-Cut,7,Simulación QAOA remota (reps=4),0.2025948103792415,100,-3.13
-Max-Cut,7,Annealer,1.0,100,-6.0
-Max-Cut,7,Simulación QAOA remota (reps=1),0.19153225806451613,100,-2.61
-Max-Cut,7,Simulación QAOA remota (reps=2),0.07915831663326653,100,-0.72
-Max-Cut,7,Simulación QAOA remota (reps=3),0.5183714001986097,100,-4.62
-Max-Cut,7,Simulación QAOA remota (reps=4),0.3346693386773547,100,-3.74
 Max-Cut,7,Annealer,1.0,100,-6.0
 Max-Cut,7,Simulación QAOA remota (reps=1),0.004985044865403789,100,-1.3
 Max-Cut,7,Simulación QAOA remota (reps=2),0.18649193548387097,100,-2.94
 Max-Cut,7,Simulación QAOA remota (reps=3),0.4182358771060456,100,-4.06
+Max-Cut,7,Simulación QAOA remota (reps=4),0.009009009009009009,100,-1.25
+Max-Cut,7,Annealer,0.0,100,-6.0
+Max-Cut,7,Simulación QAOA remota (reps=1),0.00398406374501992,100,-1.72
+Max-Cut,7,Simulación QAOA remota (reps=2),0.053946053946053944,100,-3.25
+Max-Cut,7,Simulación QAOA remota (reps=3),0.0641925777331996,100,-3.11
+Max-Cut,7,Simulación QAOA remota (reps=4),0.12024048096192384,100,-3.74
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA remota (reps=1),0.17735470941883769,100,-3.08
+Max-Cut,7,Simulación QAOA remota (reps=2),0.08656716417910448,100,-2.57
+Max-Cut,7,Simulación QAOA remota (reps=3),0.3475247524752475,100,-4.13
+Max-Cut,7,Simulación QAOA remota (reps=4),0.1945837512537613,100,-3.14
+Max-Cut,7,Annealer,1.0,100,-5.0
+Max-Cut,7,Simulación QAOA remota (reps=1),0.27716849451645065,100,-2.05
+Max-Cut,7,Simulación QAOA remota (reps=2),0.27689243027888444,100,-2.48
+Max-Cut,7,Simulación QAOA remota (reps=3),0.31891348088531185,100,-2.14
+Max-Cut,7,Simulación QAOA remota (reps=4),0.5059642147117296,100,-3.69
+Max-Cut,7,Annealer,1.0,100,-8.0
+Max-Cut,7,Simulación QAOA remota (reps=1),0.12864321608040202,100,-2.01
+Max-Cut,7,Simulación QAOA remota (reps=2),0.4356929212362911,100,-4.83
+Max-Cut,7,Simulación QAOA remota (reps=3),0.1543026706231454,100,-2.29
+Max-Cut,7,Simulación QAOA remota (reps=4),0.14156626506024098,100,-3.29
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA remota (reps=1),0.0,100,-1.18
+Max-Cut,7,Simulación QAOA remota (reps=2),0.029263370332996974,100,0.27
+Max-Cut,7,Simulación QAOA remota (reps=3),0.1159274193548387,100,-3.2
+Max-Cut,7,Simulación QAOA remota (reps=4),0.22768304914744233,100,-2.97
+Max-Cut,7,Annealer,1.0,100,-6.0
+Max-Cut,7,Simulación QAOA remota (reps=1),0.12887112887112886,100,-2.89
+Max-Cut,7,Simulación QAOA remota (reps=2),0.23623623623623624,100,-3.3
+Max-Cut,7,Simulación QAOA remota (reps=3),0.2962226640159046,100,-3.77
+Max-Cut,7,Simulación QAOA remota (reps=4),0.3240279162512463,100,-3.33
+Max-Cut,7,Annealer,1.0,100,-7.0
+Max-Cut,7,Simulación QAOA remota (reps=1),0.07939698492462312,100,-1.35
+Max-Cut,7,Simulación QAOA remota (reps=2),0.08183632734530938,100,-1.48
+Max-Cut,7,Simulación QAOA remota (reps=3),0.15477386934673368,100,-3.25
+Max-Cut,7,Simulación QAOA remota (reps=4),0.12512512512512514,100,-3.19
+Max-Cut,7,Annealer,1.0,100,-7.0
