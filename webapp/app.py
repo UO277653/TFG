@@ -26,26 +26,40 @@ def pagGraphColor():
 @app.route('/executeTSP', methods=['POST'])
 def execute_TSP():
     datos = request.get_json()
-    output = subprocess.check_output(['python', './tsp/tsp.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones'), datos.get('metodo')])
+    output = subprocess.check_output(['python', './python/tsp.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones'), datos.get('metodo')])
     return output
 
 @app.route('/executeKnapsack', methods=['POST'])
 def execute_Knapsack():
     datos = request.get_json()
-    output = subprocess.check_output(['python', './knapsack/knapsack.py', datos.get('pesoMaximo'), datos.get('arrayValores'), datos.get('arrayPesos'), datos.get('metodo')])
+    output = subprocess.check_output(['python', './python/knapsack.py', datos.get('pesoMaximo'), datos.get('arrayValores'), datos.get('arrayPesos'), datos.get('metodo')])
     return output
 
 @app.route('/executeGraphColor', methods=['POST'])
 def execute_GraphColor():
     datos = request.get_json()
-    output = subprocess.check_output(['python', './graphColor/graphColor.py', datos.get('numeroNodos'), datos.get('numeroColores'), datos.get('numeroRep'), datos.get('conexiones'), datos.get('metodo')])
+    output = subprocess.check_output(['python', './python/graphColor.py', datos.get('numeroNodos'), datos.get('numeroColores'), datos.get('numeroRep'), datos.get('conexiones'), datos.get('metodo')])
     return output
 
 @app.route('/executeMaxCut', methods=['POST'])
 def execute_MaxCut():
     datos = request.get_json()
-    output = subprocess.check_output(['python', './maxcut/maxCut.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones'), datos.get('metodo')])
+    output = subprocess.check_output(['python', './python/maxCut.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones'), datos.get('metodo')])
     return output
+
+@app.route('/configQiskit')
+def configQiskit():
+
+    subprocess.run(['python', './python/configQiskit.py'])
+
+    return render_template('index.html')
+
+@app.route('/configDWave')
+def configDWave():
+
+    subprocess.run(['python', './python/configDWave.py'])
+
+    return render_template('index.html')
 
 if __name__ == '__main__':
     # pdb.set_trace() # Para debug, checkpoint()

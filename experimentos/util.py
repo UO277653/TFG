@@ -467,7 +467,7 @@ def metodoSimuladorLocal(qp, shots, reps):
 
     return valorMinimo, datosResultados, tiempoCalculo
 
-def metodoSimuladorRemoto(qp, shots, reps, ):
+def metodoSimuladorRemoto(qp, shots, reps):
 
     # Establecer las seeds
     seed = 277653

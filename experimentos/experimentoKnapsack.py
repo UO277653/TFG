@@ -1,5 +1,6 @@
 from util import *
 from docplex.mp.model import Model
+from qiskit import IBMQ
 
 def formularProblemaDocplex(valores, pesos, max_weight):
 
@@ -129,8 +130,9 @@ def experimento2(numGrafosMin, numGrafosMax):
 
     print("")
 
+#IBMQ.save_account("652edcd457eabf2b2e4b9784b828d1254d05a1dfca5a20e269df73c35a013ac60e7aede893ac18625eadd295edc616a3fec8d5398f6b9405a27da37b1ca0da96")
 num_reads_annealer = 1
 reps = 4
 shots = 1024
 
-experimento2(3, 5)
+experimento2(5, 5)

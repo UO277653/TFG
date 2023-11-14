@@ -10,7 +10,7 @@
 
 <nav class="navbar">
     <ul>
-        <li><a href="/webapp/static">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/maxcut">Max-Cut</a></li>
         <li><a href="/tsp">TSP</a></li>
         <li><a href="/knapsack">Knapsack</a></li>
@@ -25,29 +25,77 @@
            <td id="imagenProblema"><img src="../static/img/maxCutImg.png" alt="Imagen del problema Max Cut"></td>
            <td>
                <h1>Max-Cut</h1>
-   <p>El problema de optimización Max-Cut consiste en particionar los vértices de un grafo en dos conjuntos de manera que el número de aristas entre los dos conjuntos sea máximo.</p>
+   <p>El problema del corte máximo, o Max-Cut, es un enigma fundamental en la teoría de grafos y la optimización combinatoria. Se basa en un grafo compuesto por nodos interconectados, y el objetivo es dividir estos nodos en dos conjuntos de manera que se maximice el número de aristas que conectan ambos conjuntos. Este desafío es de gran importancia en una variedad de campos, desde la planificación de redes de comunicación hasta la distribución de circuitos integrados en la industria electrónica. <br><br>
 
+       La complejidad del Max-Cut radica en su clasificación como un problema NP-completo, lo que implica que encontrar una solución óptima a medida que el grafo crece se torna un desafío cada vez más intrincado. A medida que crece la relevancia de este problema en aplicaciones prácticas, los investigadores y profesionales han ideado enfoques heurísticos y algoritmos que proporcionan soluciones aproximadas, que, aunque no son óptimas, son eficaces en una amplia gama de situaciones. <br><br>
 
+       El Max-Cut ha llamado la atención de la comunidad científica, lo que ha llevado a explorar soluciones mediante algoritmos cuánticos. Los algoritmos cuánticos han demostrado un potencial significativo para resolver problemas de optimización combinatoria, incluido el Max-Cut. A medida que avanzamos, la resolución de este problema se convierte en un tema de estudio en la teoría de la computación y la optimización, y el desarrollo de algoritmos eficientes y precisos para instancias más complejas del Max-Cut sigue siendo un desafío de investigación activa. <br><br> </p>
+
+               <p> <b>Interpretación de los resultados</b> <br>
+                   En este problema los métodos tienen un número de variables distinto en los resultados. En el caso de los simuladores y el ordenador real, el número de variables es el mismo que el de vértices, y se marca con un 1.0 o un -1.0 el grupo al que pertenece <br><br>
+
+                   En el annealer y los métodos clásicos se generan más variables, concretamente el doble, y se utilizan 2 variables para indicar el valor de un vértice. Por ejemplo, si los valores de las dos primeras variables son 0 las dos, el vértice pertenece a un grupo, pero si las dos tienen el valor 1, este pertenece a otro grupo. Por ejemplo, en esta instancia con 5 vértices y resultado </p>
+
+               <h3> <i> x0: 1, x1: 1, x2: 1, x3: 1, x4: 0, x5: 0, x6: 0, x7: 0, x8: 1, x9: 1, </i> </h3>
+
+               <p>los vértices 1, 2 y 5 pertenecen al mismo grupo, y los demás a otro<br> <br>
+
+                   <b>Formato de los archivos </b><br>
+                   A continuación se especifica el formato para cargar problemas a través de un archivo .txt. Está compuesto de las siguientes 3 líneas<br> <br>
+
+               <table class="formatoProblema">
+                   <tr>
+                       <th>Dato de la línea</th>
+                       <th>Ejemplo</th>
+                   </tr>
+                   <tr>
+                       <td>Nº de vértices</td>
+                       <td>5</td>
+                   </tr>
+                   <tr>
+                       <td>Nº de repeticiones</td>
+                       <td>1</td>
+                   </tr>
+                   <tr>
+                       <td>Conexiones</td>
+                       <td>1,2,1;0,2,1;</td>
+                   </tr>
+               </table>
+
+               </p>
             </td>
         </tr>
     </table>
 </div>
+
+<div class="flex">
 
 <div id="resolverProblema">
     <fieldset id="cajaMaxCut">
         <legend>Problema</legend>
     <div id="cargarProblema">
         <div id="cargarProblemaMaxCutManual">
+
+            <h2>Cargar problema a través de archivo</h2>
+
+            <div class="flex">
+            <input type="file" id="archivoTexto" accept=".txt">
+            <button onclick="cargarArchivoProblema()">Cargar</button>
+            </div>
+
             <h2>Cargar problema manualmente</h2>
             <!-- Introducir número de nodos del grafo -->
-            <div>
-                <input type="text" name="numeroNodosMaxCut" id="numeroNodosMaxCut">
-                <button onclick="seleccionarNumeroNodosMaxCut()">Número de nodos</button> <button onclick="limpiarNumNodosMaxCut()">Limpiar</button>
+            <div class="flex">
+                <input type="text" name="numeroNodosMaxCut" id="numeroNodosMaxCut" placeholder="Número de nodos">
+                <button onclick="seleccionarNumeroNodosMaxCut()">Introducir</button> <button onclick="limpiarNumNodosMaxCut()">Limpiar</button>
+            </div>
+
+            <br>
+
+            <div class="flex">
                 <!-- ESTO CAMBIARLO, QUE SOLO SE PUEDAN NÚMEROS, SERÍA EL NÚMERO DE NODOS -->
-                <br>
-                <br>
-                <input type="text" name="numeroRepMaxCut" id="numeroRepMaxCut">
-                <button onclick="seleccionarNumeroRepsMaxCut()">Número de repeticiones</button> <button onclick="limpiarNumRepsMaxCut()">Limpiar</button>
+                <input type="text" name="numeroRepMaxCut" id="numeroRepMaxCut" placeholder="Número de repeticiones">
+                <button onclick="seleccionarNumeroRepsMaxCut()">Introducir</button> <button onclick="limpiarNumRepsMaxCut()">Limpiar</button>
             </div>
             <br>
             <!-- Agregar las conexiones entre nodos del grafo TERMINAR -->
@@ -56,23 +104,30 @@
                 <tr>
                     <td>
                         <h5>Nodo 1</h5>
-                        <input type="text" name="conexionMaxCutNodo1" id="conexionMaxCutNodo1">
+                        <input type="text" name="conexionMaxCutNodo1" id="conexionMaxCutNodo1" placeholder="Nodo 1">
                     </td>
                     <td>
                         <h5>Nodo 2</h5>
-                        <input type="text" name="conexionMaxCutNodo2" id="conexionMaxCutNodo2">
+                        <input type="text" name="conexionMaxCutNodo2" id="conexionMaxCutNodo2" placeholder="Nodo 2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    <h5>Valor</h5>
+                    <input type="text" name="conexionMaxCutValor" id="conexionMaxCutValor" placeholder="Valor">
+                    <button onclick="agregarConexionMaxCut()">Agregar conexión</button> <button onclick="limpiarConexionesMaxCut()">Limpiar</button>
                     </td>
                 </tr>
             </table>
-            <h5>Valor</h5>
-            <input type="text" name="conexionMaxCutValor" id="conexionMaxCutValor">
-            <button onclick="agregarConexionMaxCut()">Agregar conexión</button> <button onclick="limpiarConexionesMaxCut()">Limpiar</button>
+
         <br>
+
+        </div>
+        <div id="cargarProblemaMaxCutArchivo">
 
             <div>
                 <h2>Resolver el problema</h2>
-                <label for="solver">Elige una forma de resolverlo:</label>
-                <select name="solver" id="solver">
+                <select class="solver" name="solver" id="solver">
                     <option value="simuladorLocal">Ejecutar en simulador local</option>
                     <option value="simuladorRemoto">Ejecutar en simulador remoto</option>
                     <option value="ordenadorReal">Ejecutar en ordenador real</option>
@@ -84,13 +139,6 @@
                 </select>
                 <button type="submit" class="btn btn-primary" id="comoResolver">Elegir</button>
             </div>
-
-        </div>
-        <div id="cargarProblemaMaxCutArchivo">
-
-            <h2>Cargar problema a través de archivo</h2>
-            <input type="file" id="archivoTexto" accept=".txt">
-            <button onclick="cargarArchivoProblema()">Cargar</button>
 
             <div>
                 <h2>Datos del problema</h2>
@@ -108,12 +156,14 @@
 
     </fieldset>
 </div>
-
-<div id="result">
-    <fieldset id="cajaResultado">
-        <legend>Salida</legend>
-    </fieldset>
+    <div id="result">
+        <fieldset id="cajaResultado">
+            <legend>Salida</legend>
+        </fieldset>
+    </div>
 </div>
+
+
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 

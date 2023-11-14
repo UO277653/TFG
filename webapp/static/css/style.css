@@ -1,19 +1,45 @@
 body{
     background-color: #f2f2f2;
     margin: 0.75em 0 0;
+    padding-bottom: 3em;
+    font-family: 'Palatino', Palatino Linotype, serif;
 }
 
 #cargarProblema{
     display: grid;
     justify-content: center;
     grid-template-columns: auto auto;
-    gap:15%;
+    gap: 4%;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 #resolverProblema{
     margin: 0 auto;
     width: 85%;
-    padding: 1em;
+    padding: 1em 1em 1em 5.5em;
+    flex: 4;
+}
+
+.flex{
+    display:flex;
+    justify-content: space-between;
+}
+
+.inline{
+    display:inline;
+}
+
+.centrado{
+    margin: 0 auto;
+}
+
+.reducido{
+    width: 25%;
+}
+
+.muy_reducido {
+    width: 15%;
 }
 
 #problem-container {
@@ -29,8 +55,9 @@ body{
 
 #result {
     width: 85%;
-    padding: 1em;
+    padding: 1em 5.5em 1em 1em;
     margin: 0 auto;
+    flex: 2;
 }
 
 #imagenProblema{
@@ -83,11 +110,18 @@ button {
     padding: 0.25em 0.8em;
     background-color: white;
     color: #000;
-    border: 2px solid #000;
+    border: 2px groove #000;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px;
+}
+
+button:hover {
+    background-color: rgba(255, 236, 11, 0.9);
+    color: #262626;
 }
 
 input {
@@ -98,6 +132,7 @@ fieldset {
     border: thick solid #000;
     background-color: #ececec;
     padding-bottom: 3em;
+    box-shadow: 7px 7px lightgray;
 }
 
 
@@ -140,4 +175,126 @@ label {
     margin: 0 1em;
 }
 
+legend{
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+}
 
+input[type=file]::file-selector-button {
+    background: #ffffff;
+    padding: 0.25em 0.5em;
+    margin-right: 1em;
+    border-radius: 3px;
+    border: 2px dashed #000000;
+    color: #000000;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+    background: #c7c7c7;
+}
+
+
+.solver{
+    margin-right: 0.5em;
+    padding-bottom: 0.43em;
+    padding-top: 0.43em;
+}
+
+select {
+    background: rgb(255, 255, 255);
+    color: #000000;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+select:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: #000000;
+}
+
+select option {
+    background: rgb(255, 255, 255);
+    color: #2c2c2c;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.formatoProblema {
+    width: 35%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 1.2em;
+    text-align: center;
+    line-height: 2em;
+}
+
+.formatoProblema th td {
+    text-align: center;
+    padding: 10px;
+}
+
+.formatoProblema th {
+    background-color: #f2f2f2; /* Color de fondo para encabezados */
+}
+
+h3 {
+    margin: 0 auto;
+    text-align: center;
+    font-weight: inherit;
+}
+
+#contenedor-titulo{
+
+    max-width: 90%;
+    margin: 3em auto 1em;
+    border: 5px double;
+    box-shadow: 7px 7px;
+    position: relative;
+    padding-bottom: 0.5em;
+    font-size: small;
+    left: -7%;
+}
+
+.izquierda{
+    width: 90%;
+    text-align: end;
+    margin-top: 0em;
+}
+
+footer{
+    max-height: 5em;
+    background-color: white;
+    color: black;
+    text-align: center;
+    font-size: small;
+    padding: 2em 5em;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.grid{
+    grid-template-columns: auto;
+}
+
+.texto-footer{
+    margin: auto auto 1em;
+}
+
+footer > img{
+    max-height: inherit;
+    max-width: inherit;
+}
+
+.texto-descripcion{
+    align-self: center;
+    margin: 3em auto 4em;
+    text-align: justify;
+    width: 80%;
+}
+
+.botones-sesiones{
+    display:flex;
+    margin: 0 auto;
+    gap: 10%;
+    justify-content: center;
+}

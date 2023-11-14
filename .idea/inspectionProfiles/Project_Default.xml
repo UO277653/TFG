@@ -1,0 +1,58 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="45">
+            <item index="0" class="java.lang.String" itemvalue="PyJWT" />
+            <item index="1" class="java.lang.String" itemvalue="networkx" />
+            <item index="2" class="java.lang.String" itemvalue="joblib" />
+            <item index="3" class="java.lang.String" itemvalue="threadpoolctl" />
+            <item index="4" class="java.lang.String" itemvalue="scikit-learn" />
+            <item index="5" class="java.lang.String" itemvalue="cffi" />
+            <item index="6" class="java.lang.String" itemvalue="retworkx" />
+            <item index="7" class="java.lang.String" itemvalue="sspilib" />
+            <item index="8" class="java.lang.String" itemvalue="MarkupSafe" />
+            <item index="9" class="java.lang.String" itemvalue="requests" />
+            <item index="10" class="java.lang.String" itemvalue="ibm-cloud-sdk-core" />
+            <item index="11" class="java.lang.String" itemvalue="importlib-metadata" />
+            <item index="12" class="java.lang.String" itemvalue="Jinja2" />
+            <item index="13" class="java.lang.String" itemvalue="websocket-client" />
+            <item index="14" class="java.lang.String" itemvalue="zipp" />
+            <item index="15" class="java.lang.String" itemvalue="certifi" />
+            <item index="16" class="java.lang.String" itemvalue="urllib3" />
+            <item index="17" class="java.lang.String" itemvalue="itsdangerous" />
+            <item index="18" class="java.lang.String" itemvalue="sympy" />
+            <item index="19" class="java.lang.String" itemvalue="websockets" />
+            <item index="20" class="java.lang.String" itemvalue="Flask" />
+            <item index="21" class="java.lang.String" itemvalue="blinker" />
+            <item index="22" class="java.lang.String" itemvalue="annotated-types" />
+            <item index="23" class="java.lang.String" itemvalue="rustworkx" />
+            <item index="24" class="java.lang.String" itemvalue="stevedore" />
+            <item index="25" class="java.lang.String" itemvalue="Werkzeug" />
+            <item index="26" class="java.lang.String" itemvalue="h5py" />
+            <item index="27" class="java.lang.String" itemvalue="cryptography" />
+            <item index="28" class="java.lang.String" itemvalue="dill" />
+            <item index="29" class="java.lang.String" itemvalue="torch" />
+            <item index="30" class="java.lang.String" itemvalue="ibm-platform-services" />
+            <item index="31" class="java.lang.String" itemvalue="click" />
+            <item index="32" class="java.lang.String" itemvalue="psutil" />
+            <item index="33" class="java.lang.String" itemvalue="qiskit-nature" />
+            <item index="34" class="java.lang.String" itemvalue="pydantic_core" />
+            <item index="35" class="java.lang.String" itemvalue="pyspnego" />
+            <item index="36" class="java.lang.String" itemvalue="colorama" />
+            <item index="37" class="java.lang.String" itemvalue="fasteners" />
+            <item index="38" class="java.lang.String" itemvalue="mpmath" />
+            <item index="39" class="java.lang.String" itemvalue="typing_extensions" />
+            <item index="40" class="java.lang.String" itemvalue="charset-normalizer" />
+            <item index="41" class="java.lang.String" itemvalue="rectangle-packer" />
+            <item index="42" class="java.lang.String" itemvalue="diskcache" />
+            <item index="43" class="java.lang.String" itemvalue="idna" />
+            <item index="44" class="java.lang.String" itemvalue="qiskit-ibm-runtime" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
