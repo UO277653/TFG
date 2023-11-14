@@ -1,5 +1,4 @@
-Max-Cut,13,Annealer,False,True,-12.0,-16.0,0
-Max-Cut,13,Annealer,False,True,-15.0,-17.0,0
-Max-Cut,13,Annealer,False,True,-12.0,-16.0,0
+Max-Cut,13,Annealer,True,True,-14.0,-14.0,0
+Max-Cut,13,Annealer,True,True,-20.0,-20.0,0
+Max-Cut,13,Annealer,True,True,-17.0,-17.0,0
 Max-Cut,13,Annealer,True,True,-15.0,-15.0,0
-Max-Cut,13,Annealer,False,True,-12.0,-14.0,0
