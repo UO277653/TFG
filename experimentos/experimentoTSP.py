@@ -34,8 +34,6 @@ def formularProblemaDocplex(numeroNodos, conexionesArray):
 
     return mdl
 
-
-
 def experimento1(numGrafosMin, numGrafosMax):
 
     limpiarArchivosExperimentos("ultimosDatosSimulacionQAOA.txt", "ultimosDatosAnnealer.txt", "ultimosDatosGrafos.txt")
@@ -110,29 +108,13 @@ def experimento2(numGrafosMin, numGrafosMax):
 
         for rep in range (1, reps+1):
             resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, rep)
-            #resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorRemoto(qp, shots, rep)
-        ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
+            # resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorRemoto(qp, shots, rep)
+            # resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
 
             estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "TSP", shots)
-            #estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "TSP", shots, remoto=True)
-        ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
+            # estadisticasQAOARemoto = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "TSP", shots, remoto=True)
+            # estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
-        datosGrafos[grafo['numeroVertices'], n] = {
-            'estadisticasQAOALocal': estadisticasQAOALocal,
-            'estadisticasAnnealer': estadisticasAnnealer
-        }
-
-        print(n)
-
-        n += 1
-
-
-    print("")
-
-    for dato in datosGrafos:
-        print(dato, " QAOA Local: ", datosGrafos[dato]['estadisticasQAOALocal'], " Annealer:", datosGrafos[dato]['estadisticasAnnealer'])
-
-    print("")
 
 num_reads_annealer = 1 # 100
 reps = 4 # 1,2,3,4

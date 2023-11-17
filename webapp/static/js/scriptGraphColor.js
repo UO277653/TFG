@@ -102,6 +102,7 @@ function agregarConexionGraphColor(){
 
     // Validar que se hayan ingresado ambos nodos
     if (nodo1 && nodo2) {
+
         // Crear la conexión en formato (a,b)
         var conexion = "(" + nodo1 + "," + nodo2 + ")";
 
@@ -205,6 +206,7 @@ function procesarArchivoProblema(contenido){
 
 
 function limpiarResultado() {
+
     // Limpiar el div de resultados
     var elementosP = resultDiv.getElementsByTagName("p");
     while (elementosP.length > 0) {

@@ -1,26 +1,24 @@
 import random
 import time
+
 import dimod
 import numpy as np
-from qiskit.utils import QuantumInstance
-from qiskit_optimization.translators import \
-    from_docplex_mp
-from qiskit_optimization.converters import \
-    QuadraticProgramToQubo
-from qiskit_aer import Aer
-from qiskit.algorithms import QAOA
-from qiskit.algorithms.optimizers import COBYLA
-from qiskit_optimization.algorithms import \
-    MinimumEigenOptimizer, \
-    OptimizationResultStatus
-from qiskit import IBMQ
-from qiskit.providers.ibmq import least_busy
-from qiskit_optimization.runtime import QAOAClient
 from dwave.system import DWaveSampler
 from dwave.system import EmbeddingComposite
 from qiskit import IBMQ
+from qiskit.algorithms import QAOA
+from qiskit.algorithms.optimizers import COBYLA
 from qiskit.providers.ibmq import least_busy
+from qiskit.utils import QuantumInstance
+from qiskit_aer import Aer
+from qiskit_optimization.algorithms import \
+    MinimumEigenOptimizer, \
+    OptimizationResultStatus
+from qiskit_optimization.converters import \
+    QuadraticProgramToQubo
 from qiskit_optimization.runtime import QAOAClient
+from qiskit_optimization.translators import \
+    from_docplex_mp
 
 
 ##
@@ -73,7 +71,7 @@ def generarGrafosAleatoriosTSP():
     for vertice in vertices:
 
         numeroVertices = vertice
-        numInstancias = 1 # 20
+        numInstancias = 1
         nombreArchivo = "grafosTSP.txt"
         pesoMaximo = vertice
 
@@ -110,9 +108,9 @@ def generarGrafosAleatoriosTSP():
 
         print(f"Se han generado y guardado las instancias en el archivo {nombreArchivo}")
 
-# TIENE AL MENOS UN CAMINO POSIBLE PASANDO POR TODOS LOS NODOS
-# Podria cambiarlo para que genere muchos y los guarde en un archivo .txt para conservarlos
+# Tiene al menos un camino posible pasando por todos los nodos
 def generarGrafoAleatorioTSP(numeroVertices, numInstancias, pesoMaximoConexion):
+
     instancias = []
 
     for _ in range(numInstancias):
@@ -159,9 +157,11 @@ def generarGrafoAleatorioTSP(numeroVertices, numInstancias, pesoMaximoConexion):
     return instancias
 
 def generarGrafoAleatorioKnapsack(numeroVertices, numInstancias, pesoMaximoConexion):
+
     instancias = []
 
     for _ in range(numInstancias):
+
         # Generar todas las posibles conexiones entre los vértices
         valores = [(random.randint(1,pesoMaximoConexion)) for i in range(numeroVertices)]
         pesos = [(random.randint(1,pesoMaximoConexion)) for i in range(numeroVertices)]
@@ -179,6 +179,7 @@ def generarGrafoAleatorioKnapsack(numeroVertices, numInstancias, pesoMaximoConex
     return instancias
 
 def generarGrafoAleatorioGraphColor(numeroVertices, numInstancias):
+
     instancias = []
 
     with open("grafosGraphColor.txt", 'a') as archivo:
@@ -221,6 +222,7 @@ def generarGrafoAleatorioGraphColor(numeroVertices, numInstancias):
 #
 ##
 def leerInstancias(nombreArchivo):
+
     instancias = []
 
     with open(nombreArchivo, 'r') as archivo:
@@ -249,6 +251,7 @@ def leerInstancias(nombreArchivo):
     return instancias
 
 def leerInstancias(nombreArchivo, numGrafosMin, numGrafosMax):
+
     instancias = []
 
     with open(nombreArchivo, 'r') as archivo:
@@ -280,6 +283,7 @@ def leerInstancias(nombreArchivo, numGrafosMin, numGrafosMax):
     return instancias
 
 def leerInstanciasTSP(nombreArchivo, numGrafosMin, numGrafosMax):
+
     instancias = []
 
     with open(nombreArchivo, 'r') as archivo:
@@ -311,6 +315,7 @@ def leerInstanciasTSP(nombreArchivo, numGrafosMin, numGrafosMax):
     return instancias
 
 def leerInstanciasKnapsack(nombreArchivo, numObjetosMin, numObjetosMax):
+
     instancias = []
 
     with open(nombreArchivo, 'r') as archivo:
@@ -346,6 +351,7 @@ def leerInstanciasKnapsack(nombreArchivo, numObjetosMin, numObjetosMax):
     return instancias
 
 def leerInstanciasGraphColor(nombreArchivo, numGrafosMin, numGrafosMax):
+
     instancias = []
 
     with open(nombreArchivo, 'r') as archivo:
@@ -379,7 +385,7 @@ def leerInstanciasGraphColor(nombreArchivo, numGrafosMin, numGrafosMax):
 
 ##
 #
-# GESTION DE ARCHIVOS
+# GESTIÓN DE ARCHIVOS
 #
 ##
 def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cumpleRestricciones, vectorEnergiaSolObtenida, energiaSolOptima, tiempo):
@@ -529,7 +535,7 @@ def metodoExactoAnnealer(bqm_binary):
 
 ##
 #
-# ESTADISTICAS Y RESULTADOS EXPERIMENTOS
+# ESTADÍSTICAS Y RESULTADOS EXPERIMENTOS
 #
 ##
 def cumpleRestriccionesTSPAnnealer(result):
@@ -638,7 +644,7 @@ def obtenerEstadisticasAnnealer(result, optimalResult, nNodos, num_reads_anneale
             array_sol_obtenida.append(str(res['energy']))
             energia_solucion_obtenida += float(res['energy'])
 
-            if(nombreProblema == 'TSP'): # TODO que sea automatico, mejorar
+            if(nombreProblema == 'TSP'):
                 array_sol_valida.append(cumpleRestriccionesTSPAnnealer(res[0]))
                 if(cumpleRestriccionesTSPAnnealer(res[0])):
                     porcentajeSolValida += 1
@@ -753,7 +759,7 @@ def obtenerEstadisticasQAOA(optimalResult, datosResultados, nNodos, tiempoQAOA, 
 # generarGrafoAleatorioTSP(5, 5, 10)
 # generarGrafoAleatorioGraphColor(4, 10)
 
-# # Ejemplo de uso
+## Ejemplo de uso
 # instancias = leerInstancias("grafosMaxCut.txt")
 # for instancia in instancias:
 #     print(instancia)

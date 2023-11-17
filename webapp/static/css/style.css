@@ -135,7 +135,6 @@ fieldset {
     box-shadow: 7px 7px lightgray;
 }
 
-
 legend {
     color: #FFF;
     background: #000;
@@ -194,7 +193,6 @@ input[type=file]::file-selector-button {
 input[type=file]::file-selector-button:hover {
     background: #c7c7c7;
 }
-
 
 .solver{
     margin-right: 0.5em;

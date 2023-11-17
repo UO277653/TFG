@@ -18,7 +18,6 @@
     </ul>
 </nav>
 
-
 <div id="problem-container">
    <table>
        <tr>
@@ -61,7 +60,6 @@
                        <td>1,2,1;0,2,1;</td>
                    </tr>
                </table>
-
                </p>
             </td>
         </tr>
@@ -93,12 +91,11 @@
             <br>
 
             <div class="flex">
-                <!-- ESTO CAMBIARLO, QUE SOLO SE PUEDAN NÚMEROS, SERÍA EL NÚMERO DE NODOS -->
                 <input type="text" name="numeroRepMaxCut" id="numeroRepMaxCut" placeholder="Número de repeticiones">
                 <button onclick="seleccionarNumeroRepsMaxCut()">Introducir</button> <button onclick="limpiarNumRepsMaxCut()">Limpiar</button>
             </div>
             <br>
-            <!-- Agregar las conexiones entre nodos del grafo TERMINAR -->
+            <!-- Agregar las conexiones entre nodos del grafo -->
             <h5>Agregar conexiones</h5>
             <table>
                 <tr>
@@ -119,12 +116,10 @@
                     </td>
                 </tr>
             </table>
-
         <br>
 
         </div>
         <div id="cargarProblemaMaxCutArchivo">
-
             <div>
                 <h2>Resolver el problema</h2>
                 <select class="solver" name="solver" id="solver">
@@ -151,7 +146,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     </fieldset>
@@ -162,8 +156,6 @@
         </fieldset>
     </div>
 </div>
-
-
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 

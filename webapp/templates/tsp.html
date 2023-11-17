@@ -17,7 +17,6 @@
     </ul>
 </nav>
 
-
 <div id="problem-container">
    <table>
        <tr>
@@ -62,7 +61,6 @@
                        <td>0,1,2;0,2,1;0,3,3;1,2,4</td>
                    </tr>
                </table>
-
                </p>
             </td>
         </tr>
@@ -83,7 +81,7 @@
             <input type="file" id="archivoTextoTSP" accept=".txt">
             <button onclick="cargarArchivoProblema()">Cargar</button>
             </div>
-
+            
             <h2>Cargar problema manualmente</h2>
             <!-- Introducir número de nodos del grafo -->
             <div class="flex">
@@ -96,7 +94,6 @@
                 <button onclick="seleccionarNumeroRepsTSP()">Introducir</button> <button onclick="limpiarNumRepsTSP()">Limpiar</button>
             </div>
             <br>
-
             <h5>Agregar conexiones</h5>
             <div class="flex">
             <table>
@@ -122,10 +119,8 @@
             </table>
             </div>
                 <br>
-
         </div>
         <div id="cargarProblemaTSPArchivo">
-
             <div>
                 <h2>Resolver el problema</h2>
                 <div class="flex">
@@ -140,10 +135,7 @@
                 </select>
                     <button type="submit" class="btn btn-primary" id="comoResolver">Elegir</button>
                 </div>
-
             </div>
-
-
             <div>
                 <h2>Datos del problema</h2>
                 <div id="datosProblemaTSP">
@@ -153,11 +145,8 @@
                     <div id="graficoTSP"></div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
     </fieldset>
 </div>
     <div id="result">
@@ -166,8 +155,6 @@
         </fieldset>
     </div>
 </div>
-
-
 
 <script src="{{ url_for('static', filename='js/scriptTSP.js') }}"></script>
 

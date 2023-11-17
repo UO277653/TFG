@@ -40,7 +40,7 @@ function ejecutarScriptPython() {
     $.ajax({
         type: "POST",
         url: "executeMaxCut",
-        data: JSON.stringify(parametros), // JSON.stringify(arrayConexiones)
+        data: JSON.stringify(parametros),
         contentType: 'application/json',
         success: function(response) {
             var {
@@ -57,7 +57,6 @@ function ejecutarScriptPython() {
             console.error(status + ": " + error);
         }
     });
-
 }
 
 function actualizarDatosProblema(){
@@ -80,30 +79,6 @@ function actualizarDatosProblema(){
 
         txtConexionesMaxCut.innerHTML = arrayConexionesStringBonita;
     }
-
-    // Si los 3 no son null, entonces se puede generar la imagen
-    // ESTO PARA CUANDO TENGA EL SCRIPT DE PYTHON QUE GENERE LA IMAGEN
-    /*
-
-    $.ajax({
-        type: "POST",
-        url: TODO URL DEL SCRIPT QUE GENERA LA IMAGEN
-        data: JSON.stringify(parametros),
-        contentType: 'application/json',
-        success: function(response) {
-
-            var contenedorGrafico = document.getElementById("graficoMaxCut");
-            var image = document.createElement("img");
-            image.src = "ruta_de_la_imagen.jpg";
-            image.alt = "Texto alternativo de la imagen";
-            container.appendChild(image);
-
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ": " + error);
-        }
-    });
-     */
 }
 
 function seleccionarNumeroNodosMaxCut() {
@@ -126,13 +101,13 @@ function seleccionarNumeroRepsMaxCut() {
 
 function agregarConexionMaxCut() {
 
-    // Pillar nodo 1
+    // Seleccionar nodo 1
     var nodo1 = document.getElementById("conexionMaxCutNodo1").value;
 
-    // Pillar nodo 2
+    // Seleccionar nodo 2
     var nodo2 = document.getElementById("conexionMaxCutNodo2").value;
 
-    // Pillar valor conexión
+    // Seleccionar valor conexión
     var valorConexion = document.getElementById("conexionMaxCutValor").value;
 
     // Construir objeto conexión
@@ -160,7 +135,7 @@ function cargarArchivoProblema(){
     var archivo = document.getElementById("archivoTexto").files[0];
     var lector = new FileReader();
 
-    arrayConexionesString = ""; // TODO TENGO QUE HACER ALGO PARA BORRARLA SI LA CARGO DE LA OTRA FORMA
+    arrayConexionesString = "";
 
     lector.onload = function(evento) {
         var contenido = evento.target.result;
@@ -226,12 +201,13 @@ class Conexion {
     }
 
     toStringPretty(){
-        //return "Nodo 1: " + this.nodo1 + ", Nodo 2: " + this.nodo2 + ", Valor: " + this.valor;
+
         return this.nodo1 + " - " + this.nodo2 + " (" + this.valor + ")";
     }
 }
 
 function limpiarResultado() {
+
     // Limpiar el div de resultados
     var elementosP = resultDiv.getElementsByTagName("p");
     while (elementosP.length > 0) {
@@ -244,6 +220,7 @@ function limpiarResultado() {
 }
 
 function obtenerResultados(response) {
+
     // Quitar mensaje temporal resolviendo
     var elementosP = resultDiv.getElementsByTagName("p");
     while (elementosP.length > 0) {

@@ -83,8 +83,6 @@ function procesarArchivoProblema(archivoTexto) {
     actualizarDatosProblema();
 }
 
-
-
 $(document).ready(function() {
     $("#comoResolver").click(function() {
 
@@ -128,6 +126,7 @@ function ejecutarScriptPython() {
 }
 
 function limpiarResultado() {
+
     // Limpiar el div de resultados
     var elementosP = resultDiv.getElementsByTagName("p");
     while (elementosP.length > 0) {
@@ -140,6 +139,7 @@ function limpiarResultado() {
 }
 
 function obtenerResultados(response) {
+
     // Quitar mensaje temporal resolviendo
     var elementosP = resultDiv.getElementsByTagName("p");
     while (elementosP.length > 0) {
@@ -167,5 +167,3 @@ function obtenerResultados(response) {
     valorFinalP.textContent = "Valor de la función objetivo: " + valorFinal;
     return {variablesP, resultadoP, valorFinalP};
 }
-
-

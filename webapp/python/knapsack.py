@@ -36,26 +36,27 @@ def formularProblemaDocplex():
     ##
     ## DATOS DEL PROBLEMA
     ##
-    # Define the object values, weights, and maximum weight
+
+    # Definir los valores de los objetos, los pesos y el peso máximo
     values = [int(x) for x in sys.argv[2].split(",")]
     weights = [int(x) for x in sys.argv[3].split(",")]
     max_weight = int(sys.argv[1])
     num_objects = len(values)
 
-    # Create the model
+    # Crear el modelo
     mdl = Model(name='Knapsack')
 
-    # Define the decision variables
+    # Crear las variables de decisión
     x = mdl.binary_var_list(num_objects)
 
-    # Define the objective function
+    # Definir la función objetivo
     objective = mdl.sum(-values[j] * x[j] for j in range(num_objects))
     mdl.minimize(objective)
 
-    # Add the constraint for the maximum weight
+    # Añadir la restricción del peso máximo
     mdl.add_constraint(mdl.sum(weights[j] * x[j] for j in range(num_objects)) <= max_weight)
 
-    # Solve the model
+    # Resolver el modelo
     mdl.solve()
 
     return mdl
@@ -90,8 +91,8 @@ def metodoSimuladorLocal(qp):
     return result
 
 def metodoSimuladorRemoto(qp):
-    # Define el quantum_instance utilizando el simulador Qasm
-    # Usar IBMQ
+
+    # Usar IBMQ para obtener acceso al simulador remoto
     provider = IBMQ.load_account()
     quantum_instance = QuantumInstance(provider.get_backend('ibmq_qasm_simulator'), shots=1024)
 
@@ -158,10 +159,6 @@ bqm = formularProblemaDwave(qp)
 
 result = None
 
-
-
-
-
 # Resolver el problema utilizando el método seleccionado
 if metodo == "simuladorLocal":
     result = metodoSimuladorLocal(qp)
@@ -190,4 +187,3 @@ elif metodo == "annealerTabuSolver":
 elif metodo == "annealerSteepestDescentSolver":
     result = metodoSteepestDescentSolver(bqm)
     print(printResultDWave(result))
-

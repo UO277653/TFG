@@ -56,14 +56,14 @@ def experimento1(numGrafosMin, numGrafosMax):
 
         # Resolver el problema
         resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, reps)
-        ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
+        # resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
         resultAnnealer = metodoAnnealer(bqm_binary, num_reads_annealer)
         resultAnnealerOptimal = metodoExactoAnnealer(bqm_binary)
 
         # Obtener estadísticas
         estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], True, num_reads_annealer, "ultimosDatosAnnealer.txt", "GraphColor")
         estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, True, reps, "ultimosDatosSimulacionQAOA.txt", "GraphColor")
-        ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
+        # estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
         datosGrafos[grafo['numeroVertices'], n] = {
             'estadisticasQAOALocal': estadisticasQAOALocal,
@@ -107,30 +107,13 @@ def experimento2(numGrafosMin, numGrafosMax):
         estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], num_reads_annealer, "ultimosDatosAnnealer.txt", "GraphColor", conexiones=grafo['conexiones'], numeroColores=grafo['numeroColores'])
 
         for rep in range (1, reps+1):
-            #resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, rep)
+            # resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, rep)
             resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorRemoto(qp, shots, rep)
-        ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
+            # resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
 
-            #estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "GraphColor", shots)
-            estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "GraphColor", shots, remoto=True)
-        ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
-
-        datosGrafos[grafo['numeroVertices'], n] = {
-            'estadisticasQAOALocal': estadisticasQAOALocal,
-            'estadisticasAnnealer': estadisticasAnnealer
-        }
-
-        print(n)
-
-        n += 1
-
-
-    print("")
-
-    for dato in datosGrafos:
-        print(dato, " QAOA Local: ", datosGrafos[dato]['estadisticasQAOALocal'], " Annealer:", datosGrafos[dato]['estadisticasAnnealer'])
-
-    print("")
+            # estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "GraphColor", shots)
+            estadisticasQAOARemoto = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "GraphColor", shots, remoto=True)
+            # estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
 num_reads_annealer = 1
 reps = 4

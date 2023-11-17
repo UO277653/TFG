@@ -24,10 +24,6 @@ from qiskit_optimization.translators import \
 from util import *
 
 #
-# PARÁMETROS
-#
-
-#
 # DEFINICIÓN DEL PROBLEMA
 #
 
@@ -51,7 +47,7 @@ def formularProblemaDocplex(numeroNodos, conexionesArray, repeticiones):
     ## DATOS DEL PROBLEMA
     ##
     num_vertices = numeroNodos
-    edges = [(x, y) for x, y, _ in conexionesArray] # edges = [(x, y) for x, y, _ in conexionesArray]
+    edges = [(x, y) for x, y, _ in conexionesArray]
 
     # Crear el modelo
     mdl = Model(name='MaxCut')
@@ -99,8 +95,8 @@ def metodoSimuladorLocal(qp):
     return result
 
 def metodoSimuladorRemoto(qp):
-    # Define el quantum_instance utilizando el simulador Qasm
-    # Usar IBMQ
+
+    # Usar IBMQ para obtener acceso al simulador remoto
     provider = IBMQ.load_account()
     quantum_instance = QuantumInstance(provider.get_backend('ibmq_qasm_simulator'), shots=1024)
 
@@ -128,7 +124,7 @@ def metodoSimuladorReal(qp):
 
     return result
 
-def metodoAnnealer(bqm_binary): # TODO cambiar a parametro el num_reads
+def metodoAnnealer(bqm_binary):
 
     # Resolver el modelo dimod
     sampler = EmbeddingComposite(DWaveSampler())
@@ -159,88 +155,6 @@ def metodoSteepestDescentSolver(bqm_binary):
     result = solver.sample(bqm_binary , num_reads = 10)
 
     return result
-
-
-def generarGrafoAleatorio(numeroVertices, numInstancias):
-    instancias = []
-
-    for _ in range(numInstancias):
-        # Generar todas las posibles conexiones entre los vértices
-        conexiones = [(i, j) for i in range(numeroVertices) for j in range(i + 1, numeroVertices)]
-
-        # Seleccionar aleatoriamente un subconjunto de conexiones
-        numConexiones = random.randint(1, len(conexiones))
-        conexionesSeleccionadas = random.sample(conexiones, numConexiones)
-
-        # Crear el diccionario de la instancia
-        instancia = {
-            'numeroVertices': numeroVertices,
-            'conexiones': conexionesSeleccionadas
-        }
-
-        instancias.append(instancia)
-
-    return instancias
-
-def obtenerEstadisticasQAOA(result):
-
-    # Verificar si se ha obtenido la solución óptima
-    solucion_optima = result.optimal
-    print("¿Se ha obtenido la solución óptima?", solucion_optima)
-
-    # Verificar si la solución cumple las restricciones
-    cumple_restricciones = result.feasible
-    print("¿La solución cumple las restricciones?", cumple_restricciones)
-
-    # Obtener la energía de la solución obtenida
-    energia_solucion_obtenida = result.fval
-    print("Energía de la solución obtenida:", energia_solucion_obtenida)
-
-    # Obtener la energía de la solución óptima
-    energia_solucion_optima = result.fval_optimal
-    print("Energía de la solución óptima:", energia_solucion_optima)
-
-    # Crear un array con los valores
-    resultados = [solucion_optima, cumple_restricciones, energia_solucion_obtenida, energia_solucion_optima]
-
-    # Devolver el array de resultados
-    return resultados
-
-def obtenerEstadisticas(result):
-
-    # Contadores de estadísticas
-    solucion_optima = 0
-    solucion_cumple_restricciones = 0
-    energias = []
-    energia_optima = float('inf')
-
-    # Recorrer los resultados obtenidos
-    for sample in result.samples():
-        # Verificar si la solución es óptima
-        if sample.energy == result.optimal_value:
-            solucion_optima += 1
-
-        # Verificar si la solución cumple las restricciones
-        #if cumpleRestricciones(sample):  # Definir función cumpleRestricciones()
-        #    solucion_cumple_restricciones += 1
-
-        # Agregar la energía de la solución a la lista
-        energias.append(sample.energy)
-
-        # Actualizar la energía óptima si corresponde
-        if sample.energy < energia_optima:
-            energia_optima = sample.energy
-
-    # Calcular porcentajes y energía media
-    porcentaje_solucion_optima = solucion_optima / len(result.samples()) * 100
-    porcentaje_solucion_cumple_restricciones = solucion_cumple_restricciones / len(result.samples()) * 100
-    energia_media = sum(energias) / len(energias)
-
-    # Imprimir resultados
-    print("Porcentaje de veces que se obtiene la solución óptima:", porcentaje_solucion_optima)
-    print("Porcentaje de veces que se obtiene una solución que cumple las restricciones:", porcentaje_solucion_cumple_restricciones)
-    print("Energía media de las soluciones obtenidas:", energia_media)
-    print("Energía de la solución óptima:", energia_optima)
 
 # Generar los modelos
 mdl = formularProblemaDocplex(numeroNodos, conexionesArray, repeticiones)
@@ -277,6 +191,3 @@ elif metodo == "annealerTabuSolver":
 elif metodo == "annealerSteepestDescentSolver":
     result = metodoSteepestDescentSolver(bqm)
     print(printResultDWave(result))
-
-
-

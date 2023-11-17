@@ -1,25 +1,23 @@
-import random
+import dimod
 import time
+
 import dimod
 import numpy as np
-from util import leerInstancias, \
-    escribirDatosGrafo, limpiarArchivosExperimentos
-
 from dwave.system import DWaveSampler
 from dwave.system import EmbeddingComposite
 from qiskit import IBMQ
 from qiskit.algorithms import QAOA
 from qiskit.algorithms.optimizers import COBYLA
 from qiskit.opflow import PauliOp
+from qiskit.providers.ibmq import least_busy
 from qiskit.quantum_info import Pauli
 from qiskit.quantum_info import Statevector
 from qiskit.utils import QuantumInstance
 from qiskit_aer import Aer
-from qiskit_optimization.algorithms import \
-    MinimumEigenOptimizer
-from qiskit_optimization.runtime import QAOAClient
-from qiskit.providers.ibmq import least_busy
-import time
+
+from util import leerInstancias, \
+    escribirDatosGrafo, \
+    limpiarArchivosExperimentos
 
 
 def metodoSimuladorLocal(num_nodos, conexiones, shots):
@@ -41,7 +39,7 @@ def metodoSimuladorLocal(num_nodos, conexiones, shots):
     np.random.seed(277653)
 
     quantum_instance = QuantumInstance(Aer.get_backend("aer_simulator"),shots = shots, seed_simulator=seed, seed_transpiler=seed)
-    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance, reps=reps, initial_point=np.random.uniform(0, 2*np.pi, 2*reps)) # np.ones(2*reps)
+    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance, reps=reps, initial_point=np.random.uniform(0, 2*np.pi, 2*reps))
 
     inicio = time.time()
     result = qaoa.compute_minimum_eigenvalue(H1)
@@ -59,8 +57,6 @@ def metodoSimuladorLocal(num_nodos, conexiones, shots):
         datosResultados[x] = [int((result.eigenstate[x])**2 * shots), valorEstado.real]
         if(expectationValue > valorEstado):
             expectationValue = psi.expectation_value(H1) # Guardar la menor energía obtenida
-
-    print(datosResultados)
 
     return expectationValue.real, datosResultados, tiempoCalculo
 
@@ -290,6 +286,7 @@ def crearArchivoTxt(nombreArchivo, problema, nNodos, metodo, vectorSolOptima, cu
             archivo.write(str(aEscribir))
             n+=1
 
+# Primera versión del experimento, que produce un mayor gasto del annealer de D-Wave
 def experimento1(numGrafosMin, numGrafosMax):
 
     # Limpiar archivos en los que se van a exportar los datos
@@ -306,21 +303,20 @@ def experimento1(numGrafosMin, numGrafosMax):
     datosGrafos = {}
     n = 0
     grafosAleatorios = []
-
     grafosAleatorios.extend(leerInstancias("grafosMaxCut.txt", numGrafosMin, numGrafosMax))
 
     for grafo in grafosAleatorios:
 
         # Resolver el problema
         resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(grafo['numeroVertices'], grafo['conexiones'], shots)
-        ##        resultQAOAReal = metodoSimuladorReal(grafo['numeroVertices'], grafo['conexiones'])
+        # resultQAOAReal = metodoSimuladorReal(grafo['numeroVertices'], grafo['conexiones'])
         resultAnnealer, problem = metodoAnnealer(grafo['conexiones'], num_reads_annealer)
         resultAnnealerOptimal = metodoExactoAnnealer(problem)
 
         # Obtener estadísticas
         estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'])
         estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA)
-        ##        estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
+        # estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
         datosGrafos[grafo['numeroVertices'], n] = {
             'estadisticasQAOALocal': estadisticasQAOALocal,
@@ -336,6 +332,7 @@ def experimento1(numGrafosMin, numGrafosMax):
 
     print("")
 
+# Segunda versión del experimento, en la que se optimiza el uso del annealer de D-Wave para un menor consumo
 def experimento2(numGrafosMin, numGrafosMax):
 
     limpiarArchivosExperimentos("ultimosDatosSimulacionQAOA.txt", "ultimosDatosAnnealer.txt", "ultimosDatosGrafos.txt")
@@ -354,10 +351,10 @@ def experimento2(numGrafosMin, numGrafosMax):
         estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'])
 
         for rep in range (1, reps+1):
-            #resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(grafo['numeroVertices'], grafo['conexiones'], shots)
+            # resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(grafo['numeroVertices'], grafo['conexiones'], shots)
             resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorRemoto(grafo['numeroVertices'], grafo['conexiones'], shots, rep)
-            ##        resultQAOAReal = metodoSimuladorReal(grafo['numeroVertices'], grafo['conexiones'])
-            #estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA)
+            # resultQAOAReal = metodoSimuladorReal(grafo['numeroVertices'], grafo['conexiones'])
+            # estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA)
             estadisticasQAOARemoto = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, remoto=True)
 
         n += 1

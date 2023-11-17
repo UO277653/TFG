@@ -108,8 +108,8 @@ def metodoSimuladorLocal(qp):
     return result
 
 def metodoSimuladorRemoto(qp):
-    # Define el quantum_instance utilizando el simulador Qasm
-    # Usar IBMQ
+
+    # Usar IBMQ para obtener acceso al simulador remoto
     provider = IBMQ.load_account()
     quantum_instance = QuantumInstance(provider.get_backend('ibmq_qasm_simulator'), shots=1024)
 
@@ -204,6 +204,3 @@ elif metodo == "annealerTabuSolver":
 elif metodo == "annealerSteepestDescentSolver":
     result = metodoSteepestDescentSolver(bqm)
     print(printResultDWave(result))
-
-
-

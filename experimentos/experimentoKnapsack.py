@@ -1,6 +1,5 @@
 from util import *
 from docplex.mp.model import Model
-from qiskit import IBMQ
 
 def formularProblemaDocplex(valores, pesos, max_weight):
 
@@ -8,26 +7,26 @@ def formularProblemaDocplex(valores, pesos, max_weight):
     ## DATOS DEL PROBLEMA
     ##
 
-    # Define the object values, weights, and maximum weight
+    # Definir los valores de los objetos, los pesos y el peso máximo
     values = [int(x) for x in valores]
     weights = [int(x) for x in pesos]
     max_weight = int(max_weight)
     num_objects = len(values)
 
-    # Create the model
+    # Crear el modelo
     mdl = Model(name='Knapsack')
 
-    # Define the decision variables
+    # Crear las variables de decisión
     x = mdl.binary_var_list(num_objects)
 
-    # Define the objective function
+    # Definir la función objetivo
     objective = mdl.sum(-values[j] * x[j] for j in range(num_objects))
     mdl.minimize(objective)
 
-    # Add the constraint for the maximum weight
+    # Añadir la restricción del peso máximo
     mdl.add_constraint(mdl.sum(weights[j] * x[j] for j in range(num_objects)) <= max_weight)
 
-    # Solve the model
+    # Resolver el modelo
     mdl.solve()
 
     return mdl
@@ -52,14 +51,14 @@ def experimento1(numObjetosMin, numObjetosMax):
 
         # Resolver el problema
         resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, reps)
-        ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
+        # resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
         resultAnnealer = metodoAnnealer(bqm_binary, num_reads_annealer)
         resultAnnealerOptimal = metodoExactoAnnealer(bqm_binary)
 
         # Obtener estadísticas
         estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], True, num_reads_annealer, "ultimosDatosAnnealer.txt", "Knapsack")
         estadisticasQAOALocal = obtenerEstadisticasQAOA(resultQAOALocal, resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, True, reps, "ultimosDatosSimulacionQAOA.txt", "Knapsack")
-        ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
+        # estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
         datosGrafos[grafo['numeroVertices'], n] = {
             'estadisticasQAOALocal': estadisticasQAOALocal,
@@ -104,33 +103,14 @@ def experimento2(numGrafosMin, numGrafosMax):
         estadisticasAnnealer = obtenerEstadisticasAnnealer(resultAnnealer, resultAnnealerOptimal, grafo['numeroVertices'], num_reads_annealer, "ultimosDatosAnnealer.txt", "Knapsack", grafo['pesos'], grafo['pesoMaximo'])
 
         for rep in range (1, reps+1):
-            #resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, rep)
+            # resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorLocal(qp, shots, rep)
             resultQAOALocal, datosResultadosQAOA, tiempoQAOA = metodoSimuladorRemoto(qp, shots, rep)
-            ## resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
+            # resultQAOAReal = metodoSimuladorReal(qp,reps, grafo['numeroVertices'])
 
-            #estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots)
-            estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots, remoto=True)
+            # estadisticasQAOALocal = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots)
+            estadisticasQAOARemoto = obtenerEstadisticasQAOA(resultAnnealerOptimal, datosResultadosQAOA, grafo['numeroVertices'], tiempoQAOA, rep, "ultimosDatosSimulacionQAOA.txt", "Knapsack", shots, remoto=True)
+            # estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
 
-        ## estadisticasQAOAReal = obtenerEstadisticasQAOA(resultQAOAReal, resultQAOAOptimal)
-
-        datosGrafos[grafo['numeroVertices'], n] = {
-            'estadisticasQAOALocal': estadisticasQAOALocal,
-            'estadisticasAnnealer': estadisticasAnnealer
-        }
-
-        print(n)
-
-        n += 1
-
-
-    print("")
-
-    for dato in datosGrafos:
-        print(dato, " QAOA Local: ", datosGrafos[dato]['estadisticasQAOALocal'], " Annealer:", datosGrafos[dato]['estadisticasAnnealer'])
-
-    print("")
-
-#IBMQ.save_account("652edcd457eabf2b2e4b9784b828d1254d05a1dfca5a20e269df73c35a013ac60e7aede893ac18625eadd295edc616a3fec8d5398f6b9405a27da37b1ca0da96")
 num_reads_annealer = 1
 reps = 4
 shots = 1024
