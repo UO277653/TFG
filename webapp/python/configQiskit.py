@@ -1,3 +1,4 @@
+import sys
 from qiskit import IBMQ
 
-IBMQ.save_account("652edcd457eabf2b2e4b9784b828d1254d05a1dfca5a20e269df73c35a013ac60e7aede893ac18625eadd295edc616a3fec8d5398f6b9405a27da37b1ca0da96")
+IBMQ.save_account(str(sys.argv[1]))

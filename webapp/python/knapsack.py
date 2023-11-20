@@ -30,6 +30,7 @@ from util import *
 # DEFINICIÓN DEL PROBLEMA
 #
 metodo = sys.argv[4]
+repeticiones = int(sys.argv[5])
 
 def formularProblemaDocplex():
 
@@ -84,7 +85,7 @@ def formularProblemaDwave(qp):
 def metodoSimuladorLocal(qp):
 
     quantum_instance = QuantumInstance(Aer.get_backend('aer_simulator'), shots=100)
-    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = 1)
+    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = repeticiones)
     qaoa_optimizer = MinimumEigenOptimizer(qaoa)
     result = qaoa_optimizer.solve(qp)
 
@@ -97,7 +98,7 @@ def metodoSimuladorRemoto(qp):
     quantum_instance = QuantumInstance(provider.get_backend('ibmq_qasm_simulator'), shots=1024)
 
     # Definir el optimizador para QAOA
-    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = 1)
+    qaoa = QAOA(optimizer = COBYLA(), quantum_instance=quantum_instance , reps = repeticiones)
 
     # Define el optimizador para el problema cuántico
     qaoa_optimizer = MinimumEigenOptimizer(qaoa)
@@ -111,7 +112,7 @@ def metodoSimuladorReal(qp):
 
     # Utilizar ordenador real
     provider = IBMQ.load_account()
-    qaoa_client = QAOAClient(provider=provider , backend=provider.get_backend("ibm_lagos"), reps=1)
+    qaoa_client = QAOAClient(provider=provider , backend=provider.get_backend("ibm_lagos"), reps=repeticiones)
 
     qaoa = MinimumEigenOptimizer(qaoa_client)
 

@@ -48,6 +48,10 @@
                        <th>Dato de la línea</th>
                        <th>Ejemplo</th>
                    </tr>
+               <tr>
+                   <td>Número de repeticiones</td>
+                   <td>1</td>
+               </tr>
                    <tr>
                        <td>Peso máximo</td>
                        <td>10</td>
@@ -84,11 +88,20 @@
             </div>
 
             <h2>Cargar problema manualmente</h2>
+
+            <div class="flex">
+                <input class="medio" name="numeroRepKnapsack" id="numeroRepKnapsack" placeholder="Número de repeticiones" oninput="validarNumero(this)">
+                <button onclick="seleccionarNumeroRepsKnapsack()">Introducir</button> <button onclick="limpiarNumRepsKnapsack()">Limpiar</button>
+            </div>
+
+            <br>
+
             <!-- Introducir peso máximo -->
             <div class="flex">
-                <input type="text" name="pesoMaximo" id="pesoMaximo" placeholder="Peso máximo">
+                <input type="text" name="pesoMaximo" id="pesoMaximo" placeholder="Peso máximo" oninput="validarNumero(this)">
                 <button onclick="seleccionarPesoMaximoKnapsack()">Introducir peso máximo</button> <button onclick="limpiarPesoMaximoKnapsack()">Limpiar</button>
             </div>
+
 
             <br>
 
@@ -96,8 +109,8 @@
             <h5>Agregar objeto</h5>
 
             <div class="flex">
-                <input type="text" class="reducido" name="valorObjeto" id="valorObjeto" placeholder="Valor">
-                <input type="text" class="reducido" name="pesoObjeto" id="pesoObjeto" placeholder="Peso">
+                <input type="text" class="reducido" name="valorObjeto" id="valorObjeto" placeholder="Valor" oninput="validarNumero(this)">
+                <input type="text" class="reducido" name="pesoObjeto" id="pesoObjeto" placeholder="Peso" oninput="validarNumero(this)">
                 <button onclick="agregarObjetoKnapsack()">Agregar</button> <button onclick="limpiarObjetoKnapsack()">Limpiar</button>
             </div>
             <br>
@@ -125,6 +138,7 @@
                 <h2>Datos del problema</h2>
                 <div id="datosProblemaKnapsack">
                     <h5>Peso máximo: <h5 id="txtPesoMaximo"></h5></h5>
+                    <h5>Número de repeticiones: <h5 id="txtNumRepKnapsack"></h5> </h5>
                     <h5>Número de objetos: <h5 id="txtNumObjetos"></h5></h5>
                     <h5>Valores de los objetos: <h5 id="txtValores"></h5></h5>
                     <h5>Pesos de los objetos: <h5 id="txtPesos"></h5></h5>
@@ -138,12 +152,24 @@
 <div id="result">
     <fieldset id="cajaResultado">
         <legend>Salida</legend>
+        <h5 class="error" id="error_componente_objeto">Falta un valor o un peso para el objeto</h5>
+        <h5 class="error" id="error_datosIncompletos_Knapsack">Los parámetros introducidos en el problema no son correctos o completos. <br><br>
+        Por favor, asegúrese de que el peso máximo y el número de repeticiones son mayores que 0 y de que hay objetos cargados.</h5>
     </fieldset>
 </div>
-
 </div>
 
+<footer class="flex">
+    <img src="../static/img/logouniovi.png" alt="Logo de la Universidad de Oviedo">
+    <div class="grid">
+        <p class="texto-footer">Autor: Stelian Adrian Stanci</p>
+        <p class="texto-footer">Tutor: Elías Fernández-Combarro Álvarez</p>
+    </div>
+    <img src="../static/img/logoeii.png" alt="Logo de la Escuela de Ingeniería Informática">
+</footer>
+
 <script src="{{ url_for('static', filename='js/scriptKnapsack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/util.js') }}"></script>
 
 </body>
 </html>

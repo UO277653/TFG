@@ -8,13 +8,14 @@ metodo = ""
 
 $(document).ready(function() {
     $("#comoResolver").click(function() {
-        resultDiv.appendChild(limpiarResultado());
         metodo = document.getElementById("solver").value;
         ejecutarScriptPython();
     });
 });
 
 function ejecutarScriptPython() {
+
+    document.getElementById("error_datosIncompletos_TSP").style.display = "none";
 
     if(arrayConexiones.length > 0) {
         arrayConexionesString = "";
@@ -25,43 +26,57 @@ function ejecutarScriptPython() {
 
         arrayConexionesString += arrayConexiones[arrayConexiones.length - 1];
 
-        console.log(arrayConexionesString);
-    } else {
-        console.log(arrayConexionesString);
     }
 
-    var parametros = {
-        "nodos": numeroNodos,
-        "conexiones": arrayConexionesString,
-        "repeticiones": numeroRep,
-        "metodo": metodo
-    }
+    if(arrayConexionesString.trim().length > 0 && numeroNodos > 0 && numeroRep > 0) {
 
-    $.ajax({
-        type: "POST",
-        url: "executeTSP",
-        data: JSON.stringify(parametros),
-        contentType: 'application/json',
-        success: function(response) {
-            var {
-                variablesP,
-                resultadoP,
-                valorFinalP
-            } = obtenerResultados(response);
+        resultDiv.appendChild(limpiarResultado());
 
-            resultDiv.appendChild(variablesP);
-            resultDiv.appendChild(resultadoP);
-            resultDiv.appendChild(valorFinalP);
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ": " + error);
+        var parametros = {
+            "nodos": numeroNodos,
+            "conexiones": arrayConexionesString,
+            "repeticiones": numeroRep,
+            "metodo": metodo
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            url: "executeTSP",
+            data: JSON.stringify(parametros),
+            contentType: 'application/json',
+            success: function (response) {
+                var {
+                    variablesP,
+                    resultadoP,
+                    valorFinalP
+                } = obtenerResultados(response);
+
+                resultDiv.appendChild(variablesP);
+                resultDiv.appendChild(resultadoP);
+                resultDiv.appendChild(valorFinalP);
+            },
+            error: function (xhr, status, error) {
+
+                limpiarResultado()
+
+                var errorP = document.createElement("p");
+                errorP.textContent = "Se ha producido un error, por favor, revise los parámetros del problema";
+
+                resultDiv.appendChild(errorP);
+            }
+        });
+    } else {
+        document.getElementById("error_datosIncompletos_TSP").style.display = "block";
+    }
 
 }
 
 
 function actualizarDatosProblema(){
+
+    limpiarErrores();
+    limpiarResultado();
+
     var txtNumNodosMaxCut = document.getElementById("txtNumNodosTSP");
     var txtNumRepMaxCut = document.getElementById("txtNumRepTSP");
     var txtConexionesMaxCut = document.getElementById("txtConexTSP");
@@ -119,6 +134,8 @@ function limpiarConexionesTSP(){
 
 function agregarConexionTSP() {
 
+    document.getElementById("error_componente_conexion").style.display = "none";
+
     // Seleccionar nodo 1
     var nodo1 = document.getElementById("conexionTSPNodo1").value;
 
@@ -128,15 +145,27 @@ function agregarConexionTSP() {
     // Seleccionar valor conexión
     var valorConexion = document.getElementById("conexionTSPValor").value;
 
-    // Construir objeto conexión
-    var conexion = new Conexion(nodo1, nodo2, valorConexion);
+    if(nodo1.trim().length == 0 || nodo2.trim().length == 0 || valorConexion.trim().length == 0) {
 
-    // Guardar conexión en array
-    arrayConexiones.push(conexion);
+        document.getElementById("error_componente_conexion").style.display = "block";
+    } else {
 
-    actualizarDatosProblema();
+        // Construir objeto conexión
+        var conexion = new Conexion(nodo1, nodo2, valorConexion);
 
-    limpiarTextoConexion();
+        // Guardar conexión en array
+        arrayConexiones.push(conexion);
+
+        actualizarDatosProblema();
+
+        limpiarTextoConexion();
+    }
+}
+
+function limpiarTextoConexion() {
+    document.getElementById("conexionTSPNodo1").value = "";
+    document.getElementById("conexionTSPNodo2").value = "";
+    document.getElementById("conexionTSPValor").value = "";
 }
 
 function cargarArchivoProblema(){
@@ -202,6 +231,11 @@ function limpiarResultado() {
     var txtResolviendo = document.createElement("p");
     txtResolviendo.textContent = "Resolviendo...";
     return txtResolviendo;
+}
+
+function limpiarErrores(){
+    document.getElementById("error_componente_conexion").style.display = "none";
+    document.getElementById("error_datosIncompletos_TSP").style.display = "none";
 }
 
 function obtenerResultados(response) {

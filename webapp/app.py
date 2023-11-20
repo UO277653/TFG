@@ -33,7 +33,7 @@ def execute_TSP():
 @app.route('/executeKnapsack', methods=['POST'])
 def execute_Knapsack():
     datos = request.get_json()
-    output = subprocess.check_output(['python', './python/knapsack.py', datos.get('pesoMaximo'), datos.get('arrayValores'), datos.get('arrayPesos'), datos.get('metodo')])
+    output = subprocess.check_output(['python', './python/knapsack.py', datos.get('pesoMaximo'), datos.get('arrayValores'), datos.get('arrayPesos'), datos.get('metodo'), datos.get('repeticiones')])
     return output
 
 @app.route('/executeGraphColor', methods=['POST'])
@@ -48,19 +48,33 @@ def execute_MaxCut():
     output = subprocess.check_output(['python', './python/maxCut.py', datos.get('nodos'), datos.get('conexiones'), datos.get('repeticiones'), datos.get('metodo')])
     return output
 
-@app.route('/configQiskit')
+@app.route('/configQiskit', methods=['POST'])
 def configQiskit():
 
-    subprocess.run(['python', './python/configQiskit.py'])
+    datos = request.get_json()
+    subprocess.run(['python', './python/configQiskit.py', datos.get('token')])
 
     return render_template('index.html')
 
-@app.route('/configDWave')
+@app.route('/configDWave', methods=['POST'])
 def configDWave():
 
-    subprocess.run(['python', './python/configDWave.py'])
+    datos = request.get_json()
+    subprocess.run(['python', './python/configDWave.py', datos.get('token')])
 
     return render_template('index.html')
+
+@app.route('/sesionQiskit')
+def sesionQiskit():
+
+    output = subprocess.check_output(['python', './python/consultarSesionQiskit.py'])
+    return output
+
+@app.route('/sesionDWave')
+def sesionDWave():
+
+    output = subprocess.check_output(['python', './python/consultarSesionDWave.py'])
+    return output
 
 if __name__ == '__main__':
     app.run()

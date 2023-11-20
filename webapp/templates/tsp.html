@@ -85,12 +85,12 @@
             <h2>Cargar problema manualmente</h2>
             <!-- Introducir número de nodos del grafo -->
             <div class="flex">
-                <input type="text" name="numeroNodosTSP" id="numeroNodosTSP" placeholder="Número de nodos">
+                <input type="text" name="numeroNodosTSP" id="numeroNodosTSP" placeholder="Número de nodos" oninput="validarNumero(this)">
                 <button onclick="seleccionarNumeroNodosTSP()">Introducir</button> <button onclick="limpiarNumNodosTSP()">Limpiar</button>
             </div>
             <br>
             <div class="flex">
-                <input type="text" name="numeroRepTSP" id="numeroRepTSP" placeholder="Número de repeticiones">
+                <input type="text" name="numeroRepTSP" id="numeroRepTSP" placeholder="Número de repeticiones" oninput="validarNumero(this)">
                 <button onclick="seleccionarNumeroRepsTSP()">Introducir</button> <button onclick="limpiarNumRepsTSP()">Limpiar</button>
             </div>
             <br>
@@ -111,7 +111,7 @@
                     <td colspan="2">
                         <h5>Valor</h5>
                         <div class="flex">
-                        <input class="reducido" type="text" name="conexionTSPValor" id="conexionTSPValor">
+                        <input class="reducido" type="text" name="conexionTSPValor" id="conexionTSPValor" placeholder="Valor" oninput="validarNumero(this)">
                         <button onclick="agregarConexionTSP()">Agregar conexión</button> <button onclick="limpiarConexionesTSP()">Limpiar</button>
                         </div>
                     </td>
@@ -142,7 +142,6 @@
                     <h5>Número de nodos: <h5 id="txtNumNodosTSP"></h5></h5>
                     <h5>Número de repeticiones: <h5 id="txtNumRepTSP"></h5> </h5>
                     <h5>Conexiones: <h5 id="txtConexTSP"></h5> </h5>
-                    <div id="graficoTSP"></div>
                 </div>
             </div>
         </div>
@@ -152,11 +151,24 @@
     <div id="result">
         <fieldset id="cajaResultado">
             <legend>Salida</legend>
+            <h5 class="error" id="error_componente_conexion">Falta un componente de la conexión</h5>
+            <h5 class="error" id="error_datosIncompletos_TSP">Los parámetros introducidos en el problema no son correctos o completos.<br><br>
+            Por favor, asegúrese de que el número de nodos y de repeticiones es mayor de 0, y de que hay conexiones entre nodos.</h5>
         </fieldset>
     </div>
 </div>
 
+<footer class="flex">
+    <img src="../static/img/logouniovi.png" alt="Logo de la Universidad de Oviedo">
+    <div class="grid">
+        <p class="texto-footer">Autor: Stelian Adrian Stanci</p>
+        <p class="texto-footer">Tutor: Elías Fernández-Combarro Álvarez</p>
+    </div>
+    <img src="../static/img/logoeii.png" alt="Logo de la Escuela de Ingeniería Informática">
+</footer>
+
 <script src="{{ url_for('static', filename='js/scriptTSP.js') }}"></script>
+<script src="{{ url_for('static', filename='js/util.js') }}"></script>
 
 </body>
 </html>

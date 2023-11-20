@@ -8,13 +8,15 @@ metodo = ""
 
 $(document).ready(function() {
     $("#comoResolver").click(function() {
-        resultDiv.appendChild(limpiarResultado());
+
         metodo = document.getElementById("solver").value;
         ejecutarScriptPython();
     });
 });
 
 function ejecutarScriptPython() {
+
+    document.getElementById("error_datosIncompletos_GraphColor").style.display = "none";
 
     if(arrayConexiones.length > 0) {
         arrayConexionesString = "";
@@ -27,34 +29,47 @@ function ejecutarScriptPython() {
         arrayConexionesString = arrayConexionesString.trim();
     }
 
-    var parametros = {
-        "numeroNodos": numeroNodos + "",
-        "numeroColores": numeroColores + "",
-        "numeroRep": numeroRep + "",
-        "conexiones": arrayConexionesString,
-        "metodo": metodo
-    }
+    if(numeroNodos > 0 && numeroColores > 0 && numeroRep > 0 && arrayConexionesString.length > 0) {
 
-    $.ajax({
-        type: "POST",
-        url: "executeGraphColor",
-        data: JSON.stringify(parametros),
-        contentType: 'application/json',
-        success: function(response) {
-            var {
-                variablesP,
-                resultadoP,
-                valorFinalP
-            } = obtenerResultados(response);
+        resultDiv.appendChild(limpiarResultado());
 
-            resultDiv.appendChild(variablesP);
-            resultDiv.appendChild(resultadoP);
-            resultDiv.appendChild(valorFinalP);
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ": " + error);
+        var parametros = {
+            "numeroNodos": numeroNodos + "",
+            "numeroColores": numeroColores + "",
+            "numeroRep": numeroRep + "",
+            "conexiones": arrayConexionesString,
+            "metodo": metodo
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            url: "executeGraphColor",
+            data: JSON.stringify(parametros),
+            contentType: 'application/json',
+            success: function (response) {
+                var {
+                    variablesP,
+                    resultadoP,
+                    valorFinalP
+                } = obtenerResultados(response);
+
+                resultDiv.appendChild(variablesP);
+                resultDiv.appendChild(resultadoP);
+                resultDiv.appendChild(valorFinalP);
+            },
+            error: function (xhr, status, error) {
+                limpiarResultado()
+
+                var errorP = document.createElement("p");
+                errorP.textContent = "Se ha producido un error, por favor, revise los parámetros del problema";
+
+                resultDiv.appendChild(errorP);
+            }
+        });
+
+    } else {
+        document.getElementById("error_datosIncompletos_GraphColor").style.display = "block";
+    }
 
 }
 
@@ -96,6 +111,8 @@ function limpiarNumRepsGraphColor(){
 
 function agregarConexionGraphColor(){
 
+    document.getElementById("error_componente_conexion").style.display = "none";
+
     // Obtener los valores de los campos de texto
     var nodo1 = document.getElementById("conexionNodo1").value;
     var nodo2 = document.getElementById("conexionNodo2").value;
@@ -110,6 +127,8 @@ function agregarConexionGraphColor(){
         arrayConexiones.push(conexion);
 
         limpiarConexionesGraphColor();
+    } else {
+        document.getElementById("error_componente_conexion").style.display = "block";
     }
 }
 
@@ -123,6 +142,9 @@ function limpiarConexionesGraphColor(){
 }
 
 function actualizarDatosProblema(){
+
+    limpiarErrores();
+    limpiarResultado();
 
     var txtNumVertices = document.getElementById("txtNumVerticesGraphColor");
     var txtNumColores = document.getElementById("txtNumColoresGraphColor");
@@ -218,6 +240,11 @@ function limpiarResultado() {
     return txtResolviendo;
 }
 
+function limpiarErrores(){
+    document.getElementById("error_componente_conexion").style.display = "none";
+    document.getElementById("error_datosIncompletos_GraphColor").style.display = "none";
+}
+
 function obtenerResultados(response) {
     // Quitar mensaje temporal resolviendo
     var elementosP = resultDiv.getElementsByTagName("p");
@@ -245,4 +272,30 @@ function obtenerResultados(response) {
     var valorFinalP = document.createElement("p");
     valorFinalP.textContent = "Valor de la función objetivo: " + valorFinal;
     return {variablesP, resultadoP, valorFinalP};
+}
+
+function borrarConexionesGraphColor(){
+
+    arrayConexiones = [];
+    arrayConexionesString = "";
+
+    actualizarDatosProblema()
+}
+
+function  borrarNumeroNodosGraphColor(){
+
+    numeroNodos = 0;
+    actualizarDatosProblema()
+}
+
+function borrarNumeroColores(){
+
+    numeroColores = 0;
+    actualizarDatosProblema()
+}
+
+function borrarNumeroRepsGraphColor(){
+
+    numeroRep = 0;
+    actualizarDatosProblema()
 }

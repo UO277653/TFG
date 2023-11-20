@@ -265,6 +265,7 @@ footer{
     color: black;
     text-align: center;
     font-size: small;
+    margin-top:5%;
     padding: 2em 5em;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
@@ -293,6 +294,15 @@ footer > img{
 .botones-sesiones{
     display:flex;
     margin: 0 auto;
-    gap: 10%;
+    gap: 3%;
     justify-content: center;
+}
+
+.medio{
+    width: 50%;
+}
+
+.error{
+    display:none;
+    color: crimson;
 }

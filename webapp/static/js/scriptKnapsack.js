@@ -4,6 +4,15 @@ pesoMaximo = 0
 arrayValores = []
 arrayPesos = []
 metodo = ""
+var numeroRep = 0;
+
+$(document).ready(function() {
+    $("#comoResolver").click(function() {
+
+        metodo = document.getElementById("solver").value;
+        ejecutarScriptPython();
+    });
+});
 
 function seleccionarPesoMaximoKnapsack(){
     pesoMaximo = document.getElementById("pesoMaximo").value;
@@ -20,12 +29,16 @@ function agregarObjetoKnapsack(){
     var txtValorObjeto = document.getElementById("valorObjeto").value;
     var txtPesoObjeto = document.getElementById("pesoObjeto").value;
 
+    document.getElementById("error_componente_objeto").style.display = "none";
+
     if(txtValorObjeto != "" && txtPesoObjeto != ""){
         arrayValores.push(txtValorObjeto);
         arrayPesos.push(txtPesoObjeto);
+        limpiarObjetoKnapsack();
+    } else {
+        document.getElementById("error_componente_objeto").style.display = "block";
     }
 
-    limpiarObjetoKnapsack();
 }
 
 function limpiarObjetoKnapsack(){
@@ -40,10 +53,18 @@ function limpiarObjetoKnapsack(){
 
 function actualizarDatosProblema(){
 
+    limpiarErrores();
+    limpiarResultado();
+
     var txtNumObjetos = document.getElementById("txtNumObjetos");
     var txtValores = document.getElementById("txtValores");
     var txtPesos = document.getElementById("txtPesos");
     var txtPesoMaximo = document.getElementById("txtPesoMaximo");
+    var txtNumRepKnapsack = document.getElementById("txtNumRepKnapsack");
+
+    if(txtNumRepKnapsack != null) {
+        txtNumRepKnapsack.textContent = numeroRep;
+    }
 
     txtNumObjetos.textContent = arrayValores.length;
     txtValores.textContent = arrayValores;
@@ -67,14 +88,16 @@ function cargarArchivoProblema(){
 function procesarArchivoProblema(archivoTexto) {
     var lineas = archivoTexto.split("\n");
 
-    pesoMaximo = parseInt(lineas[0]);
+    numeroRep = parseInt(lineas[0]);
 
-    var valoresString = lineas[1].split(",");
+    pesoMaximo = parseInt(lineas[1]);
+
+    var valoresString = lineas[2].split(",");
     arrayValores = valoresString.map(function(valor) {
         return parseInt(valor);
     });
 
-    var pesosString = lineas[2].split(",");
+    var pesosString = lineas[3].split(",");
     arrayPesos = pesosString.map(function(peso) {
         return parseInt(peso);
     });
@@ -83,45 +106,56 @@ function procesarArchivoProblema(archivoTexto) {
     actualizarDatosProblema();
 }
 
-$(document).ready(function() {
-    $("#comoResolver").click(function() {
-
-        resultDiv.appendChild(limpiarResultado());
-        metodo = document.getElementById("solver").value;
-        ejecutarScriptPython();
-    });
-});
+function limpiarNumRepsKnapsack(){
+    numeroRep = 0;
+    actualizarDatosProblema();
+}
 
 function ejecutarScriptPython() {
 
-    var parametros = {
-        "pesoMaximo": pesoMaximo + "",
-        "arrayValores": arrayValores.join(","),
-        "arrayPesos": arrayPesos.join(","),
-        "metodo": metodo
-    }
+    document.getElementById("error_datosIncompletos_Knapsack").style.display = "none";
 
-    $.ajax({
-        type: "POST",
-        url: "executeKnapsack",
-        data: JSON.stringify(parametros),
-        contentType: 'application/json',
-        success: function(response) {
+    if(pesoMaximo > 0 && arrayValores.length > 0 && arrayPesos.length > 0 && numeroRep > 0) {
 
-            var {
-                variablesP,
-                resultadoP,
-                valorFinalP
-            } = obtenerResultados(response);
+        resultDiv.appendChild(limpiarResultado());
 
-            resultDiv.appendChild(variablesP);
-            resultDiv.appendChild(resultadoP);
-            resultDiv.appendChild(valorFinalP);
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ": " + error);
+        var parametros = {
+            "pesoMaximo": pesoMaximo + "",
+            "arrayValores": arrayValores.join(","),
+            "arrayPesos": arrayPesos.join(","),
+            "metodo": metodo,
+            "repeticiones": numeroRep + ""
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            url: "executeKnapsack",
+            data: JSON.stringify(parametros),
+            contentType: 'application/json',
+            success: function (response) {
+
+                var {
+                    variablesP,
+                    resultadoP,
+                    valorFinalP
+                } = obtenerResultados(response);
+
+                resultDiv.appendChild(variablesP);
+                resultDiv.appendChild(resultadoP);
+                resultDiv.appendChild(valorFinalP);
+            },
+            error: function (xhr, status, error) {
+                limpiarResultado()
+
+                var errorP = document.createElement("p");
+                errorP.textContent = "Se ha producido un error, por favor, revise los parámetros del problema";
+
+                resultDiv.appendChild(errorP);
+            }
+        });
+    } else {
+        document.getElementById("error_datosIncompletos_Knapsack").style.display = "block";
+    }
 
 }
 
@@ -136,6 +170,20 @@ function limpiarResultado() {
     var txtResolviendo = document.createElement("p");
     txtResolviendo.textContent = "Resolviendo...";
     return txtResolviendo;
+}
+
+function limpiarErrores(){
+    document.getElementById("error_componente_objeto").style.display = "none";
+    document.getElementById("error_datosIncompletos_Knapsack").style.display = "none";
+}
+
+function seleccionarNumeroRepsKnapsack() {
+    var texto = document.getElementById("numeroRepKnapsack").value;
+    numeroRep = texto;
+
+    document.getElementById("numeroRepKnapsack").value = "";
+
+    actualizarDatosProblema();
 }
 
 function obtenerResultados(response) {

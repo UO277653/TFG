@@ -8,13 +8,15 @@ var metodo = "";
 
 $(document).ready(function() {
     $("#comoResolver").click(function() {
-        resultDiv.appendChild(limpiarResultado());
+
         metodo = document.getElementById("solver").value
         ejecutarScriptPython();
     });
 });
 
 function ejecutarScriptPython() {
+
+    document.getElementById("error_datosIncompletos_MaxCut").style.display = "none";
 
     if(arrayConexiones.length > 0) {
         arrayConexionesString = "";
@@ -25,41 +27,56 @@ function ejecutarScriptPython() {
 
         arrayConexionesString += arrayConexiones[arrayConexiones.length - 1];
 
-        console.log(arrayConexionesString);
-    } else {
-        console.log(arrayConexionesString);
     }
 
-    var parametros = {
-        "nodos": numeroNodos + "",
-        "conexiones": arrayConexionesString,
-        "repeticiones": numeroRep + "",
-        "metodo": metodo
-    }
+    if(arrayConexionesString.trim().length > 0 && numeroNodos > 0 && numeroRep > 0) {
 
-    $.ajax({
-        type: "POST",
-        url: "executeMaxCut",
-        data: JSON.stringify(parametros),
-        contentType: 'application/json',
-        success: function(response) {
-            var {
-                variablesP,
-                resultadoP,
-                valorFinalP
-            } = obtenerResultados(response);
+        resultDiv.appendChild(limpiarResultado());
 
-            resultDiv.appendChild(variablesP);
-            resultDiv.appendChild(resultadoP);
-            resultDiv.appendChild(valorFinalP);
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ": " + error);
+        var parametros = {
+            "nodos": numeroNodos + "",
+            "conexiones": arrayConexionesString,
+            "repeticiones": numeroRep + "",
+            "metodo": metodo
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            url: "executeMaxCut",
+            data: JSON.stringify(parametros),
+            contentType: 'application/json',
+            success: function (response) {
+                var {
+                    variablesP,
+                    resultadoP,
+                    valorFinalP
+                } = obtenerResultados(response);
+
+                resultDiv.appendChild(variablesP);
+                resultDiv.appendChild(resultadoP);
+                resultDiv.appendChild(valorFinalP);
+            },
+            error: function (xhr, status, error) {
+
+                limpiarResultado()
+
+                var errorP = document.createElement("p");
+                errorP.textContent = "Se ha producido un error, por favor, revise los parámetros del problema";
+
+                resultDiv.appendChild(errorP);
+            }
+        });
+    } else {
+
+        document.getElementById("error_datosIncompletos_MaxCut").style.display = "block";
+    }
 }
 
 function actualizarDatosProblema(){
+
+    limpiarErrores();
+    limpiarResultado();
+
     var txtNumNodosMaxCut = document.getElementById("txtNumNodosMaxCut");
     var txtNumRepMaxCut = document.getElementById("txtNumRepMaxCut");
     var txtConexionesMaxCut = document.getElementById("txtConexMaxCut");
@@ -82,6 +99,7 @@ function actualizarDatosProblema(){
 }
 
 function seleccionarNumeroNodosMaxCut() {
+
     var texto = document.getElementById("numeroNodosMaxCut").value;
     numeroNodos = texto;
 
@@ -91,6 +109,7 @@ function seleccionarNumeroNodosMaxCut() {
 }
 
 function seleccionarNumeroRepsMaxCut() {
+
     var texto = document.getElementById("numeroRepMaxCut").value;
     numeroRep = texto;
 
@@ -99,16 +118,7 @@ function seleccionarNumeroRepsMaxCut() {
     actualizarDatosProblema();
 }
 
-function agregarConexionMaxCut() {
-
-    // Seleccionar nodo 1
-    var nodo1 = document.getElementById("conexionMaxCutNodo1").value;
-
-    // Seleccionar nodo 2
-    var nodo2 = document.getElementById("conexionMaxCutNodo2").value;
-
-    // Seleccionar valor conexión
-    var valorConexion = document.getElementById("conexionMaxCutValor").value;
+function agregarConexionNueva(nodo1, nodo2, valorConexion) {
 
     // Construir objeto conexión
     var conexion = new Conexion(nodo1, nodo2, valorConexion);
@@ -119,6 +129,27 @@ function agregarConexionMaxCut() {
     actualizarDatosProblema();
 
     limpiarTextoConexion();
+}
+
+function agregarConexionMaxCut() {
+
+    document.getElementById("error_componente_conexion").style.display = "none";
+
+    // Seleccionar nodo 1
+    var nodo1 = document.getElementById("conexionMaxCutNodo1").value;
+
+    // Seleccionar nodo 2
+    var nodo2 = document.getElementById("conexionMaxCutNodo2").value;
+
+    // Seleccionar valor conexión
+    var valorConexion = document.getElementById("conexionMaxCutValor").value;
+
+    if(nodo1.trim().length == 0 || nodo2.trim().length == 0 || valorConexion.trim().length == 0) {
+
+        document.getElementById("error_componente_conexion").style.display = "block";
+    } else {
+        agregarConexionNueva(nodo1, nodo2, valorConexion);
+    }
 }
 
 function limpiarTexto() {
@@ -150,10 +181,6 @@ function cargarArchivoProblema(){
         arrayConexionesString = parametro3;
         //
 
-        console.log("Parámetro 1: " + parametro1);
-        console.log("Parámetro 2: " + parametro2);
-        console.log("Parámetro 3: " + parametro3);
-
         const conexiones = [];
         const partes = arrayConexionesString.split(";");
 
@@ -169,8 +196,6 @@ function cargarArchivoProblema(){
     };
 
     lector.readAsText(archivo);
-
-
 }
 
 function limpiarNumNodosMaxCut(){
@@ -219,6 +244,11 @@ function limpiarResultado() {
     return txtResolviendo;
 }
 
+function limpiarErrores(){
+    document.getElementById("error_componente_conexion").style.display = "none";
+    document.getElementById("error_datosIncompletos_MaxCut").style.display = "none";
+}
+
 function obtenerResultados(response) {
 
     // Quitar mensaje temporal resolviendo
@@ -232,8 +262,6 @@ function obtenerResultados(response) {
     var resultado = info[1]; // Obtener el resultado
     var valorFinal = info[2]; // Obtener el valor final
     var variablesArray = []; // Array para guardar las variables y sus valores
-
-    console.log(variables)
 
     for (var i = 0; i < variables.length - 1; i++) {
         var variable = variables[i].split(',');
@@ -249,13 +277,4 @@ function obtenerResultados(response) {
     var valorFinalP = document.createElement("p");
     valorFinalP.textContent = "Valor de la función objetivo: " + valorFinal;
     return {variablesP, resultadoP, valorFinalP};
-}
-
-function cargarSesionQiskit(){
-
-}
-
-function cargarSesionDWave(){
-
-
 }
